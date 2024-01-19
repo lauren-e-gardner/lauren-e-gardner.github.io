@@ -1,0 +1,190 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family: ms-sans-serif ; */
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url(/Users/lauren/Desktop/Portfolio/MS_Sans_Serif.ttf);
+  }
+  
+  div {
+    font-family: myFirstFont;
+  }
+body{
+    background: #bfbfbf;
+    color: white;
+    /* font-size:40px; */
+}
+/* #header{ */
+    /* width: 100%;
+    height: 100vh; */
+    /* background-image: url(images/tabback.png); */
+    /* background-size: cover; */
+    /* background-position: center; */
+/* } */
+/* #body{
+    position: relative;
+    margin: auto;
+} */
+#nav{
+    position: sticky;
+    top: 0px;
+    /* overflow: hidden; */
+    z-index: 1;
+}
+
+#nav .barleft{
+    height:35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* z-index: 100; */
+}
+#nav .barright{
+    height:35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* z-index: 100; */
+}
+#nav .barmid{
+    height:35px;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    top: 0px;
+    /* z-index: 100; */
+   
+}
+
+
+#nav p {
+    font-size: 16px;
+    color:white;
+    position: absolute;
+    top: 6px;
+    left: 50px;
+}
+#nav .home {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 100vh; */
+    z-index:100;
+  }
+/* #nav .title {
+    font-size: 16px;
+    color:white;
+    position: absolute;
+    top: 6px;
+    left: 50px;
+} */
+
+
+/* ----------------- BOXES ------------------- */
+#body {
+    z-index: -1;
+}
+.box {
+    height: 2000px;
+    width: 1350px;
+    margin: auto;
+    border: none;
+    background: black;
+    z-index: -5;
+  }
+.boxmid {
+    height: 2800px;
+    width: 1350px;
+    margin: auto;
+    border: none;
+    background-image: linear-gradient(black, white);
+    z-index: -5;
+  }
+  .boxend {
+    height: 1000px;
+    width: 1350px;
+    margin: auto;
+    border: none;
+    background: white;
+    z-index: -5;
+  }
+
+  /* ----------------- BOXES ------------------- */
+
+.images .title{
+    position: absolute;
+    top: 100px;
+    left: 150px;
+    height: 775px;
+}
+.images .girl{
+    position: absolute;
+    top: 1000px;
+    left: 150px;
+    height: 800px;
+}
+.images .girlfish{
+    position: absolute;
+    top: 1000px;
+    left: 750px;
+    height: 800px;
+}
+.images .head{
+    position: absolute;
+    top: 1500px;
+    left: 150px;
+    height: 650px;
+}
+.images .boy{
+    position: absolute;
+    top: 1200px;
+    left: 450px;
+    height: 800px;
+}
+.images .boyfish{
+    position: absolute;
+    top: 2000px;
+    left: 450px;
+    height: 800px;
+}
+#p1{
+    position: absolute;
+    font-size:26px;
+    left: 775px;
+    top: 350px;
+    width: 500px;
+    text-align: justify;
+}
+#p2{
+    position: absolute;
+    font-size:26px;
+    left: 570px;
+    top: 2000px;
+}
+#p3{
+    position: absolute;
+    font-size:26px;
+    left: 570px;
+    top: 4100px;
+}
+#p4{
+    position: absolute;
+    font-size:26px;
+    left: 550px;
+    top: 4650px;
+    color:black;
+}
+
+#fish {
+    position: absolute;
+    top: 4700px;
+    left: 360px;
+}

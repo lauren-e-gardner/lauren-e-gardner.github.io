@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family: ms-sans-serif ; */
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url(/Users/lauren/Desktop/Portfolio/MS_Sans_Serif.ttf);
+  }
+  
+  div {
+    font-family: myFirstFont;
+  }
+body{
+    background: #bfbfbf;
+
+}
+
+
+#nav{
+    position: sticky;
+    top: 0px;
+    /* overflow: hidden; */
+    z-index: 1;
+}
+
+#nav .barleft{
+    height:35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* z-index: 100; */
+}
+#nav .barright{
+    height:35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* z-index: 100; */
+}
+#nav .barmid{
+    height:35px;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    top: 0px;
+    /* z-index: 100; */
+   
+}
+#nav p {
+    font-size: 16px;
+    color:white;
+    position: absolute;
+    top: 6px;
+    left: 50px;
+}
+#nav .home {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 100vh; */
+    z-index:100;
+  }
+/* ----------- Box ------------ */
+  .boxmid {
+    position: absolute;
+    height: 6400px;
+    width: 1355px;
+    /* margin: auto; */
+    left: 35px;
+    border: none;
+    background: white;
+    z-index:-1;
+  }
+  /* ----------- Box ------------ */
+  #header p{
+    font-size: 26px;
+    color: black;
+    margin: auto;
+    width: 1140px;
+    text-align:justify;
+  }
+  #header .final {
+    /* margin: auto; */
+    position: relative;
+    left: 300px;
+    height: 600px;
+  }
+
+  .layered1 {
+    position: relative;
+    height: 400px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 100px
+    /* align-items: center; */
+  }
+  .layered2 {
+    position: relative;
+    height: 400px;
+    margin: auto;
+    /* top: 3050px; */
+    left: 100px
+    /* align-items: center; */
+  }
+  .w7 {
+    position: relative;
+    height: 700px;
+    margin: auto;
+    /* top: 1200px; */
+    left: 300px;
+  }
+  .v1 {
+    position: relative;
+    height: 600px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 250px
+    /* align-items: center; */
+  }
+  .v2 {
+    position: relative;
+    height: 300px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 250px
+    /* align-items: center; */
+  }
+  .v3 {
+    position: relative;
+    height: 300px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 250px
+    /* align-items: center; */
+  }
+  .c1 {
+    position: relative;
+    height: 400px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 100px
+    /* align-items: center; */
+  }
+  .c2 {
+    position: relative;
+    height: 400px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 100px
+    /* align-items: center; */
+  }
+  .new {
+    position: relative;
+    height: 700px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 210px
+    /* align-items: center; */
+  }
+  .code {
+    position: relative;
+    height: 500px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 275px
+    /* align-items: center; */
+  }
+  .dit {
+    position: relative;
+    height: 500px;
+    margin: auto;
+    /* top: 2400px; */
+    left: 275px
+    /* align-items: center; */
+  }
+  #T{
+    /* position: relative; */
+/* top: 90px; */
+    /* left: 575px; */
+    width: 200px;
+    margin: auto;
+    font-size: 36px;
+    color: black;
+    text-align: center;
+  }

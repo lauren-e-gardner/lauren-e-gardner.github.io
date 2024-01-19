@@ -1,0 +1,288 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family: ms-sans-serif ; */
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url(/Users/lauren/Desktop/Portfolio/MS_Sans_Serif.ttf);
+  }
+  
+  div {
+    font-family: myFirstFont;
+  }
+body{
+    background: #080808;
+    color: #fff;
+    /* font-size:40px; */
+}
+#header{
+    width: 100%;
+    height: 100vh;
+    background-image: url(images/back.png);
+    background-size: cover;
+    background-position: center;
+}
+
+/* padding for whole container */
+.container{
+    padding: 3% 3%;
+}
+
+nav{
+    display: block;
+    /* align-items: center; */
+    /* justify-content: space-evenly; */
+   
+    /* flex-wrap: wrap; */
+}
+#icons {
+    position: relative;
+    display: inline-grid;
+    gap: 15px 30px;
+    padding: 2% 2%;
+    /* height: 100vh; */
+  }
+#icons img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    width: 150px;
+    height: auto;
+    align-items: center;
+  }
+#icons a{
+    font-family: myFirstFont;
+    text-decoration: none;
+    color: white;
+    font-size: 26px;
+    text-align: center;
+  }
+
+#icons .btnFish {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 0vh */
+  }
+#icons .btnAli {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 0vh */
+  }
+#icons .btnNost {
+    grid-column-start: 3;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+#icons .btnReal {
+    grid-column-start: 4;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+#icons .btnLeg {
+    grid-column-start: 1;
+    grid-row-start: 2;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 50vh; */
+  }
+#icons .btnVit {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 50vh; */
+  }
+#icons .btnFish:hover {
+    background-color: #015e5e;
+  }
+#icons .btnAli:hover {
+    background-color: #015e5e;
+  }
+#icons .btnNost:hover {
+    background-color: #015e5e;
+  }
+#icons .btnReal:hover {
+    background-color: #015e5e;
+  }
+#icons .btnLeg:hover {
+    background-color: #015e5e;
+  }
+#icons .btnVit:hover {
+    background-color: #015e5e;
+  }
+#textbox p{
+  /* position: absolute; */
+  /* top: 400px; */
+  font-size: 26px;
+  color: black;
+}
+#textbox #p1{
+  position: absolute;
+  top: 430px;
+  right: 620px;
+}
+#textbox #p2{
+  position: absolute;
+  top:480px;
+  right: 545px;
+  font-size: 21px;
+  text-align: center;
+}
+#textbox .box{
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  width: 400px;
+  /* height: 400px; */
+  /* align-items: center; */
+  position: absolute;
+  right: 475px;
+  top: 350px;
+    /* background-color: transparent;
+    border: none; */
+    /* cursor: pointer; */
+    /* top: 50vh; */
+  }
+
+/* .logo{
+    width: 500px;
+} */
+.barleft{
+    height:35px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.barright{
+    height:35px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.barmid{
+    height:35px;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    bottom: 0px;
+   
+}
+
+/* Menu bar spacing and orientation*/
+nav ul li{
+    /* display: inline-block; */
+    align-items:center;
+    list-style: none;
+    /* 10 from top and 20 between */
+    margin: 170px 20px;
+    width: 200px;
+    text-align: center;
+}
+
+/* Menu bar font color and size*/
+nav ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 26px;
+    position: relative;
+
+}
+
+/* red line under menu bar text (HIDDEN CODE)*/
+/* nav ul li a::after{
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #ff004f;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s;
+} */
+
+/* red line appeard after hover */
+/* nav ul li a:hover::after{
+    width: 100%;
+} */
+
+.header-text{
+    margin-top: 20%;
+    font-size: 30px;
+    color: #080808;
+}
+.header-text h1{
+    margin-top: 20px;
+    font-size: 60px;
+    color: #080808;
+}
+.header-text h1 span{
+    color: #ff004f;
+}
+
+.time {
+    font-size: 16px;
+    color:#080808;
+    position: absolute;
+    bottom: 3px;
+    right: 15px;
+}
+
+
+/* BUTTOn
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+.popup-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888888;
+    width: 30%;
+    font-weight: bolder;
+}
+.popup-content button {
+    display: block;
+    margin: 0 auto;
+}
+.show {
+    display: block;
+}
+h1 {
+    color: green;
+}
+**/
+ 

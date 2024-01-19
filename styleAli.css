@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family: ms-sans-serif ; */
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: myFirstFont;
+    src: url(/Users/lauren/Desktop/Portfolio/MS_Sans_Serif.ttf);
+  }
+  
+  div {
+    font-family: myFirstFont;
+  }
+body{
+    background: #080808;
+    color: #fff;
+    /* font-size:40px; */
+}
+#header{
+    width: 100%;
+    height: 2000px;
+    background-image: url(images/tabback.png);
+    background-size: cover;
+    background-position: center;
+}
+
+/* padding for whole container */
+.container{
+    padding: 3% 3%;
+}
+
+.barleft{
+    height:35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.barright{
+    height:35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.barmid{
+    height:35px;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    top: 0px;
+   
+}
+
+.title {
+    font-size: 16px;
+    color:white;
+    position: absolute;
+    top: 6px;
+    left: 50px;
+}
+.home {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 100vh; */
+  }
+
+  /* ------------------- Stickers --------------------- */
+  .fishbear {
+    height: 300px;
+  }
+  .bearfish {
+    height: 300px;
+  }
+  .breadcat {
+    height: 300px;
+  }
+  .cloudcat {
+    height: 300px;
+  }
+  .fishgator {
+    height: 300px;
+  }
+  .gatorfish {
+    height: 300px;
+  }
+  .glovedcat {
+    height: 300px;
+  }
+  .puffercat {
+    height: 300px;
+  }
+  .sk8cat {
+    height: 300px;
+  }
+  .sk8chick {
+    height: 300px;
+  }
+  .tigercat {
+    height: 300px;
+  }
+  .tubecat {
+    height: 300px;
+  }
+  .whatacat {
+    height: 300px;
+  }
