@@ -6,7 +6,7 @@
 }
 @font-face {
     font-family: myFirstFont;
-    src: url(/Users/lauren/Desktop/Portfolio/MS_Sans_Serif.ttf);
+    src: url(MS_Sans_Serif.ttf);
   }
   
   div {
@@ -20,7 +20,7 @@ body{
 #header{
     width: 100%;
     height: 100vh;
-    background-image: url(images/tabback.png);
+    background-image: url(assets/tabback.png);
     background-size: cover;
     background-position: center;
 }
