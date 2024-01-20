@@ -13,7 +13,8 @@
     font-family: myFirstFont;
   }
 body{
-    background: #bfbfbf;
+    /* background: #bfbfbf; */
+    background: white;
 
 }
 
@@ -69,16 +70,17 @@ body{
   }
 /* ----------- Box ------------ */
   .boxmid {
-    position: absolute;
+    /* position: absolute; */
     height: 6400px;
     width: 1355px;
-    /* margin: auto; */
+    margin: auto;
     left: 35px;
     border: none;
     background: white;
     z-index:-1;
   }
   /* ----------- Box ------------ */
+
   #header p{
     font-size: 26px;
     color: black;
@@ -86,98 +88,47 @@ body{
     width: 1140px;
     text-align:justify;
   }
-  #header .final {
-    /* margin: auto; */
-    position: relative;
-    left: 300px;
-    height: 600px;
-  }
+ 
 
-  .layered1 {
-    position: relative;
+ 
+  #header .c1 {
+    /* position: relative; */
     height: 400px;
     margin: auto;
     /* top: 2400px; */
-    left: 100px
+    /* left: 100px */
     /* align-items: center; */
   }
-  .layered2 {
-    position: relative;
-    height: 400px;
-    margin: auto;
-    /* top: 3050px; */
-    left: 100px
-    /* align-items: center; */
-  }
-  .w7 {
-    position: relative;
-    height: 700px;
-    margin: auto;
-    /* top: 1200px; */
-    left: 300px;
-  }
-  .v1 {
-    position: relative;
-    height: 600px;
-    margin: auto;
-    /* top: 2400px; */
-    left: 250px
-    /* align-items: center; */
-  }
-  .v2 {
-    position: relative;
-    height: 300px;
-    margin: auto;
-    /* top: 2400px; */
-    left: 250px
-    /* align-items: center; */
-  }
-  .v3 {
-    position: relative;
-    height: 300px;
-    margin: auto;
-    /* top: 2400px; */
-    left: 250px
-    /* align-items: center; */
-  }
-  .c1 {
-    position: relative;
+  #header .c2 {
+    /* position: relative; */
     height: 400px;
     margin: auto;
     /* top: 2400px; */
-    left: 100px
+    /* left: 100px */
     /* align-items: center; */
   }
-  .c2 {
-    position: relative;
-    height: 400px;
-    margin: auto;
-    /* top: 2400px; */
-    left: 100px
-    /* align-items: center; */
-  }
-  .new {
-    position: relative;
+  #header .new {
+    /* position: relative; */
     height: 700px;
     margin: auto;
     /* top: 2400px; */
-    left: 210px
+    /* left: 210px */
     /* align-items: center; */
   }
-  .code {
-    position: relative;
+  #header .code {
+    /* position: relative; */
     height: 500px;
     margin: auto;
     /* top: 2400px; */
-    left: 275px
+    /* left: 275px */
     /* align-items: center; */
   }
-  .dit {
-    position: relative;
+  #header .dit {
+    /* position: relative; */
     height: 500px;
     margin: auto;
     /* top: 2400px; */
-    left: 275px
+    /* left: 275px */
     /* align-items: center; */
   }
   #T{
