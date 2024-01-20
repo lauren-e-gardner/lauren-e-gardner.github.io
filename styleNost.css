@@ -82,6 +82,13 @@ body{
   /* ----------- Box ------------ */
 
   #header p{
+    font-size: 20px;
+    color: black;
+    margin: auto;
+    width: 1140px;
+    text-align:justify;
+  }
+  #description a{
     font-size: 26px;
     color: black;
     margin: auto;
@@ -124,20 +131,31 @@ body{
     /* align-items: center; */
   }
   #header .dit {
-    /* position: relative; */
+
     height: 500px;
     margin: auto;
-    /* top: 2400px; */
-    /* left: 275px */
-    /* align-items: center; */
   }
-  #T{
-    /* position: relative; */
-/* top: 90px; */
-    /* left: 575px; */
-    width: 200px;
+  #T p{
+    width: 300px;
     margin: auto;
     font-size: 36px;
     color: black;
     text-align: center;
+  }
+  #description{
+    width: 450px;
+    margin: auto;
+    text-align: justify;
+    /* color: rgb(75, 75, 75); */
+  }
+  #description p{
+    font-size: 22px;
+    /* color: rgb(75, 75, 75); */
+    text-align: justify;
+    width: 450px;
+  }
+  #description a{
+    font-size: 22px;
+    width:450px;
+    /* color: rgb(75, 75, 75); */
   }
