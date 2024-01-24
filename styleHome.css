@@ -142,16 +142,11 @@ nav{
   font-size: 26px;
   color: black;
 }
-#textbox #p1{
-  position: absolute;
-  top: 430px;
-  right: 620px;
-}
 #textbox #p2{
   position: absolute;
-  top:480px;
-  right: 545px;
-  font-size: 21px;
+  bottom: 3px;
+  left: 100px;
+  font-size: 18px;
   text-align: center;
 }
 #textbox .box{
