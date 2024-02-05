@@ -128,6 +128,16 @@ nav{
     cursor: pointer;
     /* top: 50vh; */
   }
+  #icons .btnOutreach {
+    grid-column-start: 4;
+    grid-row-start: 2;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 50vh; */
+  }
 #icons .btnFish:hover {
     background-color: #015e5e;
   }
