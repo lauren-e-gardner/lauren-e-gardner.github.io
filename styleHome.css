@@ -59,9 +59,38 @@ nav{
     font-size: 26px;
     text-align: center;
   }
-
-#icons .btnFish {
+  #icons .btnThesis {
     grid-column-start: 1;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 0vh */
+  }
+  #icons .btnStag {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 50vh; */
+  }
+  #icons .btnOutreach {
+    grid-column-start: 3;
+    grid-row-start: 1;
+    width: 200px;
+    height: 220px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    /* top: 50vh; */
+  }
+#icons .btnFish {
+    grid-column-start: 4;
     grid-row-start: 1;
     width: 200px;
     height: 220px;
@@ -71,8 +100,8 @@ nav{
     /* top: 0vh */
   }
 #icons .btnAli {
-    grid-column-start: 2;
-    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-start: 2;
     width: 200px;
     height: 220px;
     background-color: transparent;
@@ -81,8 +110,8 @@ nav{
     /* top: 0vh */
   }
 #icons .btnNost {
-    grid-column-start: 3;
-    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-row-start: 2;
     width: 200px;
     height: 220px;
     background-color: transparent;
@@ -90,8 +119,8 @@ nav{
     cursor: pointer;
   }
 #icons .btnReal {
-    grid-column-start: 4;
-    grid-row-start: 1;
+    grid-column-start: 3;
+    grid-row-start: 2;
     width: 200px;
     height: 220px;
     background-color: transparent;
@@ -99,7 +128,7 @@ nav{
     cursor: pointer;
   }
 #icons .btnLeg {
-    grid-column-start: 1;
+    grid-column-start: 4;
     grid-row-start: 2;
     width: 200px;
     height: 220px;
@@ -109,8 +138,8 @@ nav{
     /* top: 50vh; */
   }
 #icons .btnVit {
-    grid-column-start: 2;
-    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-row-start: 3;
     width: 200px;
     height: 220px;
     background-color: transparent;
@@ -118,25 +147,9 @@ nav{
     cursor: pointer;
     /* top: 50vh; */
   }
-  #icons .btnStag {
-    grid-column-start: 3;
-    grid-row-start: 2;
-    width: 200px;
-    height: 220px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    /* top: 50vh; */
-  }
-  #icons .btnOutreach {
-    grid-column-start: 4;
-    grid-row-start: 2;
-    width: 200px;
-    height: 220px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    /* top: 50vh; */
+  
+  #icons .btnThesis:hover {
+    background-color: #015e5e;
   }
 #icons .btnFish:hover {
     background-color: #015e5e;
