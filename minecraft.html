@@ -1,0 +1,69 @@
+<!-- Import the component -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Game Assets</title>
+    <link rel="stylesheet" href="styleMine.css">
+</head>
+<body>
+    <div id="nav">
+        <img src="assets_low/topbarmid.png" class="barmid">
+        <img src="assets_low/stagbar.png" class="barleft">
+        <img src="assets_low/topbarright.png" class="barright">
+        <a href="index.html">
+        <button class="home"></button>
+        </a>
+        <p>3D Game Assets</p>
+    </div>
+    <div id="header">
+        <div class='box'></div>
+            <div id="T">
+                <br>
+                <br>
+                <br>
+                <p> 3D GAME ASSETS</p>
+                <br>
+            </div>
+            <div id="description">
+                <!-- <a href="https://www.etsy.com/shop/Sk8CatStickers">Etsy Shop Link</a> -->
+                <p>
+                    Game: Minecraft Java Edition
+                    <br>
+                    Year: Summer 2017
+                    <br>
+                    Description: Designed and coded 3D assets and additions to the game Minecraft at a 
+                    summer event associated with Appalachian State University.
+                    <br>
+                    <br>
+                </p>
+            </div>
+        <a href="index.html">
+            <button class="home"></button>
+        </a>
+        <p>
+            I created four new ores *at the time*: copper, tungsten, silver, and platinum. In addition to the ores,
+            I added weapons, tools, and armor sets for each. The designs can be viewed below:
+        </p>
+        <br>
+        <div style="margin: auto; width: 1010px; display: block;">
+            <img src="assets_low/mine/Copper Tiger.png" style="width:500px;">
+            <img src="assets_low/mine/Tungsten Turtle.png" style="width:500px;">
+            <img src="assets_low/mine/Silver Monkey.png" style="width:500px;">
+            <img src="assets_low/mine/Platinum Tiger.png" style="width:500px;">
+        </div>
+        <br>
+        <p>
+            The item designs are rendered in 3D in-game, here's an example of what it would look like with the silver 
+            turtle hoe. 
+        </p>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+<!-- Use it like any other HTML element -->
+<div style="margin: auto; width: 1010px; display: block;">
+            <model-viewer alt="hoe" src="assets_low/mine/hoe1.gltf" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
+          
+    </div>
+
+</body>
+</html>
