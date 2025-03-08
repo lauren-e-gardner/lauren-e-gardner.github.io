@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* In src/styles/globals.css or src/index.css */
+@font-face {
+  font-family: 'Space';
+  src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* Defines the range of weights available */
+  font-style: normal;
+  color: #1C1E25; /* light text color */
+  background-color: #E3E1DA; /* light background color */
+  border-color: #E3E1DA; /* Light mode border color */
+}
+* {
+  font-family: 'Space', sans-serif !important;
+  /* border-color: #E3E1DA; Light mode border color */
+}
+
+/* Light Mode Borders */
+@media (prefers-color-scheme: light) {
+  * {
+    border-color: #1C1E25; /* Dark mode border color */
+  }
+}
+html, body {
+  background-color: #E3E1DA;
+  overscroll-behavior: none;
+}
+/* Dark mode styles */
+html.dark body {
+  background-color: #1C1E25; /* dark background color */
+  color: #E3E1DA; /* dark text color */
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+/* Background Circles */
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Disable interaction with background circles */
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  width: 115vw;
+  height: 115vw;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.circle.aqua {
+  background: radial-gradient(circle, rgba(15, 176, 135, 1) 10%, transparent 70%);
+  top: 0%;
+  left: -50vw;
+}
+
+.circle.blue {
+  background: radial-gradient(circle, rgba(77, 155, 230, 1) 10%, transparent 70%);
+  top: 20%;
+  right: -50vw;
+}
+
+.circle.pink {
+  background: radial-gradient(circle, rgba(240, 79, 120, 1) 10%, transparent 70%);
+  top: 40%;
+  left: -50vw;
+}
+
+.circle.orange {
+  background: radial-gradient(circle, rgba(178, 100, 25, 1) 10%, transparent 70%);
+  top: 60%;
+  right: -50vw;
+}
