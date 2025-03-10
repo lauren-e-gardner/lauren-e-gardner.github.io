@@ -5,7 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/lauren-e-gardner.github.io/', // Set this to match your GitHub Pages repo name
+  define: {
+    "process.env.PUBLIC_URL": JSON.stringify(""),
+  },
+  // base: '/lauren-e-gardner.github.io/', // Set this to match your GitHub Pages repo name
   plugins: [
     react(),
     tailwindcss(),

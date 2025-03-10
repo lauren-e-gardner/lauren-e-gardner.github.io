@@ -69,10 +69,9 @@ export default function HomePage() {
           {/* Sections */}
           <section id="projects" className="px-0 py-20 border-t border-solid">
           <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Projects</h2>
-          <div className="mx-auto my-0 max-w-[2000px] max-md:p-2.5 grid grid-cols-1 md:grid-cols-2 gap-15">
+          <div className="mx-auto my-0 max-w-[2000px] max-md:p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-5">
             {projects.map((project, index) => (
               <ProjectFadeInDiv key={index} children={project}/>
-
             ))}
           </div>
         </section>

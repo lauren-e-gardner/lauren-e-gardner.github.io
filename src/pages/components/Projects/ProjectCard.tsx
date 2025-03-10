@@ -13,13 +13,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   };
 
   return (
-    <article className="flex flex-col gap-5 p-15 rounded-3xl border border-solid aspect-[3/4]">
+    <article className="flex flex-col gap-5 xl: p-5 2xl: p-5 rounded-3xl border border-solid aspect-[3/4] w-200px">
       <div className="flex justify-between">
-        <h3 className="text-3xl font-bold">{project.title}</h3>
-        <p className="text-lg font-medium">{project.date}</p>
+        <h3 className="text-2xl xl: text-2xl 2xl: text-3xl font-bold">{project.title}</h3>
+        <p className="text-lg 2xl: text-sm">{project.date}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-lg font-medium">{project.role}</p>
+        <p className="text-lg 2xl: text-md font-medium">{project.role}</p>
       </div>
       <div className="flex gap-2">
         {project.techIcons.map((icon, index) => (
@@ -38,14 +38,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           className="object-cover w-full h-full"
         />
       </div>
-      <p className="text-lg leading-relaxed max-w-[435px]">
+      <p className="text-lg 2xl: text-md leading-relaxed max-w-[435px]">
         {project.description}
       </p>
       <div className="flex gap-5 max-sm:flex-col">
         {project.demoLink && (
           <button
-          onClick={() => project.demoLink && handleNavigation(project.demoLink)}
-          className="flex gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer"
+            onClick={() => project.demoLink && handleNavigation(project.demoLink)}
+            className="flex gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer"
           >
             Demo
           </button>

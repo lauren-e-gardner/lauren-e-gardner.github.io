@@ -35,7 +35,8 @@ const ProjectFadeInDiv: React.FC<ProjectFadeInDivProps> = ({ children }) => {
         isVisible ? "opacity-100 translate-y-0" : ""
       }`}
     >
-      <ProjectCard project={children} />
+
+        <ProjectCard project={children} />
     </div>
   );
 };
