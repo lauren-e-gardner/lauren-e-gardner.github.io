@@ -138,7 +138,7 @@ export default function Pixelator() {
           </div>
   
           <div className="mt-4">
-            <label className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">Pixelation Level</label>
+            <label className="text-black text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">Pixelation Level</label>
             <input 
               type="range" 
               min="10" 

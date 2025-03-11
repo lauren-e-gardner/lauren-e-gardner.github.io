@@ -44,7 +44,7 @@ export const projects: Project[] = [
     ],
     description:
       "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
-    demoLink: "#",
+    demoLink: "/fabricsim",
     githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
     screenshot:
       "/images/Fabric.png",  

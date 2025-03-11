@@ -163,7 +163,7 @@ export default function Ditherer() {
           </div>
 
           <div className="mt-4">
-            <label className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">Pixel Size</label>
+            <label className="text-black text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">Pixel Size</label>
             <input 
               type="range" 
               min="1" 
