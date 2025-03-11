@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { win7Palette } from "./Windows7Palette";
 import { win95Palette } from "./Windows95Palette";
-import { RGB, Palette} from "../components/types.ts";
+import { RGB, Palette } from "../components/types.ts";
 
 const colorDistance = (c1: RGB, c2: RGB): number =>
   Math.sqrt((c1.r - c2.r) ** 2 + (c1.g - c2.g) ** 2 + (c1.b - c2.b) ** 2);
@@ -91,12 +91,12 @@ export default function Pixelator() {
   };
 
   return (
-    <div className="w-[80vh] flex flex-col items-center justify-center p-4">
-      <div className="border border-black shadow-md bg-[#c0c0c0] relative">
-        <div className="flex items-center justify-between bg-[#000080] text-white px-2 py-1">
-          <span className="text-sm font-bold">Pixelator - Windows 95</span>
+    <div className="w-full h-[80vh] flex justify-center items-center">
+      <div className="w-full max-w-[90%] h-full border border-black shadow-md bg-[#c0c0c0]">
+        <div className="flex items-center justify-between bg-[#000080] text-white px-4 py-2 md:px-6 md:py-3">
+          <span className="text-xs md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">Pixelator - Windows 95</span>
           <div className="flex space-x-1">
-            <img src="/Nostalgia/Buttons.png" alt="Close" className="h-6 cursor-pointer" />
+            <img src="/Nostalgia/Buttons.png" alt="Close" className="h-5 md:h-6 cursor-pointer" />
           </div>
         </div>
 
@@ -105,10 +105,10 @@ export default function Pixelator() {
             type="file" 
             accept="image/*" 
             onChange={handleFileSelect} 
-            className="w-full border-black border-t-2 border-l-2 p-1 text-xs text-[#000000] font-mono cursor-pointer mb-4"
+            className="text-xs md:text-md lg:text-lg xl:text-xl 2xl:text-2xl w-full border-black border-t-2 border-l-2 p-2 text-xs md:text-sm text-[#000000] font-mono cursor-pointer mb-4"
           />
           <div className="border-t-2 border-l-2 border-black bg-[#fffbf0] p-2">
-            <canvas ref={canvasRef} className="w-full h-[50vh]"></canvas>
+            <canvas ref={canvasRef} className="w-full h-full"></canvas>
           </div>
 
           {imageLoaded && (
@@ -116,29 +116,29 @@ export default function Pixelator() {
               ref={downloadRef} 
               href={canvasRef.current?.toDataURL("image/png")} 
               download="pixelized-image.png"
-              className=" text-black mt-4 block bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-sm text-center cursor-pointer shadow-inner active:shadow-none"
+              className="text-xs md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-black mt-4 block bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-sm text-center cursor-pointer shadow-inner active:shadow-none"
             >
               Download Image
             </a>
           )}
 
-          <div className="mt-4 flex space-x-2">
+          <div className="mt-4 flex flex-wrap gap-2 justify-center">
             <button 
               onClick={() => handlePaletteChange(win7Palette)} 
-              className="text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-sm cursor-pointer shadow-inner active:border-2"
+              className="text-xs md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 cursor-pointer shadow-inner active:border-2"
             >
               Windows 7 Palette
             </button>
             <button 
               onClick={() => handlePaletteChange(win95Palette)} 
-              className="text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-sm cursor-pointer shadow-inner active:border-2"
+              className="text-xs md:text-md lg:text-lg xl:text-xl 2xl:text-2xl text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 cursor-pointer shadow-inner active:border-2"
             >
               Windows 95 Palette
             </button>
           </div>
 
           <div className="mt-4">
-            <label className="text-sm">Pixelation Level</label>
+            <label className="text-xs md:text-md lg:text-lg xl:text-lg 2xl:text-2xl">Pixelation Level</label>
             <input 
               type="range" 
               min="10" 

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Deploy Steps
+
+# 1. npm run build
+# 2. git add dist
+# 3. git commit -m "your commit message"
+# 4. git-gh-deploy dist
+
+# If no changes are detected, remove dist folder and rebuild
+
+if [ -z "$1" ]
+then
+  echo "Which folder do you want to deploy to GitHub Pages?"
+  exit 1
+fi
+git subtree push --prefix $1 origin gh-pages

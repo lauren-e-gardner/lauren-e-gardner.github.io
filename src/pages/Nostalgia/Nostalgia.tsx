@@ -5,7 +5,6 @@ import PageLayout from '../../layouts/PageLayout';
 import { DraggableProps } from '../components/types';
 import BootUp from './BootUp'; // Import BootUp component
 
-
 const Draggable: React.FC<DraggableProps> = ({ children, className = '', startX, startY }) => {
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: startX, y: startY });
   const isDragging = useRef<boolean>(false);
@@ -61,20 +60,21 @@ const Nostalgia = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <PageLayout>
-    {showBootUp && <BootUp />} {/* Show the BootUp screen on page load */}
-    <div className="flex items-center justify-center w-full h-full relative">
-      {/* Left Half - Pixelator */}
-      <Draggable className="pixelator-container" startX={50} startY={100}>
-        <Pixelator />
-      </Draggable>
-      {/* Right Half - Ditherer */}
-      <Draggable className="ditherer-container" startX={window.innerWidth / 2 + 50} startY={100}>
-        <Ditherer />
-      </Draggable>
-    </div>
-  </PageLayout>
+      {showBootUp && <BootUp />} {/* Show the BootUp screen on page load */}
+      <div className="flex flex-wrap items-center justify-center w-full h-full relative gap-4 p-4">
+        {/* Left Half - Pixelator */}
+        <Draggable className="flex-1 max-w-[45%] w-full" startX={50} startY={100}>
+          <Pixelator />
+        </Draggable>
+        {/* Right Half - Ditherer */}
+        <Draggable className="flex-1 max-w-[45%] w-full" startX={window.innerWidth / 2 + 50} startY={100}>
+          <Ditherer />
+        </Draggable>
+      </div>
+    </PageLayout>
   );
 };
 
