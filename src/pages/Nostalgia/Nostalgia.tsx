@@ -66,11 +66,11 @@ const Nostalgia = () => {
       {showBootUp && <BootUp />} {/* Show the BootUp screen on page load */}
       <div className="flex flex-wrap items-center justify-center w-full h-full relative gap-4 p-4">
         {/* Left Half - Pixelator */}
-        <Draggable className="flex-1 max-w-[45%] w-full" startX={50} startY={100}>
+        <Draggable className="flex-1 max-w-[45%] w-full" startX={window.innerWidth/40} startY={window.innerHeight/20}>
           <Pixelator />
         </Draggable>
         {/* Right Half - Ditherer */}
-        <Draggable className="flex-1 max-w-[45%] w-full" startX={window.innerWidth / 2 + 50} startY={100}>
+        <Draggable className="flex-1 max-w-[45%] w-full" startX={window.innerWidth / 2 + 50} startY={window.innerHeight/20}>
           <Ditherer />
         </Draggable>
       </div>

@@ -6,6 +6,7 @@
 # 2. git add dist
 # 3. git commit -m "your commit message"
 # 4. git-gh-deploy dist
+# 5. If that does not work run: git subtree push --prefix dist origin gh-pages
 
 # If no changes are detected, remove dist folder and rebuild
 
