@@ -3,6 +3,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import HomePage from './pages/HomePage.tsx';
 import Nostalgia from "./pages/Nostalgia/Nostalgia.tsx";
+// import ThreeScene from './pages/components/ThreeJS/ThreeScene.tsx';
+import SpaceOtterssey from './pages/Thesis/SpaceOtterssey.tsx';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -29,6 +31,14 @@ function AnimatedRoutes() {
           element={
             <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
               <Nostalgia />
+            </motion.div>
+          } 
+        />
+        <Route 
+          path="/spaceotterssey" 
+          element={
+            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+              <SpaceOtterssey />
             </motion.div>
           } 
         />

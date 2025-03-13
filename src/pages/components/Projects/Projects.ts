@@ -16,7 +16,7 @@ export const projects: Project[] = [
     demoLink: "#",
     githubLink: "#",
     screenshot:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/40144fd395aa7019e660a3b709ab658a1cc21323",
+      "/skillshub_home.png",
   },
   {
     title: "Space Otterssey",
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     ],
     description:
       "This 3D game uses procedural generation to create unique environments and objects in real-time, without relying on imported mesh files. Each play through offers a completely different experience, with dynamic visuals generated as you play.",
-    demoLink: "#",
+    demoLink: "/spaceotterssey",
     githubLink: "https://github.com/lauren-e-gardner/Space-Otterssey-Thesis",
     screenshot:
       "/images/Otterssey.png",
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     ],
     description:
       "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
-    demoLink: "/fabricsim",
+    demoLink: "#",
     githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
     screenshot:
       "/images/Fabric.png",  

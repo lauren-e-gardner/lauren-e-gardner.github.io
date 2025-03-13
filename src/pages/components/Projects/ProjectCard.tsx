@@ -12,14 +12,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     navigate(link);
   };
 
+  const isLinkDisabled = (link: string) => link === '#';
+
   return (
-    <article className="flex flex-col gap-5 xl: p-5 2xl: p-5 rounded-3xl border border-solid aspect-[3/4] w-200px">
+    <article className="flex flex-col gap-5 xl:p-5 2xl:p-5 rounded-3xl border border-solid aspect-[3/4] h-full w-200px">
       <div className="flex justify-between">
-        <h3 className="text-2xl xl: text-2xl 2xl: text-3xl font-bold">{project.title}</h3>
-        <p className="text-lg 2xl: text-sm">{project.date}</p>
+        <h3 className="text-2xl xl:text-2xl 2xl:text-3xl font-bold">{project.title}</h3>
+        <p className="text-lg 2xl:text-sm">{project.date}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-lg 2xl: text-md font-medium">{project.role}</p>
+        <p className="text-lg 2xl:text-md font-medium">{project.role}</p>
       </div>
       <div className="flex gap-2">
         {project.techIcons.map((icon, index) => (
@@ -38,14 +40,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           className="object-cover w-full h-full"
         />
       </div>
-      <p className="text-lg 2xl: text-md leading-relaxed max-w-[435px]">
+      <p className="text-lg 2xl:text-md leading-relaxed max-w-[435px]">
         {project.description}
       </p>
-      <div className="flex gap-5 max-sm:flex-col">
+      <div className="flex w-full gap-5 max-sm:flex-col">
         {project.demoLink && (
           <button
             onClick={() => project.demoLink && handleNavigation(project.demoLink)}
-            className="flex gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer"
+            className={`w-1/2 flex justify-center gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer ${isLinkDisabled(project.demoLink) ? 'bg-gray-400 opacity-20 text-black hover:text-black' : ''}`}
+            disabled={isLinkDisabled(project.demoLink)}
           >
             Demo
           </button>
@@ -53,10 +56,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         {project.githubLink && (
           <button
             onClick={() => window.open(project.githubLink, "_blank")}
-            className="flex gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer dark:bg-[#E3E1DA] dark:text-[#1C1E25]"
+            className={`w-1/2 flex justify-center gap-2.5 px-8 py-2.5 text-lg transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer ${isLinkDisabled(project.githubLink) ? 'bg-gray-400 opacity-20 text-black hover:text-black' : ''}`}
+            disabled={isLinkDisabled(project.githubLink)}
           >
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ec31350d8b9baac46c86456f83b9173396e56b4"
+              src="/Logos/github_logo.png"
               alt="GitHub"
               className="h-[25px] w-[25px]"
             />

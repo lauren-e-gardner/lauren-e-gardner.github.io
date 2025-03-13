@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef, useState, useEffect } from "react";
 import { win7Palette } from "./Windows7Palette";
 import { win95Palette } from "./Windows95Palette";
@@ -18,18 +16,27 @@ export default function Pixelator() {
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const [palette, setPalette] = useState<Palette>(win7Palette);
-  const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null);
   const [pixelation, setPixelation] = useState<number>(100);
 
-  useEffect(() => {
+  const [originalImage, setOriginalImage] = useState(() => {
     const img = new Image();
     img.src = "/Nostalgia/ex.png";
-    img.onload = () => {
-      setOriginalImage(img);
-      processImage(img, palette, pixelation);
-    };
-  }, [palette, pixelation]);
+    return img;
+  });
 
+    useEffect(() => {
+      if (originalImage.complete) {
+        processImage(originalImage, palette, pixelation);        
+        setImageLoaded(true);
+      } else {
+        originalImage.onload = () => {
+          processImage(originalImage, palette, pixelation);          
+          setImageLoaded(true);
+        };
+      }
+    }, [palette, pixelation, originalImage]);
+
+  // Process the image on canvas
   const processImage = (img: HTMLImageElement, selectedPalette: Palette, pixelSizeFactor: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -59,6 +66,7 @@ export default function Pixelator() {
     setImageLoaded(true);
   };
 
+  // Handle file upload
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -67,14 +75,15 @@ export default function Pixelator() {
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        setOriginalImage(img);
-        processImage(img, palette, pixelation);
+        setOriginalImage(img); // Replace the default image with the uploaded image
+        processImage(img, palette, pixelation); // Reprocess the new image with selected pixelation and palette
       };
       img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
 
+  // Handle palette change
   const handlePaletteChange = (newPalette: Palette) => {
     setPalette(newPalette);
     if (originalImage) {
@@ -82,6 +91,7 @@ export default function Pixelator() {
     }
   };
 
+  // Handle pixelation slider change
   const handlePixelationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPixelation = Number(event.target.value);
     setPixelation(newPixelation);
@@ -152,5 +162,4 @@ export default function Pixelator() {
       </div>
     </div>
   );
-  
 }

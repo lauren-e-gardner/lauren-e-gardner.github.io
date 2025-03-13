@@ -53,6 +53,7 @@ export interface Project {
     period: string;
     gpa: string;
     details: string;
-    logo: string;
+    logoDark: string;
+    logoLight: string;
   }
   

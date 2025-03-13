@@ -6,8 +6,8 @@ interface ExperienceCardProps {
 
 export const ExperienceCard = ({ experience }: ExperienceCardProps) => {
   return (
-    <article className="p-5 rounded-3xl border border-black border-solid max-md:p-2.5">
-      <div className="px-5 py-2.5 -mt-10 text-lg text-white bg-zinc-900 rounded-[10px_10px_0_0] w-fit">
+    <article className="p-5 mb-10 rounded-3xl border border-solid max-md:p-2.5">
+      <div className="px-5 py-2.5 -mt-17.5 text-lg border rounded-[10px_10px_0_0] w-fit">
         {experience.date}
       </div>
       <div className="p-5">
