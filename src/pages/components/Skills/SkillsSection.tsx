@@ -28,11 +28,11 @@ export const SkillsSection = () => {
 
   return (
     <>
-      <div className="ml-15 flex gap-2">
+      <div className="ml-3 md:ml-5 lg:ml-15 xl:ml-15 2xl:ml-15 flex gap-2">
         {/* Languages Button */}
         <button
           onClick={() => setShowFrameworks(false)}
-          className={`h-12 px-10 py-2.5 text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
+          className={`h-12 px-10 py-2.5 text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
             ${
               showFrameworks
                 ? "text-[#1C1E25] dark:text-[#E3E1DA]"
@@ -45,7 +45,7 @@ export const SkillsSection = () => {
         {/* Frameworks Button */}
         <button
           onClick={() => setShowFrameworks(true)}
-          className={`h-12 px-10 py-2.5 text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
+          className={`h-12 px-10 py-2.5 text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
             ${
               showFrameworks
                 ? "bg-[#1C1E25] text-[#E3E1DA] dark:bg-[#E3E1DA] dark:text-[#1C1E25]"
@@ -67,7 +67,7 @@ export const SkillsSection = () => {
         >
           <div
             key={showFrameworks ? "frameworks" : "languages"} // Forces re-render for animation
-            className="m-10 flex-1 flex flex-col gap-10 max-md:p-2.5 opacity-0 animate-fade-in"
+            className="md:m-5 lg:m-10 xl:m-10 2xl:m-10 flex-1 flex flex-col gap-10  opacity-0 animate-fade-in"
           >
                   {(showFrameworks ? framework_skills : language_skills).map((skill, index) => (
               <SkillBar

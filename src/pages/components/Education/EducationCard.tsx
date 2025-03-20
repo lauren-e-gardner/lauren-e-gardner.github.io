@@ -45,22 +45,34 @@ export const EducationCard: React.FC<EducationCardProps> = ({ isDarkMode }) => {
         }`}
       >
   
-      <article className="grid p-5 rounded-3xl border border-solid grid-cols-[auto_1fr] max-md:p-2.5 max-md:grid-cols-[1fr]">
-        <img
-          src={isDarkMode ? education.logoDark : education.logoLight}
-          alt={education.school}
-          className="object-contain h-[292px] w-[300px] max-md:w-full max-md:h-auto"
-        />
-        <div className="p-5">
-          <h3 className="text-lg xl:text-xl 2xl:text-2xl font-bold">{education.degree}</h3>
-          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.school}</p>
-          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.period}</p>
-          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.gpa}</p>
-          <hr className="mx-0 my-5 h-px bg-black dark:bg-white" />
-          <p className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">{education.details}</p>
-        </div>  
-        
-      </article>
+  <article className="grid p-5 rounded-3xl border border-solid grid-cols-[auto_1fr] max-md:p-2.5 max-md:grid-cols-[1fr]">
+  <div className="flex justify-center items-center"> {/* Flexbox container for centering */}
+    <img
+      src={isDarkMode ? education.logoDark : education.logoLight}
+      alt={education.school}
+      className="object-contain h-[100px] md:h-[150px] lg:h-[292px] max-md:w-full"
+    />
+  </div>
+  <div className="p-5">
+    <h3 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">
+      {education.degree}
+    </h3>
+    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+      {education.school}
+    </p>
+    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+      {education.period}
+    </p>
+    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+      {education.gpa}
+    </p>
+    <hr className="mx-0 my-5 h-px bg-black dark:bg-white" />
+    <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
+      {education.details}
+    </p>
+  </div>
+</article>
+
     </div>
   );
 };

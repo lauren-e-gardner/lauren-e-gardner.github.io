@@ -4,6 +4,8 @@ import Ditherer from './Ditherer';
 import PageLayout from '../../layouts/PageLayout';
 import { DraggableProps } from '../components/types';
 import BootUp from './BootUp'; // Import BootUp component
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+
 
 const Draggable: React.FC<DraggableProps> = ({ children, className = '', startX, startY }) => {
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: startX, y: startY });
@@ -52,6 +54,27 @@ const Draggable: React.FC<DraggableProps> = ({ children, className = '', startX,
 
 const Nostalgia = () => {
   const [showBootUp, setShowBootUp] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate(); // Use navigate to redirect to home
+
+
+  useEffect(() => {
+    // Set the isMobile state based on the screen width
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check on mount
+    checkIfMobile();
+
+    // Listen for window resize events to update isMobile state
+    window.addEventListener('resize', checkIfMobile);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -61,9 +84,25 @@ const Nostalgia = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  
+
   return (
     <PageLayout>
       {showBootUp && <BootUp />} {/* Show the BootUp screen on page load */}
+      {isMobile && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black text-white text-xl z-50">
+          <div className="bg-red-500 p-4 rounded-lg text-center">
+            <div>Mobile Not Supported</div>
+            {/* Add a button that redirects to the home page */}
+            <button
+              onClick={() => navigate('/')} // Navigate to home page
+              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              Return to Home
+            </button>
+          </div>
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-center w-full h-full relative gap-4 p-4">
         {/* Left Half - Pixelator */}
         <Draggable className="flex-1 max-w-[45%] w-full" startX={window.innerWidth/40} startY={window.innerHeight/20}>

@@ -34,18 +34,43 @@ export const ContactSection = () => {
           className="object-cover rounded-3xl h-[360px] w-[359px] max-sm:w-full max-sm:h-auto"
         />
         <div className="flex flex-col gap-10">
-          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-            <strong>Email</strong>
-            <p>laurenator1784@gmail.com</p>
-          </div>
-          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-            <strong>LinkedIn</strong>
-            <p>https://www.linkedin.com/in/lauren-e-gardner02/</p>
-          </div>
-          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-            <strong>GitHub</strong>
-            <p>https://github.com/lauren-e-gardner</p>
-          </div>
+        <div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
+  <strong>Email</strong>
+  <p>
+    <a href="mailto:laurenator1784@gmail.com" className="text-blue-500 hover:underline">
+      laurenator1784@gmail.com
+    </a>
+  </p>
+</div>
+
+<div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
+  <strong>LinkedIn</strong>
+  <p>
+    <a 
+      href="https://www.linkedin.com/in/lauren-e-gardner02/" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-blue-500 hover:underline"
+    >
+      https://www.linkedin.com/in/lauren-e-gardner02/
+    </a>
+  </p>
+</div>
+
+<div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
+  <strong>GitHub</strong>
+  <p>
+    <a 
+      href="https://github.com/lauren-e-gardner" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-blue-500 hover:underline"
+    >
+      https://github.com/lauren-e-gardner
+    </a>
+  </p>
+</div>
+
         </div>
       </section>
       </div>

@@ -14,11 +14,18 @@
   font-family: 'Space', sans-serif !important;
   /* border-color: #E3E1DA; Light mode border color */
 }
-
+.navbar {
+  background-color: #1C1E25;
+  color: #E3E1DA;
+}
 /* Light Mode Borders */
 @media (prefers-color-scheme: light) {
   * {
     border-color: #1C1E25; /* Dark mode border color */
+  }
+  .navbar {
+    background-color: #E3E1DA; /* Light text color */
+    color: #1C1E25; /* Dark background */
   }
 }
 html, body {
@@ -39,6 +46,7 @@ html.dark body {
     opacity: 1;
   }
 }
+
 
 .animate-fade-in {
   animation: fade-in 0.5s ease-in-out forwards;

@@ -56,8 +56,8 @@ export default function HomePage() {
           <Hero />
 
           {/* Sections */}
-          <section id="projects" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Projects</h2>
+          <section id="projects" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
+            <h2 className=" text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Projects</h2>
             <div className="mx-auto my-0 max-w-[2000px] max-md:p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-5">
               {projects.map((project, index) => (
                 <ProjectFadeInDiv key={index} children={project}/>
@@ -65,23 +65,23 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section id="skills" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Skills</h2>
+          <section id="skills" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
+            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Skills</h2>
             <SkillsSection />
           </section>
 
-          <section id="work-experience" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Experience</h2>
+          <section id="work-experience" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
+            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Experience</h2>
             <ExperienceSection/>
           </section>
 
-          <section id="education" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Education</h2>
+          <section id="education" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
+            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Education</h2>
             <EducationCard isDarkMode={prefersDarkMode} />
           </section>
 
-          <section id="contact" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Contact Me</h2>
+          <section id="contact" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
+            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Contact Me</h2>
             <ContactSection />
           </section>
         </main>

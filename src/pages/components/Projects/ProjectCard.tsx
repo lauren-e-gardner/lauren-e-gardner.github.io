@@ -15,13 +15,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const isLinkDisabled = (link: string) => link === '#';
 
   return (
-    <article className="flex flex-col gap-5 p-5 xl:p-5 2xl:p-10 rounded-3xl border border-solid aspect-[3/4] h-full w-200px">
+    <article className="flex flex-col gap-5 p-5 xl:p-5 2xl:p-10 rounded-3xl border border-solid  h-full w-200px">
       <div className="flex justify-between">
         <h3 className="text-xl xl:text-2xl 2xl:text-5xl font-bold">{project.title}</h3>
-        <p className="text-md xl:text-lg 2xl:text-2xl">{project.date}</p>
+        <p className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-2xl">{project.date}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-md xl:text-lg 2xl:text-2xl font-medium">{project.role}</p>
+        <p className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-2xl font-medium">{project.role}</p>
       </div>
       <div className="flex gap-2">
         {project.techIcons.map((icon, index) => (
@@ -29,7 +29,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             key={index}
             src={icon}
             alt={`Technology ${index + 1}`}
-            className="h-[34px]"
+            className="h-[20px] lg:h-[34px] xl:h-[34px] 2xl:h-[50px]"
           />
         ))}
       </div>
@@ -40,10 +40,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           className="object-cover w-full h-full"
         />
       </div>
-      <p className="text-md xl:text-lg 2xl:text-2xl leading-relaxed w-full">
+      <p className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-2xl leading-relaxed w-full">
         {project.description}
       </p>
-      <div className="text-md xl:text-lg 2xl:text-2xl flex w-full gap-5 max-sm:flex-col">
+      <div className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-2xl flex w-full gap-5 ">
         {project.demoLink && (
           <button
             onClick={() => project.demoLink && handleNavigation(project.demoLink)}
@@ -62,7 +62,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <img
               src="/Logos/github_logo.png"
               alt="GitHub"
-              className="h-[25px] w-[25px]"
+              className="h-[15px] lg:h-[20px] xl:h-[25px] 2xl:h-[35px]"
             />
             <span>GitHub</span>
           </button>

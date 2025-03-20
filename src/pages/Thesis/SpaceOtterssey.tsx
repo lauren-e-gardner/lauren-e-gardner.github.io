@@ -56,7 +56,7 @@ const SpaceOtterssey = () => {
   };
 
   return (
-    <div className="w-full h-screen flex relative">
+    <div className="w-full h-screen flex flex-col md:flex-row relative">
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
@@ -66,12 +66,12 @@ const SpaceOtterssey = () => {
       </button>
 
       {/* Left Half - Three.js Scene */}
-      <div className="w-1/2 aspect-[1/1] flex items-center justify-center bg-black">
+      <div className="w-full md:w-1/2 aspect-[1/1] flex items-center justify-center bg-black">
         <div className="w-[100%] aspect-[1/1] ">{renderScene()}</div>
       </div>
 
       {/* Right Half - Vertex GLSL Placeholder */}
-      <div className="w-1/2 h-full flex flex-col items-center justify-center p-4 xl:p-6 2xl:p-10">
+      <div className="w-full md:w-1/2 h-full flex flex-col items-center justify-center p-4 xl:p-6 2xl:p-10">
         <h2 className="text-2xl xl:text-4xl 2xl:text-6xl font-bold mb-4 xl:mb-6 2xl:mb-10">Vertex Shader Code</h2>
         <pre className="text-md xl:text-xl 2xl:text-3xl border p-4 xl:p-6 2xl:p-10 rounded-lg w-full text-sm overflow-auto">
           {vertexShaders[activeScene]}
