@@ -6,7 +6,7 @@ export const Hero = () => {
       </h1>
       <p className="mx-auto my-0 text-lg leading-relaxed max-w-[930px]">
         I'm <strong>Lauren Gardner</strong>, a software developer with
-        experience in design, marketing, and analytics. As a{" "}
+        experience in frontend design, 3D graphics, and full-stack development. As a{" "}
         <strong>Princeton University</strong> graduate, I approach programming
         with creativity—whether it's finding innovative solutions or using code
         to fuel artistic expression. I currently work with:{" "}
