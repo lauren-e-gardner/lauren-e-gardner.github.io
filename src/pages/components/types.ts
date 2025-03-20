@@ -42,6 +42,7 @@ export interface Project {
   
   export interface Experience {
     date: string;
+    demo: string;
     title: string;
     company: string;
     description: string;

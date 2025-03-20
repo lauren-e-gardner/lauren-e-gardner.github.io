@@ -4,6 +4,7 @@ import type { Experience } from "../types.js";
 export const experience: Experience[] = [
   {
     date: "Jun. 2024 - Present",
+    demo: "/importclubdemo",
     title: "Frontend Software Developer",
     company: "Import Club Direct",
     description:
@@ -11,6 +12,7 @@ export const experience: Experience[] = [
   },  
   {
       date: "Oct. 2024 - Feb. 2025",
+      demo: "#",
       title: "Marketing Data Engineer",
       company: "Planet Networks",
       description:

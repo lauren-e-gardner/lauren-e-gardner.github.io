@@ -6,6 +6,7 @@ import Nostalgia from './pages/Nostalgia/Nostalgia.tsx';
 import SpaceOtterssey from './pages/Thesis/SpaceOtterssey.tsx';
 import SkillsHub from './pages/SkillsHub/SkillsHub.tsx';
 import Profile from './pages/SkillsHub/Profile.tsx';
+import ImportClub from './pages/ImportClub/ImportClub.tsx';
 
 // Adjusted transition for a seamless fade in and out
 const pageVariants = {
@@ -82,6 +83,19 @@ function AnimatedRoutes() {
               exit="exit"
             >
               <Profile />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/importclubdemo"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <ImportClub />
             </motion.div>
           }
         />
