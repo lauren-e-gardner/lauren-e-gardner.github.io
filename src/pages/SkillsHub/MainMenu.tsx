@@ -38,7 +38,7 @@ const MainMenu: React.FC = () => {
       {isMenuOpen && (
         <div
           id="basic-menu"
-          className="absolute top-16 left-5 bg-[#0b0e0f] text-[#EFF6F6] p-2 rounded-md shadow-none z-50"
+          className="absolute top-16 left-5 bg-[#0b0e0f] text-[#EFF6F6] text-sm md:text-md lg:text-xl xl:text-2xl 2xl:text-3xl p-2 rounded-md shadow-none z-50"
         >
           <div
             className={`menu-item ${activeMenu === '/skillshub' ? 'bg-[#192b1f] text-[#00ff00]' : ''} hover:bg-[#191b1f] hover:bg-opacity-10 p-2 cursor-pointer rounded-md`}

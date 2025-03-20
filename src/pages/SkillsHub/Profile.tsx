@@ -27,17 +27,17 @@ const ProfilePage: React.FC = () => {
               <div className="flex justify-center py-4 xl:py-6 2xl:py-10 px-8 xl:px-10 2xl:px-14 w-full">
                 <div className="flex flex-col sm:flex-row justify-between w-full">
                   {/* Profile Image */}
-                  <div className="flex justify-center items-center sm:w-1/3 mb-4 sm:mb-0 w-full">
+                  <div className="flex justify-center items-center w-1/3 xl:w-1/3 2xl:w-1/2 w-full">
                     <img
-                      className="rounded-xl 2xl:rounded-2xl p-2  object-cover w-full h-[70vh] xl:h-[75vh] 2xl:h-[85vh]"
+                      className="rounded-xl 2xl:rounded-2xl m-2 xl:m-10 2xl:m-20  object-cover w-full h-[70vh] xl:h-[70vh] 2xl:h-[75vh]"
                       src="LinkedIn1.png"
                       alt="Profile"
                     />
                   </div>
 
                   {/* Profile Information */}
-                  <div className="sm:w-2/3 w-full pl-8">
-                    <div className=" mb-4 xl:mb-6 2xl:mb-10 text-center">
+                  <div className="w-2/3 xl:w-2/3 2xl:w-1/2 w-full pl-8 2xl:pl-16">
+                    <div className=" mb-4 xl:mb-10 2xl:mb-15 text-center">
                       <h1 className="font-bold text-xl lg:text-2xl xl:text-3xl 2xl:text-6xl text-[#EFF6F6]">
                         Lauren Gardner
                       </h1>

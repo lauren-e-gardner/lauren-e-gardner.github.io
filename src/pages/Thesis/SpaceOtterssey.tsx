@@ -42,43 +42,43 @@ const SpaceOtterssey = () => {
 
   const renderScene = () => {
     switch (activeScene) {
-        case 1:
-            return <ThreeScene />;
-        case 2:
-            return <ThreeScene2 />;
-        case 3:
-            return <ThreeScene3 />;
-        case 4:
-            return <ThreeScene4 />;
-        default:
-            return <ThreeScene />;
+      case 1:
+        return <ThreeScene />;
+      case 2:
+        return <ThreeScene2 />;
+      case 3:
+        return <ThreeScene3 />;
+      case 4:
+        return <ThreeScene4 />;
+      default:
+        return <ThreeScene />;
     }
   };
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row relative">
+    <div className="w-full h-screen flex flex-col md:flex-row relative overflow-hidden">
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="text-md xl:text-xl 2xl:text-3xl absolute top-4 left-4 px-4 py-2 text-white rounded-lg"
+        className="text-md xl:text-xl 2xl:text-3xl absolute top-4 left-4 px-4 py-2 text-white rounded-lg z-10"
       >
         Back
       </button>
 
       {/* Left Half - Three.js Scene */}
-      <div className="w-full md:w-1/2 aspect-[1/1] flex items-center justify-center bg-black">
-        <div className="w-[100%] aspect-[1/1] ">{renderScene()}</div>
+      <div className="w-full md:w-1/2 aspect-[1/1] flex items-center justify-center bg-black flex-shrink-0">
+        <div className="w-[100%] aspect-[1/1] overflow-hidden">{renderScene()}</div>
       </div>
 
       {/* Right Half - Vertex GLSL Placeholder */}
-      <div className="w-full md:w-1/2 h-full flex flex-col items-center justify-center p-4 xl:p-6 2xl:p-10">
+      <div className="w-full md:w-1/2 h-full flex flex-col items-center justify-center p-4 xl:p-6 2xl:p-10 overflow-auto flex-grow">
         <h2 className="text-2xl xl:text-4xl 2xl:text-6xl font-bold mb-4 xl:mb-6 2xl:mb-10">Vertex Shader Code</h2>
         <pre className="text-md xl:text-xl 2xl:text-3xl border p-4 xl:p-6 2xl:p-10 rounded-lg w-full text-sm overflow-auto">
           {vertexShaders[activeScene]}
         </pre>
 
         {/* Scene Selection Buttons */}
-        <div className="text-md xl:text-xl 2xl:text-3xl mt-6 flex space-x-4">
+        <div className="text-xs lg:text-md xl:text-xl 2xl:text-3xl mt-6 flex space-x-4">
           <button
             onClick={() => setActiveScene(1)}
             className={`px-4 py-2 border rounded-md ${activeScene === 1 ? 'bg-[#1C1E25] text-[#E3E1DA] dark:bg-[#E3E1DA] dark:text-[#1C1E25]' : 'bg-transparent'}`}
