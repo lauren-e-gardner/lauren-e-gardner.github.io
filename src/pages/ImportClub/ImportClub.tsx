@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ImportClub: React.FC = () => {
+      useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+      }, []);
     // Declare state for prefersDarkMode
       const [prefersDarkMode, setPrefersDarkMode] = useState(false);
       const navigate = useNavigate();
