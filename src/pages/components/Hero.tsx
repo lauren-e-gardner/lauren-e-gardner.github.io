@@ -11,8 +11,7 @@ export const Hero = () => {
         with creativity—whether it's finding innovative solutions or using code
         to fuel artistic expression. I currently work with:{" "}
         <strong>Python</strong>, <strong>JavaScript</strong>,{" "}
-        <strong>TypeScript</strong>, <strong>ReactJS</strong>,{" "}
-        <strong>Django</strong>, and <strong>SQL</strong>.
+        <strong>TypeScript</strong>, and <strong>ReactJS</strong>.
       </p>
     </header>
   );

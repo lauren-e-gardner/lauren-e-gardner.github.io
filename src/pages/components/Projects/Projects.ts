@@ -2,23 +2,6 @@ import type { Project } from "../types.ts";
 
 export const projects: Project[] = [
   {
-    title: "SkillsHub",
-    date: "Nov. 2024 - Jan. 2025",
-    role: "Full Stack Dev.",
-    techIcons: [
-      "/Logos/Django.png",
-      "/Logos/React.png",
-      "/Logos/Python.png",
-      "/Logos/JavaScript.png",
-    ],
-    description:
-      "A job board platform developed in my free time for Planet Networks to track employee skills and positions. Video-game inspired design to encourage personal growth and engagement.",
-    demoLink: "#",
-    githubLink: "#",
-    screenshot:
-      "/skillshub_home.png",
-  },
-  {
     title: "Space Otterssey",
     date: "Jan. 2024 - May. 2025",
     role: "Thesis Project",
@@ -35,21 +18,6 @@ export const projects: Project[] = [
       "/images/Otterssey.png",
   },
   {
-    title: "Fabric Simulator",
-    date: "Apr. 2023 - Dec. 2023",
-    role: "Designer",
-    techIcons: [
-      "/Logos/Three.png",
-      "/Logos/JavaScript.png",
-    ],
-    description:
-      "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
-    demoLink: "#",
-    githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
-    screenshot:
-      "/images/Fabric.png",  
-    },
-  {
     title: "Nostalgia",
     date: "Jan. 2023 - Apr. 2023",
     role: "Designer",
@@ -65,4 +33,36 @@ export const projects: Project[] = [
     screenshot:
       "/images/Pixel.png"
   },
+  {
+    title: "SkillsHub",
+    date: "Nov. 2024 - Jan. 2025",
+    role: "Full Stack Dev.",
+    techIcons: [
+      "/Logos/Django.png",
+      "/Logos/React.png",
+      "/Logos/Python.png",
+      "/Logos/JavaScript.png",
+    ],
+    description:
+      "A job board platform developed in my free time for Planet Networks to track employee skills and positions. Video-game inspired design to encourage personal growth and engagement.",
+    demoLink: "/skillshub",
+    githubLink: "#",
+    screenshot:
+      "/skillshub_home.png",
+  },
+  {
+    title: "Fabric Simulator",
+    date: "Apr. 2023 - Dec. 2023",
+    role: "Designer",
+    techIcons: [
+      "/Logos/Three.png",
+      "/Logos/JavaScript.png",
+    ],
+    description:
+      "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
+    demoLink: "#",
+    githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
+    screenshot:
+      "/images/Fabric.png",  
+    },
 ];
