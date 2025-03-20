@@ -32,7 +32,7 @@ export const SkillsSection = () => {
         {/* Languages Button */}
         <button
           onClick={() => setShowFrameworks(false)}
-          className={`h-12 px-10 py-2.5 text-lg w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
+          className={`h-12 px-10 py-2.5 text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
             ${
               showFrameworks
                 ? "text-[#1C1E25] dark:text-[#E3E1DA]"
@@ -45,7 +45,7 @@ export const SkillsSection = () => {
         {/* Frameworks Button */}
         <button
           onClick={() => setShowFrameworks(true)}
-          className={`h-12 px-10 py-2.5 text-lg w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
+          className={`h-12 px-10 py-2.5 text-lg xl:text-xl 2xl:text-2xl w-fit transition-all duration-300 hover:text-[#F04F78] rounded-t-lg border-t border-l border-r
             ${
               showFrameworks
                 ? "bg-[#1C1E25] text-[#E3E1DA] dark:bg-[#E3E1DA] dark:text-[#1C1E25]"

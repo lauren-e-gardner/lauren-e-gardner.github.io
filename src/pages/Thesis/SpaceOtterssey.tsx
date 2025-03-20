@@ -60,7 +60,7 @@ const SpaceOtterssey = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 px-4 py-2 text-white rounded-lg"
+        className="text-md xl:text-xl 2xl:text-3xl absolute top-4 left-4 px-4 py-2 text-white rounded-lg"
       >
         Back
       </button>
@@ -71,14 +71,14 @@ const SpaceOtterssey = () => {
       </div>
 
       {/* Right Half - Vertex GLSL Placeholder */}
-      <div className="w-1/2 h-full flex flex-col items-center justify-center p-6">
-        <h2 className="text-2xl font-bold mb-4">Vertex Shader Code</h2>
-        <pre className="border p-4 rounded-lg w-full max-w-md text-sm overflow-auto">
+      <div className="w-1/2 h-full flex flex-col items-center justify-center p-4 xl:p-6 2xl:p-10">
+        <h2 className="text-2xl xl:text-4xl 2xl:text-6xl font-bold mb-4 xl:mb-6 2xl:mb-10">Vertex Shader Code</h2>
+        <pre className="text-md xl:text-xl 2xl:text-3xl border p-4 xl:p-6 2xl:p-10 rounded-lg w-full text-sm overflow-auto">
           {vertexShaders[activeScene]}
         </pre>
 
         {/* Scene Selection Buttons */}
-        <div className="mt-6 flex space-x-4">
+        <div className="text-md xl:text-xl 2xl:text-3xl mt-6 flex space-x-4">
           <button
             onClick={() => setActiveScene(1)}
             className={`px-4 py-2 border rounded-md ${activeScene === 1 ? 'bg-[#1C1E25] text-[#E3E1DA] dark:bg-[#E3E1DA] dark:text-[#1C1E25]' : 'bg-transparent'}`}

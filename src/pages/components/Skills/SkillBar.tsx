@@ -12,7 +12,7 @@ export const SkillBar = ({ name, icon, percentage }: SkillBarProps) => {
         <div className="flex justify-center w-20">
           <img src={icon} alt={name} className="h-8" />
         </div>
-        <p className="text-lg">{name}</p>
+        <p className="text-lg xl:text-xl 2xl:text-2xl">{name}</p>
       </div>
 
       {/* Progress bar */}

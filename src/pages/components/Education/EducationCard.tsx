@@ -52,12 +52,12 @@ export const EducationCard: React.FC<EducationCardProps> = ({ isDarkMode }) => {
           className="object-contain h-[292px] w-[300px] max-md:w-full max-md:h-auto"
         />
         <div className="p-5">
-          <h3 className="text-lg font-bold">{education.degree}</h3>
-          <p className="mx-0 my-2.5 text-lg">{education.school}</p>
-          <p className="mx-0 my-2.5 text-lg">{education.period}</p>
-          <p className="mx-0 my-2.5 text-lg">{education.gpa}</p>
+          <h3 className="text-lg xl:text-xl 2xl:text-2xl font-bold">{education.degree}</h3>
+          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.school}</p>
+          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.period}</p>
+          <p className="mx-0 my-2.5 text-lg xl:text-xl 2xl:text-2xl">{education.gpa}</p>
           <hr className="mx-0 my-5 h-px bg-black dark:bg-white" />
-          <p className="text-lg leading-relaxed">{education.details}</p>
+          <p className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">{education.details}</p>
         </div>  
         
       </article>

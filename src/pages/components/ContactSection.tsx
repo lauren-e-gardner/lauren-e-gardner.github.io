@@ -34,15 +34,15 @@ export const ContactSection = () => {
           className="object-cover rounded-3xl h-[360px] w-[359px] max-sm:w-full max-sm:h-auto"
         />
         <div className="flex flex-col gap-10">
-          <div className="text-lg leading-relaxed">
+          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
             <strong>Email</strong>
             <p>laurenator1784@gmail.com</p>
           </div>
-          <div className="text-lg leading-relaxed">
+          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
             <strong>LinkedIn</strong>
             <p>https://www.linkedin.com/in/lauren-e-gardner02/</p>
           </div>
-          <div className="text-lg leading-relaxed">
+          <div className="text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
             <strong>GitHub</strong>
             <p>https://github.com/lauren-e-gardner</p>
           </div>

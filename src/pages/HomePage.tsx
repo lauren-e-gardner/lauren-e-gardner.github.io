@@ -57,7 +57,7 @@ export default function HomePage() {
 
           {/* Sections */}
           <section id="projects" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Projects</h2>
+            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Projects</h2>
             <div className="mx-auto my-0 max-w-[2000px] max-md:p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-5">
               {projects.map((project, index) => (
                 <ProjectFadeInDiv key={index} children={project}/>
@@ -66,22 +66,22 @@ export default function HomePage() {
           </section>
 
           <section id="skills" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Skills</h2>
+            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Skills</h2>
             <SkillsSection />
           </section>
 
           <section id="work-experience" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Experience</h2>
+            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Experience</h2>
             <ExperienceSection/>
           </section>
 
           <section id="education" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Education</h2>
+            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Education</h2>
             <EducationCard isDarkMode={prefersDarkMode} />
           </section>
 
           <section id="contact" className="px-0 py-20 border-t border-solid">
-            <h2 className="mb-20 text-5xl text-center max-sm:text-4xl">Contact Me</h2>
+            <h2 className="mb-20 text-5xl 2xl:text-6xl text-center">Contact Me</h2>
             <ContactSection />
           </section>
         </main>
