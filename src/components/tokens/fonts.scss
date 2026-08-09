@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Space';
+  src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto.ttf') format('truetype');
+  font-weight: 300; 
+}
+
+$typography: (
+    "headline": "Space",
+    "body": "Roboto",
+);
+$headline-size: (
+    "h1": 32px,
+    "h2": 24px,
+    "h3": 18px,
+);
+$body-size: (
+    "b1": 16px,
+    "b2": 14px,
+    "b3": 12px,
+);
+
+@each $name, $family in $typography {
+    @if $name == "headline" {
+        @each $size-name, $size in $headline-size {
+            .#{$name}-#{$size-name} {
+                font-family: $family;
+                font-size: $size;
+            }
+        }
+    } @else if $name == "body" {
+        @each $size-name, $size in $body-size {
+            .#{$name}-#{$size-name} {
+                font-family: $family;
+                font-size: $size;
+            }
+        }
+    }
+}

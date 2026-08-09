@@ -11,7 +11,7 @@
   border-color: #E3E1DA; /* Light mode border color */
 }
 * {
-  font-family: 'Space', sans-serif !important;
+  font-family: 'Space', sans-serif ;
   /* border-color: #E3E1DA; Light mode border color */
 }
 .navbar {

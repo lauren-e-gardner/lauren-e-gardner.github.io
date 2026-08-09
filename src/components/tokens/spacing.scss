@@ -6,16 +6,22 @@ $sizes: (
     "xl": 32px
 );
 $alignments: top, right, bottom, left;
-$properties: margin, padding;
+$properties: (
+    "margin": "mr",
+    "padding": "pad",
+    "border-radius": "br",
+);
 
-@each $property in $properties {
+@each $property, $class in $properties {
     @each $size, $number in $sizes {
-    .#{$property}-#{$size} {
-        #{$property}: $number;
-    }
-        @each $alignment in $alignments {
-            .#{$property}-#{$alignment}-#{$size} {
-            #{$property}-#{$alignment}: $number;
+        .#{$class}-#{$size} {
+            #{$property}: $number;
+        }
+        @if $property != "border-radius" {
+            @each $alignment in $alignments {
+                .#{$class}-#{$alignment}-#{$size} {
+                    #{$property}-#{$alignment}: $number;
+                }
             }
         }
     }

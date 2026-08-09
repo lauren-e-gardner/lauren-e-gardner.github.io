@@ -13,11 +13,11 @@ $colors: (
     "light": #E3E1DA,
     "dark": #1C1E25,
     //Windows 95 Colors
-    "w_blue": #000080,
-    "w_aqua": #008080,
-    "w_light_gray": #fffbf0,
-    "w_gray": #c0c0c0,
-    "w_dark_gray": #808080,
+    "w-blue": #000080,
+    "w-aqua": #008080,
+    "w-light-gray": #fffbf0,
+    "w-gray": #c0c0c0,
+    "w-dark-gray": #808080,
 );
 $properties: (
     "background": "bg",
@@ -29,6 +29,10 @@ $properties: (
     @each $property, $class in $properties {
         .#{$class}-#{$name} {
             #{$property}: $color;
+            @if $property == "border-color" {
+                border-width: 1px;
+                border-style: solid;
+            }
         }
     }
 }
