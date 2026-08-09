@@ -1,0 +1,22 @@
+$sizes: (
+    "xs": 4px,    
+    "sm": 8px,
+    "md": 16px,
+    "lg": 24px,
+    "xl": 32px
+);
+$alignments: top, right, bottom, left;
+$properties: margin, padding;
+
+@each $property in $properties {
+    @each $size, $number in $sizes {
+    .#{$property}-#{$size} {
+        #{$property}: $number;
+    }
+        @each $alignment in $alignments {
+            .#{$property}-#{$alignment}-#{$size} {
+            #{$property}-#{$alignment}: $number;
+            }
+        }
+    }
+}
