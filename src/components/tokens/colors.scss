@@ -1,0 +1,34 @@
+$colors: (
+    // Global colors
+    "aqua": #0FB087,
+    "blue": #4D9BE6,
+    "orange": #B26419,
+    "pink": #F04F78,
+    // Dark mode colors (adjusted to be darker)
+    "dark-aqua": #0A7F63,
+    "dark-blue": #3C7DC6,
+    "dark-orange": #8A4D12,
+    "dark-pink": #C14D6C,
+    // Light mode colors
+    "light": #E3E1DA,
+    "dark": #1C1E25,
+    //Windows 95 Colors
+    "w_blue": #000080,
+    "w_aqua": #008080,
+    "w_light_gray": #fffbf0,
+    "w_gray": #c0c0c0,
+    "w_dark_gray": #808080,
+);
+$properties: (
+    "background": "bg",
+    "color": "text",
+    "border-color": "border",
+);
+
+@each $name, $color in $colors {
+    @each $property, $class in $properties {
+        .#{$class}-#{$name} {
+            #{$property}: $color;
+        }
+    }
+}

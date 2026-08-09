@@ -1,5 +1,6 @@
 import './index.css';
 import './components/tokens/spacing.scss'
+import './components/tokens/colors.scss'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import HomePage from './pages/HomePage.tsx';
