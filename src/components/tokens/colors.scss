@@ -1,3 +1,4 @@
+@use "sass:map";
 $colors: (
     // Global colors
     "aqua": #0FB087,
@@ -35,4 +36,28 @@ $properties: (
             }
         }
     }
+}
+
+/* Light Mode Borders */
+@media (prefers-color-scheme: light) {
+  * {
+    border-color: map.get($map: $colors, $key: "dark"); /* Dark mode border color */
+  }
+  .navbar {
+    background-color: map.get($map: $colors, $key: "light"); /* Light text color */
+    color: map.get($map: $colors, $key: "dark"); /* Dark background */
+  }
+}
+html, body {
+  background-color: map.get($map: $colors, $key: "light");
+  overscroll-behavior: none;
+}
+/* Dark mode styles */
+html.dark body {
+  background-color: map.get($map: $colors, $key: "dark"); /* dark background color */
+  color: map.get($map: $colors, $key: "light"); /* dark text color */
+}
+.navbar {
+  background-color: map.get($map: $colors, $key: "dark");
+  color: map.get($map: $colors, $key: "light");
 }
