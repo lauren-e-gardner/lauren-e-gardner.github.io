@@ -1,0 +1,28 @@
+$sizes: (
+    "xs": 4px,    
+    "sm": 8px,
+    "md": 16px,
+    "lg": 24px,
+    "xl": 32px
+);
+$alignments: top, right, bottom, left;
+$properties: (
+    "margin": "mr",
+    "padding": "pad",
+    "border-radius": "br",
+);
+
+@each $property, $class in $properties {
+    @each $size, $number in $sizes {
+        .#{$class}-#{$size} {
+            #{$property}: $number;
+        }
+        @if $property != "border-radius" {
+            @each $alignment in $alignments {
+                .#{$class}-#{$alignment}-#{$size} {
+                    #{$property}-#{$alignment}: $number;
+                }
+            }
+        }
+    }
+}

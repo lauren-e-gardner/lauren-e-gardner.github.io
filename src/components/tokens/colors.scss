@@ -1,0 +1,63 @@
+@use "sass:map";
+$colors: (
+    // Global colors
+    "aqua": #0FB087,
+    "blue": #4D9BE6,
+    "orange": #B26419,
+    "pink": #F04F78,
+    // Dark mode colors (adjusted to be darker)
+    "dark-aqua": #0A7F63,
+    "dark-blue": #3C7DC6,
+    "dark-orange": #8A4D12,
+    "dark-pink": #C14D6C,
+    // Light mode colors
+    "light": #E3E1DA,
+    "dark": #1C1E25,
+    //Windows 95 Colors
+    "w-blue": #000080,
+    "w-aqua": #008080,
+    "w-light-gray": #fffbf0,
+    "w-gray": #c0c0c0,
+    "w-dark-gray": #808080,
+);
+$properties: (
+    "background": "bg",
+    "color": "text",
+    "border-color": "border",
+);
+
+@each $name, $color in $colors {
+    @each $property, $class in $properties {
+        .#{$class}-#{$name} {
+            #{$property}: $color;
+            @if $property == "border-color" {
+                border-width: 1px;
+                border-style: solid;
+            }
+        }
+    }
+}
+
+/* Light Mode Borders */
+@media (prefers-color-scheme: light) {
+  * {
+    border-color: map.get($map: $colors, $key: "dark"); /* Dark mode border color */
+  }
+  .navbar {
+    background-color: map.get($map: $colors, $key: "light"); /* Light text color */
+    color: map.get($map: $colors, $key: "dark"); /* Dark background */
+  }
+}
+html, body {
+  background-color: map.get($map: $colors, $key: "light");
+  overscroll-behavior: none;
+}
+/* Dark mode styles */
+html.dark body {
+  background-color: map.get($map: $colors, $key: "dark"); /* dark background color */
+  color: map.get($map: $colors, $key: "light"); /* dark text color */
+}
+.navbar {
+  background-color: map.get($map: $colors, $key: "dark");
+  color: map.get($map: $colors, $key: "light");
+}
