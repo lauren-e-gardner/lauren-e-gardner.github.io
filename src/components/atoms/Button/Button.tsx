@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "prim
     return (
         <button
             {...containerStyle}
-            style={{ width: size === "small" ? "fit-content" : "100%" }}
+            style={{ width: size === "small" ? "fit-content" : "100%", cursor: "pointer" }}
             aria-label={accessibilityLabel}
             onClick={disabled ? undefined : onClick}
         >
