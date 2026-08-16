@@ -10,6 +10,7 @@ $properties: (
     "margin": "mr",
     "padding": "pad",
     "border-radius": "br",
+    "gap": "gap"
 );
 
 @each $property, $class in $properties {

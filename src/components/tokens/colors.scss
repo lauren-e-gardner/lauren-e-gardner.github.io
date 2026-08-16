@@ -41,11 +41,11 @@ $properties: (
 /* Light Mode Borders */
 @media (prefers-color-scheme: light) {
   * {
-    border-color: map.get($map: $colors, $key: "dark"); /* Dark mode border color */
+    border-color: map.get($map: $colors, $key: "dark");
   }
   .navbar {
-    background-color: map.get($map: $colors, $key: "light"); /* Light text color */
-    color: map.get($map: $colors, $key: "dark"); /* Dark background */
+    background-color: map.get($map: $colors, $key: "light");
+    color: map.get($map: $colors, $key: "dark"); 
   }
 }
 html, body {
@@ -60,4 +60,10 @@ html.dark body {
 .navbar {
   background-color: map.get($map: $colors, $key: "dark");
   color: map.get($map: $colors, $key: "light");
+}
+
+:root {
+  @each $name, $value in $colors {
+    --color-#{$name}: #{$value};
+  }
 }

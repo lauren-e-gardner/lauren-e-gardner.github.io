@@ -31,6 +31,7 @@ $body-size: (
             .#{$name}-#{$size-name} {
                 font-family: $family;
                 font-size: $size;
+                font-weight: 500;
             }
         }
     } @else if $name == "body" {

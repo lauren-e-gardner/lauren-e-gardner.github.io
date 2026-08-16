@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Hero } from "./components/Hero.tsx";
-import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
-import ExperienceSection from "./components/Experience/ExperienceSection.tsx";
-import { EducationCard } from "./components/Education/EducationCard.tsx";
-import { ContactSection } from "./components/ContactSection.tsx";
-import { projects } from "./components/Projects/Projects.ts";
-import ProjectFadeInDiv from "./components/Projects/ProjectFadeInDiv.tsx";
+import { Divider, Header } from "../components"
+// import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
+// import ExperienceSection from "./components/Experience/ExperienceSection.tsx";
+// import { EducationCard } from "./components/Education/EducationCard.tsx";
+// import { ContactSection } from "./components/ContactSection.tsx";
+// import { projects } from "./components/Projects/Projects.ts";
+// import ProjectFadeInDiv from "./components/Projects/ProjectFadeInDiv.tsx";
 import AppLayout from "../layouts/AppLayout.tsx";
 
 export default function HomePage() {
@@ -53,36 +53,76 @@ export default function HomePage() {
           <div className="circle pink"></div>
           <div className="circle orange"></div>
           
-          <Hero />
+          <Header 
+            type="page"
+            title="Code + Creatives" 
+            description={(
+              <>
+                I'm <strong>Lauren Gardner</strong>, a software developer with
+                experience in frontend design, 3D graphics, and full-stack development. As a{" "}
+                <strong>Princeton University</strong> graduate, I approach programming
+                with creativity—whether it's finding innovative solutions or using code
+                to fuel artistic expression. I currently work with:{" "}
+                <strong>Python</strong>, <strong>JavaScript</strong>,{" "}
+                <strong>TypeScript</strong>, and <strong>ReactJS</strong>
+              </>
+            )} 
+          />
+
+          <Divider />
 
           {/* Sections */}
-          <section id="projects" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
-            <h2 className=" text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Projects</h2>
-            <div className="mx-auto my-0 max-w-[2000px] max-md:p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <section id="projects">
+            <Header 
+              type="section" 
+              title="Projects"
+              description="A selection of my work, showcasing my skills in software development and design."
+            />
+            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {projects.map((project, index) => (
                 <ProjectFadeInDiv key={index} children={project}/>
               ))}
-            </div>
+            </div> */}
           </section>
 
-          <section id="skills" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
-            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Skills</h2>
-            <SkillsSection />
+          <Divider />
+
+          <section id="skills">
+            <Header 
+              type="section" 
+              title="Skills"
+            />
+            {/* <SkillsSection /> */}
           </section>
 
-          <section id="work-experience" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
-            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Experience</h2>
-            <ExperienceSection/>
+          <Divider />
+
+          <section id="work-experience">
+            <Header 
+              type="section" 
+              title="Experience"
+            />
+            {/* <ExperienceSection/> */}
           </section>
 
-          <section id="education" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
-            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Education</h2>
-            <EducationCard isDarkMode={prefersDarkMode} />
+          <Divider />
+
+          <section id="education">
+            <Header 
+              type="section" 
+              title="Education"
+            />
+            {/* <EducationCard isDarkMode={prefersDarkMode} /> */}
           </section>
 
-          <section id="contact" className="mb-10 lg:mb-12 xl:mb-15 2xl:mb-20 px-0 py-10 lg:py-20 xl:py-20 2xl:py-20 border-t border-solid">
-            <h2 className="mb-20 text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-center">Contact Me</h2>
-            <ContactSection />
+          <Divider />
+
+          <section id="contact">
+            <Header 
+              type="section" 
+              title="Contact Me"
+            />
+            {/* <ContactSection /> */}
           </section>
         </main>
       </div>
