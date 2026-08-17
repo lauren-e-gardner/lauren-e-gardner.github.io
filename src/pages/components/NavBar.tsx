@@ -8,7 +8,7 @@ export const NavBar = () => {
     const section = document.getElementById(id);
     setIsMenuOpen(!isMenuOpen)
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: "smooth", block: 'start'  });
     }
   };
   

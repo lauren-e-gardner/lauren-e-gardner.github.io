@@ -3,7 +3,7 @@ import { NavBar } from "../components";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative overflow-hidden">
+    <div >
       <NavBar 
         buttonProps={[
           { children: "projects", onClick: () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }) },
@@ -13,9 +13,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           { children: "contact", onClick: () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }) },
         ]}
       />  
-      <main>
+
         {children} {/* This will be the page-specific content */}
-      </main>
+
     </div>
   );
 };

@@ -6,10 +6,8 @@ import { Divider, Header, Card } from "../components"
 // import { EducationCard } from "./components/Education/EducationCard.tsx";
 // import { ContactSection } from "./components/ContactSection.tsx";
 import { projects } from "./components/Projects/Projects.ts";
-// import ProjectFadeInDiv from "./components/Projects/ProjectFadeInDiv.tsx";
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
-import Icon from "../components/atoms/Icon/Icon.tsx";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -49,9 +47,11 @@ export default function HomePage() {
     }
   }, [prefersDarkMode]);
 
+  const scrollStyle = {scrollMarginTop: "70px"}
+
   return (
     <AppLayout>
-      <div className="relative overflow-hidden">
+      <div className="relative">
         {/* Main Content */}
         <main className="relative z-10 py-20 px-20 sm:px-10 md:px-20 lg:px-30 xl:px-60 mx-auto my-0 max-w-[2000px] max-md:p-2.5">
 
@@ -61,26 +61,28 @@ export default function HomePage() {
           <div className="circle pink"></div>
           <div className="circle orange"></div>
           
-          <Header 
-            type="page"
-            title="Code + Creatives" 
-            description={(
-              <>
-                I'm <strong>Lauren Gardner</strong>, a software developer with
-                experience in frontend design, 3D graphics, and full-stack development. As a{" "}
-                <strong>Princeton University</strong> graduate, I approach programming
-                with creativity—whether it's finding innovative solutions or using code
-                to fuel artistic expression. I currently work with:{" "}
-                <strong>Python</strong>, <strong>JavaScript</strong>,{" "}
-                <strong>TypeScript</strong>, and <strong>ReactJS</strong>
-              </>
-            )} 
-          />
+          <section id="home" style={scrollStyle}>
+            <Header 
+              type="page"
+              title="Code + Creatives" 
+              description={(
+                <>
+                  I'm <strong>Lauren Gardner</strong>, a software developer with
+                  experience in frontend design, 3D graphics, and full-stack development. As a{" "}
+                  <strong>Princeton University</strong> graduate, I approach programming
+                  with creativity—whether it's finding innovative solutions or using code
+                  to fuel artistic expression. I currently work with:{" "}
+                  <strong>Python</strong>, <strong>JavaScript</strong>,{" "}
+                  <strong>TypeScript</strong>, and <strong>ReactJS</strong>
+                </>
+              )} 
+            />
+          </section>
 
           <Divider />
 
           {/* Sections */}
-          <section id="projects">
+          <section id="projects" style={scrollStyle}>
             <div className="gap-md" style={{display: "flex", flexDirection: "column"}}>
               <Header 
                 type="section" 
@@ -115,7 +117,7 @@ export default function HomePage() {
 
           <Divider />
 
-          <section id="skills">
+          <section id="skills" style={scrollStyle}>
             <Header 
               type="section" 
               title="Skills"
@@ -125,7 +127,7 @@ export default function HomePage() {
 
           <Divider />
 
-          <section id="work-experience">
+          <section id="work-experience" style={scrollStyle}>
             <Header 
               type="section" 
               title="Experience"
@@ -135,7 +137,7 @@ export default function HomePage() {
 
           <Divider />
 
-          <section id="education">
+          <section id="education" style={scrollStyle}>
             <Header 
               type="section" 
               title="Education"
@@ -145,7 +147,7 @@ export default function HomePage() {
 
           <Divider />
 
-          <section id="contact">
+          <section id="contact" style={scrollStyle}>
             <Header 
               type="section" 
               title="Contact Me"

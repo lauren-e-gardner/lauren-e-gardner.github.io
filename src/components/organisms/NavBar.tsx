@@ -12,7 +12,7 @@ export const NavBar: React.FC<NavBarProps> = ({ buttonProps }) => {
     const section = document.getElementById(id);
     setIsMenuOpen(!isMenuOpen)
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
   };
   
