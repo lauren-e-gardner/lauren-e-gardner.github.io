@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Button.module.scss'
+import { Icon, IconProps } from '../Icon/Icon';
 
 export interface ButtonProps {
     id?: string;
@@ -9,9 +10,10 @@ export interface ButtonProps {
     children: React.ReactNode | string;
     onClick?: () => void;
     disabled?: boolean;
+    icon?: IconProps;
 }
 
-export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "primary", size = "large", children, onClick, disabled }) => {
+export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "primary", size = "large", children, onClick, disabled, icon }) => {
     const containerStyle = {
         "primary": {
             className: `${styles.button} border-light body-b1 text-light pad-sm br-sm`,
@@ -27,7 +29,10 @@ export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "prim
             aria-label={accessibilityLabel}
             onClick={disabled ? undefined : onClick}
         >
-            {children}
+            <div className="gap-sm" style={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Icon {...icon} size={16} color={"#fff"}/>
+                {children}
+            </div>
         </button>
     )
 }

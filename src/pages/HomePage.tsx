@@ -1,15 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Divider, Header } from "../components"
+import { Divider, Header, Card } from "../components"
 // import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
 // import ExperienceSection from "./components/Experience/ExperienceSection.tsx";
 // import { EducationCard } from "./components/Education/EducationCard.tsx";
 // import { ContactSection } from "./components/ContactSection.tsx";
-// import { projects } from "./components/Projects/Projects.ts";
+import { projects } from "./components/Projects/Projects.ts";
 // import ProjectFadeInDiv from "./components/Projects/ProjectFadeInDiv.tsx";
 import AppLayout from "../layouts/AppLayout.tsx";
+import { useNavigate } from "react-router-dom";
+import Icon from "../components/atoms/Icon/Icon.tsx";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
+  const handleNavigation = (link: string) => {
+    navigate(link);
+  };
+
   // Declare state for prefersDarkMode
   const [prefersDarkMode, setPrefersDarkMode] = useState(false);
 
@@ -73,16 +81,36 @@ export default function HomePage() {
 
           {/* Sections */}
           <section id="projects">
-            <Header 
-              type="section" 
-              title="Projects"
-              description="A selection of my work, showcasing my skills in software development and design."
-            />
-            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {projects.map((project, index) => (
-                <ProjectFadeInDiv key={index} children={project}/>
-              ))}
-            </div> */}
+            <div className="gap-md" style={{display: "flex", flexDirection: "column"}}>
+              <Header 
+                type="section" 
+                title="Projects"
+                description="A selection of my work, showcasing my skills in software development and design."
+              />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-md">
+                {projects.map((project, index) => (
+                  <Card 
+                    title={project.title}
+                    subTitle={project.role}
+                    rightLabel={project.date}
+                    description={project.description}        
+                    frameworks={project.techIcons}
+                    src={project.screenshot}   
+                    demoButton={{
+                      onClick: () => handleNavigation(project?.demoLink),
+                      children: "Demo",
+                    }} 
+                    codeButton={{
+                      onClick: () => handleNavigation(project?.codeLink),
+                      children: "GitHub",
+                      icon: {
+                        name: "github",
+                        size: 20,}
+                    }}        
+                  />
+                ))}
+              </div>
+            </div>
           </section>
 
           <Divider />
