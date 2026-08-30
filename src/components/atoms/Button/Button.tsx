@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Button.module.scss'
 import { Icon, IconProps } from '../Icon/Icon';
+import {colors} from '../../tokens/colors'
 
 export interface ButtonProps {
     id?: string;
@@ -14,12 +15,13 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "primary", size = "large", children, onClick, disabled, icon }) => {
+    const [hovered, setHovered] = useState(false)
     const containerStyle = {
         "primary": {
-            className: `${styles.button} border-light body-b1 text-light pad-sm br-sm`,
+            className: `${styles.button} border-dark body-b1 text-dark pad-sm br-sm`,
         },
         "link": {
-            className: `bg-transparent ${styles.button} body-b1 text-light`,
+            className: `bg-transparent ${styles.button} body-b1 text-dark`,
         }
     }[type]
     return (
@@ -28,9 +30,11 @@ export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "prim
             style={{ width: size === "small" ? "fit-content" : "100%", cursor: "pointer" }}
             aria-label={accessibilityLabel}
             onClick={disabled ? undefined : onClick}
+            onMouseEnter={() => {setHovered(true)}}
+            onMouseLeave={() => {setHovered(false)}}
         >
             <div className="gap-sm" style={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <Icon {...icon} size={16} color={"#fff"}/>
+                <Icon {...icon} size={16} color={hovered ? colors.pink : colors.dark}/>
                 {children}
             </div>
         </button>

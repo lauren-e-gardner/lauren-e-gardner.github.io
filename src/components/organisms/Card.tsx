@@ -17,7 +17,7 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, rightLabel, description, frameworks, src, demoButton, codeButton }) => {
   const containerStyle = {
     "project": {
-      className: "border-light pad-md br-md gap-md",
+      className: "border-dark pad-md br-md gap-md",
     }
   }[type]
   return (
