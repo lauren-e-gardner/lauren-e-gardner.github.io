@@ -3,7 +3,7 @@ import { NavBar } from "../components";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div >
+    <div style={{ overflowX: "hidden"}}>
       <NavBar 
         buttonProps={[
           { children: "projects", onClick: () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }) },

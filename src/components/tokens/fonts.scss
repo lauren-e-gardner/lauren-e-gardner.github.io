@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Space';
-  src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-family: 'MyHand';
+  src: url('/fonts/MyHand-Regular.otf') format('opentype');
   font-weight: 900;
 }
 
@@ -11,18 +11,20 @@
 }
 
 $typography: (
-    "headline": "Space",
+    "headline": "MyHand",
     "body": "Roboto",
 );
 $headline-size: (
-    "h1": 32px,
-    "h2": 24px,
-    "h3": 18px,
+    "h1": 72px,
+    "h2": 56px,
+    "h3": 40px,
+    "h4": 36px,
 );
 $body-size: (
     "b1": 16px,
     "b2": 14px,
     "b3": 12px,
+    "b4": 10px,
 );
 
 @each $name, $family in $typography {

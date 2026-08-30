@@ -67,13 +67,13 @@ export default function HomePage() {
               title="Code + Creatives" 
               description={(
                 <>
-                  I'm <strong>Lauren Gardner</strong>, a software developer with
+                  I'm Lauren Gardner, a software developer with
                   experience in frontend design, 3D graphics, and full-stack development. As a{" "}
-                  <strong>Princeton University</strong> graduate, I approach programming
+                  Princeton University graduate, I approach programming
                   with creativity—whether it's finding innovative solutions or using code
                   to fuel artistic expression. I currently work with:{" "}
-                  <strong>Python</strong>, <strong>JavaScript</strong>,{" "}
-                  <strong>TypeScript</strong>, and <strong>ReactJS</strong>
+                  Python, JavaScript,{" "}
+                  TypeScript, and ReactJS
                 </>
               )} 
             />
@@ -89,7 +89,7 @@ export default function HomePage() {
                 title="Projects"
                 description="A selection of my work, showcasing my skills in software development and design."
               />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-md">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-md">
                 {projects.map((project, index) => (
                   <Card 
                     title={project.title}

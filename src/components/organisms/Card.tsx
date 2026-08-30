@@ -24,32 +24,44 @@ export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, r
     <div {...containerStyle} style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
       <div className="gap-md" style={{ display: "flex", flexDirection: "column"}}>
         <div style={{ display: "flex", flexDirection: "column"}}>
-          {(title || rightLabel) && <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            {title && <Text className="headline-h2">{title}</Text>}
-            {rightLabel && <Text className="body-b1">{rightLabel}</Text>}
-          </div>}
+          {title && <Text className="headline-h3">{title}</Text>}
+          {rightLabel && <Text className="body-b3">{<strong className="body-b3">{rightLabel}</strong>}</Text>}
           {subTitle && <Text className="body-b3">{subTitle}</Text>}
         </div>
         {frameworks && (
           <div className="gap-sm" style={{ display: "flex" }}>
             {frameworks.map((framework, index) => (
-              <img key={index} src={framework} alt={`Framework ${index + 1}`} className="h-[20px] lg:h-[34px] xl:h-[34px] 2xl:h-[50px]" />
+              <img 
+                key={index} 
+                src={framework} 
+                alt={`Framework ${index + 1}`} 
+                style={{
+                  height: '18px',
+                  width: '18px',
+                }}
+              />
             ))}
           </div>
         )}
         {src && ( 
           <div 
             className="br-sm"
-            style={{ aspectRatio: "16/9", display: "flex", justifyContent: "center", alignItems: "center", overflow: "hidden" }}
+            style={{ 
+              aspectRatio: "16/9", 
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center", 
+              overflow: "hidden" 
+            }}
           >
             <img
               src={src}
               alt={`${title} Screenshot`}
-              className="object-cover w-full h-full"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
         )}
-        {description && <Text className="body-b2">{description}</Text>}
+        {description && <Text className="body-b3">{description}</Text>}
       </div>
       
       {(demoButton || codeButton) && (
