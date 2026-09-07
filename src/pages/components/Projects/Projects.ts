@@ -12,6 +12,11 @@ export const projects: Project[] = [
     ],
     description:
       "This 3D game uses procedural generation to create unique environments and objects in real-time, without relying on imported mesh files. Each play through offers a completely different experience, with dynamic visuals generated as you play.",
+    skills: [
+      "Video Game Development",
+      "3D Graphics",
+      "Procedural Generation",
+    ],
     demoLink: "/spaceotterssey",
     githubLink: "https://github.com/lauren-e-gardner/Space-Otterssey-Thesis",
     screenshot:
@@ -28,27 +33,13 @@ export const projects: Project[] = [
     ],
     description:
       "A design project inspired by Windows operating system versions and the nostalgic feeling they have. Custom-coded tools, including an image pixelizer, and a dithering program that can create new colors with a limited palette.",
+    skills: [ 
+      "Image Processing",
+    ],
     demoLink: "/nostalgia",
     githubLink: "https://github.com/lauren-e-gardner/Image_Processor",
     screenshot:
       "/images/Pixel.png"
-  },
-  {
-    title: "SkillsHub",
-    date: "Nov. 2024 - Jan. 2025",
-    role: "Full Stack Dev.",
-    techIcons: [
-      "/Logos/Django.png",
-      "/Logos/React.png",
-      "/Logos/Python.png",
-      "/Logos/JavaScript.png",
-    ],
-    description:
-      "A job board platform developed in my free time for Planet Networks to track employee skills and positions. Video-game inspired design to encourage personal growth and engagement.",
-    demoLink: "/skillshub",
-    githubLink: "#",
-    screenshot:
-      "/skillshub_home.png",
   },
   {
     title: "Fabric Simulator",
@@ -60,6 +51,10 @@ export const projects: Project[] = [
     ],
     description:
       "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
+    skills: [ 
+      "3D Graphics",
+      "Procedural Generation",
+    ],
     demoLink: "#",
     githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
     screenshot:

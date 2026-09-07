@@ -28,6 +28,7 @@ export interface Project {
     date: string;
     role: string;
     description: string;
+    skills: string[];
     techIcons: string[];
     demoLink?: string;
     githubLink?: string;

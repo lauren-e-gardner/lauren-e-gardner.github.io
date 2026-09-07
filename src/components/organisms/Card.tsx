@@ -8,13 +8,14 @@ interface CardProps {
     subTitle?: string;
     rightLabel?: string;
     description?: string;
+    skills?: string[];
     frameworks?: string[];
     src?: string;
     demoButton?: ButtonProps;
     codeButton?: ButtonProps;
 }
 
-export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, rightLabel, description, frameworks, src, demoButton, codeButton }) => {
+export const Card: React.FC<CardProps> = ({ type = "project", title, rightLabel, skills, frameworks, src, demoButton, codeButton }) => {
   const containerStyle = {
     "project": {
       className: "border-dark pad-md br-md gap-md",
@@ -25,8 +26,7 @@ export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, r
       <div className="gap-md" style={{ display: "flex", flexDirection: "column"}}>
         <div style={{ display: "flex", flexDirection: "column"}}>
           {title && <Text className="headline-h3">{title}</Text>}
-          {rightLabel && <Text className="body-b3">{<strong className="body-b3">{rightLabel}</strong>}</Text>}
-          {subTitle && <Text className="body-b3">{subTitle}</Text>}
+          {rightLabel && <Text className="body-b3">{rightLabel}</Text>}
         </div>
         {frameworks && (
           <div className="gap-sm" style={{ display: "flex" }}>
@@ -37,7 +37,6 @@ export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, r
                 alt={`Framework ${index + 1}`} 
                 style={{
                   height: '18px',
-                  width: '18px',
                 }}
               />
             ))}
@@ -61,7 +60,11 @@ export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, r
             />
           </div>
         )}
-        {description && <Text className="body-b3">{description}</Text>}
+        {skills && <ul className="mr-left-md" style={{listStyleType: "disc"}}>
+            {skills.map((skill) => (
+              <li className="body-b2">{skill}</li>
+            ))}
+          </ul>}
       </div>
       
       {(demoButton || codeButton) && (

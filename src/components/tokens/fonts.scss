@@ -19,6 +19,8 @@ $headline-size: (
     "h2": 56px,
     "h3": 40px,
     "h4": 36px,
+    "h5": 28px,
+    "h6": 24px,
 );
 $body-size: (
     "b1": 16px,
@@ -34,6 +36,7 @@ $body-size: (
                 font-family: $family;
                 font-size: $size;
                 font-weight: 500;
+                line-height: 100%;
             }
         }
     } @else if $name == "body" {

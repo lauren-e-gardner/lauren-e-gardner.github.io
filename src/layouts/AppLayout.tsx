@@ -1,5 +1,5 @@
-// import { NavBar } from "../pages/components/NavBar";
 import { NavBar } from "../components";
+import { useDeviceType } from "../hooks/useDeviceType";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Divider, Header, Card } from "../components"
+import { Divider, Header, Card, Container, ProgressBar } from "../components"
 // import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
 // import ExperienceSection from "./components/Experience/ExperienceSection.tsx";
 // import { EducationCard } from "./components/Education/EducationCard.tsx";
@@ -51,16 +51,13 @@ export default function HomePage() {
 
   return (
     <AppLayout>
-      <div className="relative">
-        {/* Main Content */}
-        <main className="relative z-10 py-20 px-20 sm:px-10 md:px-20 lg:px-30 xl:px-60 mx-auto my-0 max-w-[2000px] max-md:p-2.5">
-
-          {/* Circles */}
-          <div className="circle aqua"></div>
-          <div className="circle blue"></div>
-          <div className="circle pink"></div>
-          <div className="circle orange"></div>
-          
+      <div className="relative" style={{display: "flex", alignContent: "center", justifyContent: "center", position: "relative"}}>
+        <div className="circle aqua"></div>
+        <div className="circle blue"></div>
+        <div className="circle pink"></div>
+        <div className="circle orange"></div>
+        <Container className={"pad-top-4xl"}>   
+          {/* <ProgressBar /> */}
           <section id="home" style={scrollStyle}>
             <Header 
               type="page"
@@ -89,13 +86,14 @@ export default function HomePage() {
                 title="Projects"
                 description="A selection of my work, showcasing my skills in software development and design."
               />
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-md">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-md">
                 {projects.map((project, index) => (
                   <Card 
                     title={project.title}
                     subTitle={project.role}
                     rightLabel={project.date}
-                    description={project.description}        
+                    description={project.description}      
+                    skills={project.skills}  
                     frameworks={project.techIcons}
                     src={project.screenshot}   
                     demoButton={{
@@ -154,7 +152,7 @@ export default function HomePage() {
             />
             {/* <ContactSection /> */}
           </section>
-        </main>
+        </Container>
       </div>
     </AppLayout>
   );

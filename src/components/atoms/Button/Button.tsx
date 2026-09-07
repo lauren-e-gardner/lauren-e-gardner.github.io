@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Button.module.scss'
 import { Icon, IconProps } from '../Icon/Icon';
+import { Text } from '../Text'
 import {colors} from '../../tokens/colors'
 
 export interface ButtonProps {
@@ -19,9 +20,11 @@ export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "prim
     const containerStyle = {
         "primary": {
             className: `${styles.button} border-dark body-b1 text-dark pad-sm br-sm`,
+            textClass: "headline-h6"
         },
         "link": {
             className: `bg-transparent ${styles.button} body-b1 text-dark`,
+            textClass: "headline-h5"
         }
     }[type]
     return (
@@ -35,7 +38,7 @@ export const Button: React.FC<ButtonProps> = ({ accessibilityLabel, type = "prim
         >
             <div className="gap-sm" style={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <Icon {...icon} size={16} color={hovered ? colors.pink : colors.dark}/>
-                {children}
+                <Text className={containerStyle.textClass}>{children}</Text>
             </div>
         </button>
     )
