@@ -1,13 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Divider, Header, Card, Container, ProgressBar } from "../components"
-// import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
-// import ExperienceSection from "./components/Experience/ExperienceSection.tsx";
-// import { EducationCard } from "./components/Education/EducationCard.tsx";
-// import { ContactSection } from "./components/ContactSection.tsx";
-import { projects } from "./components/Projects/Projects.ts";
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
+import { skills, projects } from "../configs"
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -121,6 +117,15 @@ export default function HomePage() {
               title="Skills"
             />
             {/* <SkillsSection /> */}
+            <div className="flex-container">
+              {skills.map((skill) => {
+                return ((
+                  <div className="flex-4-item align-center justify-center">
+                    <ProgressBar label={skill.name} percentage={skill.progress} icon={skill.icon} showBg={skill?.showBg}/>
+                  </div>
+                ))
+              })}
+            </div>
           </section>
 
           <Divider />

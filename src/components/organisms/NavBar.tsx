@@ -35,45 +35,7 @@ export const NavBar: React.FC<NavBarProps> = ({ buttonProps }) => {
                 <Button {...props} key={index} type="link"/>
             )
         })}
-    
 
-      {/* Mobile Navbar (visible on small screens) */}
-      <div
-        className={`${
-          isMenuOpen ? "block" : "hidden"
-        } navbar absolute top-0 left-0 right-0 shadow-md z-40 flex flex-col items-center gap-5 py-5 md:hidden`}
-      >
-        <button
-          onClick={() => handleScroll("projects")}
-          className="cursor-pointer hover:text-[#F04F78] transition-colors duration-300"
-        >
-          Projects
-        </button>
-        <button
-          onClick={() => handleScroll("skills")}
-          className="cursor-pointer hover:text-[#F04F78] transition-colors duration-300"
-        >
-          Skills
-        </button>
-        <button
-          onClick={() => handleScroll("work-experience")}
-          className="cursor-pointer hover:text-[#F04F78] transition-colors duration-300"
-        >
-          Work Experience
-        </button>
-        <button
-          onClick={() => handleScroll("education")}
-          className="cursor-pointer hover:text-[#F04F78] transition-colors duration-300"
-        >
-          Education
-        </button>
-        <button
-          onClick={() => handleScroll("contact")}
-          className="cursor-pointer hover:text-[#F04F78] transition-colors duration-300"
-        >
-          Contact Me
-        </button>
-      </div>
     </nav>
   );
 };

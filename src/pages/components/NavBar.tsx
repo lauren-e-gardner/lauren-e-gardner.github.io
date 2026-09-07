@@ -58,7 +58,7 @@ export const NavBar = () => {
       </button>
 
       {/* Mobile Navbar (visible on small screens) */}
-      <div
+      {/* <div
         className={`${
           isMenuOpen ? "block" : "hidden"
         } navbar absolute top-0 left-0 right-0 shadow-md z-40 flex flex-col items-center gap-5 py-5 md:hidden`}
@@ -93,7 +93,7 @@ export const NavBar = () => {
         >
           Contact Me
         </button>
-      </div>
+      </div> */}
     </nav>
   );
 };
