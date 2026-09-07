@@ -90,22 +90,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
             </div>
             {label && <Text className="body-b1">{label}</Text>}
         </div>
-        
-        // <div className="gap-sm" style={{display: "flex", flexDirection: "row", width: "100%", flex: 1, alignItems: "center"}}>
-        //     <div
-        //         className="border-dark br-lg"
-        //         style={{ display: "flex", width: "100%", flex: 1}}
-        //     >
-        //         <div
-        //             className="pad-left-sm row align-center gap-sm bg-dark br-lg"
-        //             style={{ width: `${percentage}%` }}
-        //         >
-        //             {icon && <img src={icon} style={{ height: '16px' }}/>}
-        //             {label && <Text className="headline-h5 text-light">{label}</Text>}
-        //         </div>
-        //     </div>
-        //     {percentage && <Text className="body-b2">{percentage + "%"}</Text>}
-        // </div>
     )
 }
 
