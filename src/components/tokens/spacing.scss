@@ -45,7 +45,7 @@ $properties: (
     flex-direction: column;
 }
 
-$alignments: center, flex-start, flex-end;
+$alignments: center, flex-start, flex-end, space-between;
 $properties: (
     "align-items": "align",
     "justify-content": "justify",
@@ -53,9 +53,11 @@ $properties: (
 
 @each $property, $class in $properties {
     @each $alignment in $alignments {
-        .#{$class}-#{$alignment} {
-            display: flex;
-            #{$property}: $alignment;
+        @if $property != align-items and $alignment != space-between {
+            .#{$class}-#{$alignment} {
+                display: flex;
+                #{$property}: $alignment;
+            }
         }
     }
 }

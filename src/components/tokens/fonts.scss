@@ -10,9 +10,16 @@
   font-weight: 300; 
 }
 
+@font-face {
+  font-family: 'RobotoMedium';
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500; 
+}
+
 $typography: (
     "headline": "MyHand",
     "body": "Roboto",
+    "bodyMedium": "RobotoMedium",
 );
 $headline-size: (
     "h1": 72px,

@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Divider, Header, Card, Container, ProgressBar } from "../components"
+import { Divider, Header, Card, Container, ProgressBar, Text } from "../components"
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
-import { skills, projects } from "../configs"
+import { skills, projects, education } from "../configs"
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -140,12 +140,44 @@ export default function HomePage() {
 
           <Divider />
 
-          <section id="education" style={scrollStyle}>
+          <section id="education" className="col align-center justify-center gap-sm" style={scrollStyle}>
             <Header 
               type="section" 
               title="Education"
             />
             {/* <EducationCard isDarkMode={prefersDarkMode} /> */}
+            {education.map((edu) => {
+              return (
+                <Card 
+                  type="education"
+                  title={edu.degree}
+                  subTitle={edu.school}
+                  rightLabel={edu.year}
+                  description={edu.gpa}
+                  skills={edu.points}
+                  src={edu.logo}
+                />
+                // <div className="col br-lg border-dark pad-lg align-center" style={{width: 500, alignSelf: "center"}}>
+                //   <div className="row gap-2xl justify-between">
+                //     <img src={edu.logo} style={{ height: '120px' }}/>
+                //     <div className="col gap-sm" style={{textAlign: "right"}}>
+                //       <Text className="bodyMedium-b1">{edu.degree}</Text>
+                //       <Text className="body-b1">{edu.school}</Text>
+                //       <Text className="body-b1">{edu.year}</Text>
+                //       <Text className="body-b1">{edu.gpa}</Text>
+                //     </div>
+                //   </div>
+                //   <Divider />
+                //   <div>
+                //     <ul className="mr-left-md" style={{listStyleType: "disc"}}>
+                //       {edu?.points?.map((point) => {
+                //         return <li className="body-b2">{point}</li>
+                //       })}
+                //     </ul>
+                //   </div>
+                // </div>
+              )
+            })}
           </section>
 
           <Divider />
