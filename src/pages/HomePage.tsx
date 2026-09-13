@@ -4,9 +4,12 @@ import { Divider, Header, Card, Container, ProgressBar, Text, Carousel } from ".
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
 import { skills, projects, education } from "../configs"
+import { useDeviceType } from "../hooks/useDeviceType.tsx";
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const deviceType = useDeviceType()
+  const isMobile = deviceType === "mobile"
 
   const handleNavigation = (link: string) => {
     navigate(link);
@@ -55,21 +58,31 @@ export default function HomePage() {
         <Container className={"pad-top-4xl"}>   
           {/* <ProgressBar /> */}
           <section id="home" style={scrollStyle}>
-            <Header 
-              type="page"
-              title="Code + Creatives" 
-              description={(
-                <>
-                  I'm Lauren Gardner, a software developer with
-                  experience in frontend design, 3D graphics, and full-stack development. As a{" "}
-                  Princeton University graduate, I approach programming
-                  with creativity—whether it's finding innovative solutions or using code
-                  to fuel artistic expression. I currently work with:{" "}
-                  Python, JavaScript,{" "}
-                  TypeScript, and ReactJS
-                </>
-              )} 
-            />
+            <div className={`flex ${isMobile ? "col gap-lg pad-top-xl" : "row gap-4xl"} justify-center align-center`} style={{minHeight: "70vh"}}>
+              <img
+                src="/LinkedIn1.png"
+                alt="Profile"
+                className="br-xl"
+                style={{ height: 250, width: 250, minHeight: 250, minWidth: 250, objectFit: "cover" }}
+              />
+              <div style={{alignSelf: "center", textAlign: "right"}}>
+                <Header 
+                  type="page"
+                  title="Hi, I am Lauren Gardner!" 
+                  description={(
+                    <>
+                      I'm Lauren Gardner, a software developer with
+                      experience in frontend design, 3D graphics, and full-stack development. As a{" "}
+                      Princeton University graduate, I approach programming
+                      with creativity—whether it's finding innovative solutions or using code
+                      to fuel artistic expression. I currently work with:{" "}
+                      Python, JavaScript,{" "}
+                      TypeScript, and ReactJS
+                    </>
+                  )} 
+                />
+              </div>
+            </div>
           </section>
 
           <Divider />

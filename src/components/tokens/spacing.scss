@@ -53,7 +53,7 @@ $properties: (
 
 @each $property, $class in $properties {
     @each $alignment in $alignments {
-        @if $property != align-items and $alignment != space-between {
+        @if not ($property == align-items and $alignment == space-between) {
             .#{$class}-#{$alignment} {
                 display: flex;
                 #{$property}: $alignment;

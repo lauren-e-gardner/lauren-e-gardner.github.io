@@ -1,5 +1,6 @@
 import React from "react";
 import { Text } from "../atoms/Text";
+import { useDeviceType } from "../../hooks/useDeviceType";
 
 interface HeaderProps {
     type?: 'page' | 'section';
@@ -8,13 +9,15 @@ interface HeaderProps {
 }
 
 export const Header = ({ type = 'page',title, description }: HeaderProps) => {
+    const deviceType = useDeviceType()
+    const isMobile = deviceType === "mobile"
     const titleClass = {
-        "page": "headline-h1",
-        "section": "headline-h2"
+        "page": isMobile ? "headline-h3" : "headline-h1",
+        "section": isMobile ? "headline-h4" : "headline-h2"
     }[type]
     const descriptionClass = {
-        "page": "body-b1",
-        "section": "body-b2"
+        "page": isMobile ? "body-b2" : "body-b1",
+        "section": isMobile ? "body-b3" : "body-b2"
     }[type]
     return (
         <div>
