@@ -37,6 +37,7 @@ export const skills: Skill[] = [
         name: "ThreeJS",
         icon: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
         progress: 75,
+        showBg: true,
     },
     {   
         name: "Java",

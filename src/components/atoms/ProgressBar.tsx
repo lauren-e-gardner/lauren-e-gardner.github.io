@@ -16,11 +16,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     showBg = false,
 }) => {
     const size = 160
-    const strokeWidth = 12
+    const strokeWidth = 16
     const center = size / 2;
     const radius = center - strokeWidth;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (percentage / 100) * circumference;
+    const strokeDashoffset = (circumference - (percentage / 100) * circumference) + strokeWidth;
 
     const [animatedOffset, setAnimatedOffset] = useState(circumference);
 
@@ -36,14 +36,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
    
     return (
-        <div className="col align-center">
+        <div className="col align-center" style={{textAlign: "center"}}>
             <div style={{ position: 'relative', width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
                     {/* Track background circle */}
                     <circle
                         cx={center}
                         cy={center}
-                        r={radius + 5.25}
+                        r={radius + 8.25}
                         stroke={colors.dark}
                         strokeWidth={1}
                         fill="none"
@@ -51,7 +51,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                     <circle
                         cx={center}
                         cy={center}
-                        r={radius - 5.25}
+                        r={radius - 8.25}
                         stroke={colors.dark}
                         strokeWidth={1}
                         fill="none"
@@ -61,7 +61,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                         cx={center}
                         cy={center}
                         r={radius}
-                        stroke={colors['dark-aqua']}
+                        stroke={colors['aqua']}
                         strokeWidth={strokeWidth}
                         strokeDasharray={circumference}
                         // 3. Use the animated state variable here instead of the raw calculation
@@ -88,7 +88,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                     { !showBg && <img src={icon} style={{ height: '64px' }}/>}
                 </div>
             </div>
-            {label && <Text className="body-b1">{label}</Text>}
+            {label && <Text className="bodyMedium-b1">{label}</Text>}
         </div>
     )
 }

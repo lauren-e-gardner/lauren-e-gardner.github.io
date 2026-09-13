@@ -2,6 +2,7 @@ import React from 'react'
 import { Text } from '../atoms/Text';
 import { Button, ButtonProps } from '../atoms/Button/Button';
 import { Divider } from '../atoms/Divider';
+import { useDeviceType } from '../../hooks/useDeviceType';
 
 interface CardProps {
     type?: "project" | "education";
@@ -14,6 +15,7 @@ interface CardProps {
     src?: string; // url for logo
     demoButton?: ButtonProps;
     codeButton?: ButtonProps;
+    onClick?: () => void;
 }
 
 const ProjectCard: React.FC<CardProps> = ({ title, rightLabel, skills, frameworks, src, demoButton, codeButton }) => {
@@ -97,15 +99,17 @@ const EducationCard: React.FC<CardProps> = ({ title, subTitle, description, righ
   )
 }
 
-export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, rightLabel, skills, frameworks, src, demoButton, codeButton, description }) => {
+export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, rightLabel, skills, frameworks, src, demoButton, codeButton, description, onClick }) => {
+  const deviceType = useDeviceType()
+  const isMobile = deviceType === "mobile"
   const containerStyle = {
     "project": {
-      className: "col justify-between border-dark pad-md br-md gap-md",
+      className: "col justify-between border-dark pad-md br-md gap-md shadow-dark",
       style: { height: "100%" }
     },
     "education": {
-      className: "col br-lg border-dark pad-lg align-center",
-      style: {width: 500, alignSelf: "center"}
+      className: "col br-lg border-dark pad-lg align-center shadow-dark",
+      style: {width: isMobile ? "100%" : 500, alignSelf: "center"}
     }
   }[type]
 
@@ -115,7 +119,12 @@ export const Card: React.FC<CardProps> = ({ type = "project", title, subTitle, r
   }[type]
 
   return (
-    <div {...containerStyle}>
+    <div
+      {...containerStyle}
+      className={`${containerStyle.className} transition-transform duration-200 ${onClick && 'hover:scale-101'}`}
+      onClick={onClick}
+      style={{ ...containerStyle.style }}
+    >
       {content}
     </div>
   )
