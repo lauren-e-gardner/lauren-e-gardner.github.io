@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Divider, Header, Card, Container, ProgressBar, Text, Carousel } from "../components"
+import { Divider, Header, Card, Container, ProgressBar, Text, Carousel, FadeInSection } from "../components"
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
 import { skills, projects, education } from "../configs"
@@ -50,14 +50,14 @@ export default function HomePage() {
 
   return (
     <AppLayout>
-      <div className="relative" style={{display: "flex", alignContent: "center", justifyContent: "center", position: "relative"}}>
+      <div className="relative" style={{display: "flex", alignContent: "center", justifyContent: "center", position: "relative", overflow: "clip"}}>
         <div className="circle aqua"></div>
         <div className="circle blue"></div>
         <div className="circle pink"></div>
         <div className="circle orange"></div>
         <Container className={"pad-top-4xl"}>   
           {/* <ProgressBar /> */}
-          <section id="home" style={scrollStyle}>
+          <FadeInSection id="home" style={scrollStyle}>
             <div className={`flex ${isMobile ? "col gap-lg pad-top-xl" : "row gap-4xl"} justify-center align-center`} style={{minHeight: "70vh"}}>
               <img
                 src="/LinkedIn1.png"
@@ -68,7 +68,7 @@ export default function HomePage() {
               <div style={{alignSelf: "center", textAlign: "right"}}>
                 <Header 
                   type="page"
-                  title="Hi, I am Lauren Gardner!" 
+                  title={`Hi, I'm Lauren Gardner!`}
                   description={(
                     <>
                       I'm Lauren Gardner, a software developer with
@@ -83,12 +83,12 @@ export default function HomePage() {
                 />
               </div>
             </div>
-          </section>
+          </FadeInSection>
 
           <Divider />
 
           {/* Sections */}
-          <section id="projects" style={scrollStyle}>
+          <FadeInSection id="projects" style={scrollStyle}>
             <div className="gap-md" style={{display: "flex", flexDirection: "column"}}>
               <Header 
                 type="section" 
@@ -121,11 +121,11 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </section>
+          </FadeInSection>
 
           <Divider />
 
-          <section id="skills" style={scrollStyle}>
+          <FadeInSection id="skills" style={scrollStyle}>
             <Header 
               type="section" 
               title="Skills"
@@ -151,21 +151,21 @@ export default function HomePage() {
                 ))
               })}
             </div> */}
-          </section>
+          </FadeInSection>
 
           <Divider />
 
-          <section id="work-experience" style={scrollStyle}>
+          <FadeInSection id="work-experience" style={scrollStyle}>
             <Header 
               type="section" 
               title="Experience"
             />
             {/* <ExperienceSection/> */}
-          </section>
+          </FadeInSection>
 
           <Divider />
 
-          <section id="education" className="col align-center justify-center gap-sm" style={scrollStyle}>
+          <FadeInSection id="education" className="col align-center justify-center gap-sm" style={scrollStyle}>
             <Header 
               type="section" 
               title="Education"
@@ -183,17 +183,17 @@ export default function HomePage() {
                 />
               )
             })}
-          </section>
+          </FadeInSection>
 
           <Divider />
 
-          <section id="contact" style={scrollStyle}>
+          <FadeInSection id="contact" style={scrollStyle}>
             <Header 
               type="section" 
               title="Contact Me"
             />
             {/* <ContactSection /> */}
-          </section>
+          </FadeInSection>
         </Container>
       </div>
     </AppLayout>

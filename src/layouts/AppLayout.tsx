@@ -3,7 +3,7 @@ import { useDeviceType } from "../hooks/useDeviceType";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div style={{ overflowX: "hidden"}}>
+    <div style={{ overflowX: "clip"}}>
       <NavBar 
         buttonProps={[
           { children: "projects", onClick: () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }) },
