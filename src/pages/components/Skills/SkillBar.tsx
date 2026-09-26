@@ -1,32 +1,66 @@
+import { CRAYON_FILTER, crayon } from "../../../components/tokens/crayon";
+
 interface SkillBarProps {
   name: string;
   icon: string;
   percentage: number;
+  color: string;
 }
 
-export const SkillBar = ({ name, icon, percentage }: SkillBarProps) => {
+/**
+ * One full-width skill row: icon on a washed crayon blob, name in MyHand, a
+ * hatched crayon fill inside a dashed track, and the percentage in mono.
+ */
+export const SkillBar = ({ name, icon, percentage, color }: SkillBarProps) => {
   return (
-    <div className="flex items-center gap-5">
-      {/* Left-aligned container for the icon and name */}
-      <div className="flex items-center gap-2.5 w-[100px] md:w-[150px] lg:w-[200px] xl:w-[200px] 2xl:w-[250px]">
-        <div className="flex justify-center w-10 md:w-15 lg:w-20 xl:w-30 2xl:w-40">
-          <img src={icon} alt={name} className="h-6 md:h-6 lg:h-8 xl:h-12 2xl:h-14" />
-        </div>
-        <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">{name}</p>
-      </div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "48px minmax(110px,170px) minmax(0,1fr) 48px",
+        gap: 16,
+        alignItems: "center",
+      }}
+    >
+      <span style={{ position: "relative", width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: color,
+            opacity: 0.35,
+            borderRadius: "46% 54% 50% 50% / 55% 45% 55% 45%",
+            filter: CRAYON_FILTER,
+          }}
+        />
+        <img src={icon} alt="" style={{ position: "relative", width: 28, height: 28, objectFit: "contain" }} />
+      </span>
 
-      {/* Progress bar */}
-      <div className="flex-1 rounded-xl border border-1 h-[17px]">
+      <span className="crayon-hand" style={{ fontSize: 28, lineHeight: 1 }}>{name}</span>
+
+      <div style={{ position: "relative", height: 28 }}>
         <div
-          className="h-full rounded-xl bg-[#1C1E25] dark:bg-[#E3E1DA]"
-          style={{ width: `${percentage}%` }}
+          aria-hidden
+          style={{ position: "absolute", inset: 0, border: `2px dashed ${crayon.ink}`, borderRadius: 12, opacity: 0.45 }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 2,
+            top: 2,
+            bottom: 2,
+            width: `calc(${percentage}% - 4px)`,
+            background: `repeating-linear-gradient(-58deg, ${color} 0 5px, transparent 5px 7px), ${color}80`,
+            borderRadius: "10px 14px 9px 12px",
+            filter: CRAYON_FILTER,
+          }}
         />
       </div>
 
-      {/* Percentage text */}
-      <p className="text-xs sm:text-sm md:text-md lg:text-lg font-bold w-[50px] text-[#1C1E25] dark:text-[#E3E1DA]">
+      <span style={{ fontFamily: "'Space Mono', ui-monospace, monospace", fontSize: 13, textAlign: "right" }}>
         {percentage}%
-      </p>
+      </span>
     </div>
   );
 };

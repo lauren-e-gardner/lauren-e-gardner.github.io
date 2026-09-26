@@ -1,43 +1,51 @@
-import { Experience } from "../types";
-import { useNavigate } from "react-router-dom";
+import { crayon } from "../../../components/tokens/crayon";
+import { CrayonBorder, CrayonMark } from "../../../components/atoms/Crayon";
+import type { Experience } from "../types";
 
 interface ExperienceCardProps {
   experience: Experience;
+  /** Crayon blob behind the company name. */
+  color: string;
 }
 
-export const ExperienceCard = ({ experience }: ExperienceCardProps) => {
-  const navigate = useNavigate();
-  const handleNavigation = (link: string) => {
-    navigate(link);
-  };
-  const isLinkDisabled = (link: string) => link === '#';
-
+/** A job: date + company on the left, the role card spanning the rest. */
+export const ExperienceCard = ({ experience, color }: ExperienceCardProps) => {
   return (
-    <article className="p-5 mb-10 rounded-3xl border border-solid max-md:p-2.5">
-      <div className="p-5">
-    
-      <div className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-2xl flex w-full gap-5 ">
-      <h3 className="w-3/4 text-lg xl:text-xl 2xl:text-3xl font-bold">{experience.title}</h3>
-
-        {experience.demo && (
-          <button
-            onClick={() => experience.demo && handleNavigation(experience.demo)}
-            className={`w-1/4 flex justify-center gap-2.5 px-8 py-2.5 transition-all duration-300 hover:text-[#F04F78] rounded-md border cursor-pointer ${isLinkDisabled(experience.demo) ? 'bg-gray-400 opacity-20 text-black hover:text-black' : ''}`}
-            disabled={isLinkDisabled(experience.demo)}
-          >
-            Demo
-          </button>
-        )}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
+        gap: "12px 40px",
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <span className="crayon-meta" style={{ fontSize: 13 }}>{experience.date}</span>
+        <CrayonMark
+          className="crayon-hand"
+          color={color}
+          radius="14px"
+          style={{ alignSelf: "flex-start", fontSize: 30, lineHeight: 1.05, padding: "2px 6px" }}
+          markStyle={{ opacity: 0.9 }}
+        >
+          {experience.company}
+        </CrayonMark>
       </div>
-        <div className="flex justify-between items-center">
-          <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">{experience.company}</p>
-          <span className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">{experience.date}</span>
+
+      <div
+        style={{
+          gridColumn: "span 2",
+          minWidth: 0,
+          position: "relative",
+          padding: "22px 24px",
+          background: crayon.paper,
+        }}
+      >
+        <CrayonBorder />
+        <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 10 }}>
+          <h3 style={{ fontSize: 22, fontWeight: 700 }}>{experience.title}</h3>
+          <p style={{ fontSize: 15.5, lineHeight: 1.6 }}>{experience.description}</p>
         </div>
-        <hr className="mx-0 my-5 h-px bg-black" />
-        <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">{experience.description}</p>
       </div>
-    </article>
-
-
+    </div>
   );
 };

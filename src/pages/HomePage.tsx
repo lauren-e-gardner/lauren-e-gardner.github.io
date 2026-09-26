@@ -1,201 +1,191 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Divider, Header, Card, Container, ProgressBar, Text, Carousel, FadeInSection } from "../components"
+import { Card, CrayonBlob, CrayonMark, Divider, FadeInSection, Header } from "../components";
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
-import { skills, projects, education } from "../configs"
-import { useDeviceType } from "../hooks/useDeviceType.tsx";
+import { projects } from "../configs";
+import { crayon } from "../components/tokens/crayon";
+import { PixelHero } from "./components/PixelHero.tsx";
+import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
+import { ExperienceSection } from "./components/Experience/ExperienceSection.tsx";
+import { EducationCard } from "./components/Education/EducationCard.tsx";
+import { ContactSection } from "./components/ContactSection.tsx";
+
+/** Languages called out under the hero, each on its own crayon blob. */
+const CURRENTLY_USING = [
+  { name: "Python", color: crayon.lime },
+  { name: "JavaScript", color: crayon.yellow },
+  { name: "TypeScript", color: crayon.lavender },
+  { name: "ReactJS", color: crayon.orange },
+];
+
+/**
+ * Per-card crayon treatment, applied in the order the projects are listed:
+ * the block behind the screenshot, the title color, and the resting tilt.
+ */
+const PROJECT_STYLES = [
+  { color: crayon.blue, ink: crayon.blue, tilt: -1.2 },
+  { color: crayon.yellow, ink: crayon.red, tilt: 0.9 },
+  { color: crayon.green, ink: crayon.green, tilt: -0.6 },
+];
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const deviceType = useDeviceType()
-  const isMobile = deviceType === "mobile"
-
-  const handleNavigation = (link: string) => {
-    navigate(link);
-  };
-
-  // Declare state for prefersDarkMode
-  const [prefersDarkMode, setPrefersDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Check the browser's color scheme preference
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateDarkMode = (e: MediaQueryListEvent) => {
-      setPrefersDarkMode(e.matches);
-    };
-
-    // Set the initial dark mode preference
-    setPrefersDarkMode(mediaQuery.matches);
-
-    // Listen for changes to the color scheme in the browser (if the user manually changes it)
-    mediaQuery.addEventListener('change', updateDarkMode);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      mediaQuery.removeEventListener('change', updateDarkMode);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Update the class on the document element based on prefersDarkMode state
-    if (prefersDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [prefersDarkMode]);
-
-  const scrollStyle = {scrollMarginTop: "70px"}
+  const scrollStyle = { scrollMarginTop: 70 };
 
   return (
     <AppLayout>
-      <div className="relative" style={{display: "flex", alignContent: "center", justifyContent: "center", position: "relative", overflow: "clip"}}>
-        <div className="circle aqua"></div>
-        <div className="circle blue"></div>
-        <div className="circle pink"></div>
-        <div className="circle orange"></div>
-        <Container className={"pad-top-4xl"}>   
-          {/* <ProgressBar /> */}
-          <FadeInSection id="home" style={scrollStyle}>
-            <div className={`flex ${isMobile ? "col gap-lg pad-top-xl" : "row gap-4xl"} justify-center align-center`} style={{minHeight: "70vh"}}>
-              <img
-                src="/LinkedIn1.png"
-                alt="Profile"
-                className="br-xl"
-                style={{ height: 250, width: 250, minHeight: 250, minWidth: 250, objectFit: "cover" }}
-              />
-              <div style={{alignSelf: "center", textAlign: "right"}}>
-                <Header 
-                  type="page"
-                  title={`Hi, I'm Lauren Gardner!`}
-                  description={(
-                    <>
-                      I'm Lauren Gardner, a software developer with
-                      experience in frontend design, 3D graphics, and full-stack development. As a{" "}
-                      Princeton University graduate, I approach programming
-                      with creativity—whether it's finding innovative solutions or using code
-                      to fuel artistic expression. I currently work with:{" "}
-                      Python, JavaScript,{" "}
-                      TypeScript, and ReactJS
-                    </>
-                  )} 
-                />
-              </div>
-            </div>
-          </FadeInSection>
+      <main className="crayon-main">
+        <FadeInSection id="home" style={scrollStyle} placeholderHeight="88vh">
+          <div
+            style={{
+              position: "relative",
+              minHeight: "88vh",
+              paddingTop: 120,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))",
+              gap: "clamp(32px,6vw,80px)",
+              alignItems: "center",
+            }}
+          >
+            <CrayonBlob color={crayon.lavender} style={{ left: "-12%", top: "14%", width: 260, height: 230, opacity: 0.9 }} />
+            <CrayonBlob
+              color={crayon.lime}
+              radius="45% 55% 60% 40%"
+              style={{ right: "-8%", bottom: "6%", width: 200, height: 200, opacity: 0.8 }}
+            />
 
-          <Divider />
-
-          {/* Sections */}
-          <FadeInSection id="projects" style={scrollStyle}>
-            <div className="gap-md" style={{display: "flex", flexDirection: "column"}}>
-              <Header 
-                type="section" 
-                title="Projects"
-                description="A selection of my work, showcasing my skills in software development and design."
+            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 24 }}>
+              <div className="crayon-mono">software developer · princeton ’24</div>
+              <h1
+                className="crayon-hand"
+                style={{
+                  fontSize: "clamp(56px,8vw,112px)",
+                  lineHeight: 0.92,
+                  color: crayon.red,
+                  textShadow: `var(--mis) var(--mis) 0 ${crayon.yellow}, calc(var(--mis) * -0.8) calc(var(--mis) * 0.3) 0 rgba(35,80,216,.55)`,
+                  textWrap: "balance",
+                }}
+              >
+                Hi, I’m Lauren Gardner!
+              </h1>
+              <div
+                aria-hidden
+                style={{
+                  width: "min(340px,70%)",
+                  height: 10,
+                  background: crayon.blue,
+                  borderRadius: 6,
+                  transform: "rotate(-1.5deg)",
+                  filter: "url(#crayon)",
+                }}
               />
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-md">
-                {projects.map((project, index) => (
-                  <Card 
-                    title={project.title}
-                    subTitle={project.role}
-                    rightLabel={project.date}
-                    description={project.description}      
-                    skills={project.skills}  
-                    frameworks={project.techIcons}
-                    src={project.screenshot}   
-                    demoButton={{
-                      onClick: () => handleNavigation(project?.demoLink),
-                      children: "Demo",
-                    }} 
-                    codeButton={{
-                      onClick: () => handleNavigation(project?.codeLink),
-                      children: "GitHub",
-                      icon: {
-                        name: "github",
-                        size: 20,}
-                    }}   
-                    onClick={() => handleNavigation(project?.demoLink)}     
-                  />
+              <p style={{ fontSize: "clamp(17px,1.6vw,20px)", lineHeight: 1.6, maxWidth: "34em" }}>
+                I’m a software developer with experience in frontend design, 3D graphics, and full-stack
+                development. As a Princeton University graduate, I approach programming with creativity —
+                whether it’s finding innovative solutions or using code to fuel artistic expression.
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
+                <span className="crayon-hand" style={{ fontSize: 22, color: crayon.maroon }}>
+                  currently working with
+                </span>
+                {CURRENTLY_USING.map((item) => (
+                  <CrayonMark
+                    key={item.name}
+                    color={item.color}
+                    style={{ padding: "4px 12px", fontWeight: 700, fontSize: 15 }}
+                  >
+                    {item.name}
+                  </CrayonMark>
                 ))}
               </div>
             </div>
-          </FadeInSection>
 
-          <Divider />
+            <PixelHero />
+          </div>
+        </FadeInSection>
 
-          <FadeInSection id="skills" style={scrollStyle}>
-            <Header 
-              type="section" 
-              title="Skills"
+        <Divider color={crayon.yellow} rotate={-0.6} />
+
+        <FadeInSection id="projects" style={scrollStyle}>
+          <div className="crayon-section">
+            <Header
+              title="Projects"
+              description="A selection of my work, showcasing my skills in software development and design."
+              highlight={crayon.yellow}
+              shadow="rgba(236,30,140,.55)"
+              swipeRotate={-2}
             />
-            {/* <SkillsSection /> */}
-            <div className="flex align-center justify-center">
-                <Carousel 
-                items={
-                  skills.map((skill) => {
-                    return ((
-                      <ProgressBar label={skill.name} percentage={skill.progress} icon={skill.icon} showBg={skill?.showBg}/>
-                    ))
-                  })
-                }
-              />
-            </div>
-            {/* <div className="flex-container">
-              {skills.map((skill) => {
-                return ((
-                  <div className="flex-4-item align-center justify-center">
-                    <ProgressBar label={skill.name} percentage={skill.progress} icon={skill.icon} showBg={skill?.showBg}/>
-                  </div>
-                ))
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
+                gap: "clamp(28px,3vw,40px)",
+              }}
+            >
+              {projects.map((project, index) => {
+                const treatment = PROJECT_STYLES[index % PROJECT_STYLES.length];
+                const hasDemo = project.demoLink && project.demoLink !== "#";
+                return (
+                  <Card
+                    key={project.title}
+                    title={project.title}
+                    role={project.role}
+                    date={project.date}
+                    description={project.description}
+                    skills={project.skills}
+                    tech={project.tech}
+                    src={project.screenshot}
+                    githubLink={project.githubLink}
+                    onDemo={hasDemo ? () => navigate(project.demoLink as string) : undefined}
+                    {...treatment}
+                  />
+                );
               })}
-            </div> */}
-          </FadeInSection>
+            </div>
+          </div>
+        </FadeInSection>
 
-          <Divider />
+        <Divider color={crayon.blue} rotate={0.5} />
 
-          <FadeInSection id="work-experience" style={scrollStyle}>
-            <Header 
-              type="section" 
+        <FadeInSection id="skills" style={scrollStyle}>
+          <div className="crayon-section" style={{ gap: 44 }}>
+            <Header title="Skills" highlight={crayon.lime} shadow="rgba(35,80,216,.5)" swipeRotate={1.5} />
+            <SkillsSection />
+          </div>
+        </FadeInSection>
+
+        <Divider color={crayon.magenta} rotate={-0.4} />
+
+        <FadeInSection id="work-experience" style={scrollStyle}>
+          <div className="crayon-section">
+            <Header
               title="Experience"
+              highlight={crayon.orange}
+              shadow="rgba(236,30,140,.5)"
+              swipeRotate={-1}
+              swipeOpacity={0.85}
             />
-            {/* <ExperienceSection/> */}
-          </FadeInSection>
+            <ExperienceSection />
+          </div>
+        </FadeInSection>
 
-          <Divider />
+        <Divider color={crayon.green} rotate={0.6} />
 
-          <FadeInSection id="education" className="col align-center justify-center gap-sm" style={scrollStyle}>
-            <Header 
-              type="section" 
-              title="Education"
-            />
-            {education.map((edu) => {
-              return (
-                <Card 
-                  type="education"
-                  title={edu.degree}
-                  subTitle={edu.school}
-                  rightLabel={edu.year}
-                  description={edu.gpa}
-                  skills={edu.points}
-                  src={edu.logo}
-                />
-              )
-            })}
-          </FadeInSection>
+        <FadeInSection id="education" style={scrollStyle}>
+          <div className="crayon-section">
+            <Header title="Education" highlight={crayon.lavender} shadow="rgba(255,196,20,.9)" swipeRotate={1.5} />
+            <EducationCard />
+          </div>
+        </FadeInSection>
 
-          <Divider />
+        <Divider color={crayon.red} rotate={-0.5} />
 
-          <FadeInSection id="contact" style={scrollStyle}>
-            <Header 
-              type="section" 
-              title="Contact Me"
-            />
-            {/* <ContactSection /> */}
-          </FadeInSection>
-        </Container>
-      </div>
+        <FadeInSection id="contact" style={scrollStyle}>
+          <div className="crayon-section" style={{ padding: "72px 0 96px" }}>
+            <ContactSection />
+          </div>
+        </FadeInSection>
+      </main>
     </AppLayout>
   );
 }

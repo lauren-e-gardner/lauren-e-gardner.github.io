@@ -1,0 +1,159 @@
+@use "sass:map";
+
+/* Crayon / primary-color home page. Everything here is scoped to .crayon so the
+   other pages (Nostalgia, SkillsHub, ...) keep their own look. */
+
+$crayon: (
+    "cream": #f5eedb,
+    "paper": #fbf7ea,
+    "ink": #2a1a14,
+    "muted-ink": #5a4336,
+    "red": #e3261b,
+    "maroon": #8b0a17,
+    "yellow": #ffc414,
+    "orange": #ff7f11,
+    "lime": #b5e02b,
+    "green": #1fa84f,
+    "lavender": #c9c5ee,
+    "blue": #2350d8,
+    "magenta": #ec1e8c,
+);
+
+:root {
+    @each $name, $value in $crayon {
+        --crayon-#{$name}: #{$value};
+    }
+    --mis: 4px;
+}
+
+.crayon {
+    background: map.get($crayon, "cream");
+    color: map.get($crayon, "ink");
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+
+    ::selection {
+        background: map.get($crayon, "yellow");
+    }
+
+    a {
+        color: map.get($crayon, "blue");
+        text-decoration: none;
+    }
+
+    h1, h2, h3, p, ul {
+        margin: 0;
+    }
+}
+
+/* --- type ------------------------------------------------------------- */
+
+.crayon .crayon-hand {
+    font-family: "MyHand", "Space Grotesk", system-ui, sans-serif;
+    font-weight: 400;
+}
+
+.crayon .crayon-mono {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: map.get($crayon, "maroon");
+}
+
+.crayon .crayon-meta {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: map.get($crayon, "maroon");
+}
+
+/* --- layout ----------------------------------------------------------- */
+
+.crayon-main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(18px, 5vw, 48px);
+}
+
+.crayon-section {
+    padding: 72px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* --- nav -------------------------------------------------------------- */
+
+.crayon .crayon-nav-link {
+    font-family: "MyHand", "Space Grotesk", system-ui, sans-serif;
+    font-size: clamp(18px, 2vw, 24px);
+    color: map.get($crayon, "ink");
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.15s;
+
+    &:hover {
+        color: map.get($crayon, "red");
+    }
+}
+
+/* --- cards ------------------------------------------------------------ */
+
+.crayon .crayon-card {
+    transition: transform 0.25s;
+
+    &:hover {
+        transform: rotate(0deg) translateY(-4px);
+    }
+}
+
+.crayon .crayon-btn {
+    position: relative;
+    display: inline-block;
+    padding: 9px 20px;
+    font-weight: 700;
+    color: map.get($crayon, "ink");
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    transition: transform 0.15s, color 0.15s;
+}
+
+.crayon .crayon-btn-filled:hover {
+    color: map.get($crayon, "ink");
+    transform: rotate(-2deg);
+}
+
+.crayon .crayon-btn-outlined:hover {
+    color: map.get($crayon, "red");
+}
+
+/* --- contact ---------------------------------------------------------- */
+
+.crayon .crayon-contact-link {
+    color: map.get($crayon, "cream");
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-decoration-color: map.get($crayon, "magenta");
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
+
+    &:hover {
+        color: map.get($crayon, "yellow");
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .crayon .crayon-card,
+    .crayon .crayon-btn {
+        transition: none;
+    }
+}

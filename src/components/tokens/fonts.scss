@@ -1,7 +1,15 @@
 @font-face {
   font-family: 'MyHand';
   src: url('/fonts/MyHand-Regular.otf') format('opentype');
-  font-weight: 900;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-display: swap;
 }
 
 @font-face {

@@ -1,79 +1,86 @@
-import { useState, useRef, useEffect } from "react";
+import { CRAYON_FILTER, crayon } from "../../components/tokens/crayon";
+import { contacts } from "../../configs";
 
-export const ContactSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            // When the element comes into view, trigger fade-in
-            setIsVisible(true);
-          } else {
-            // When the element exits view, reset the fade effect
-            setIsVisible(false);
-          }
-        },
-        { threshold: 0.2 }
-      );
-  
-      if (ref.current) observer.observe(ref.current);
-      return () => observer.disconnect();
-    }, []);
-    return (
+/** Maroon crayon panel with the contact links, plus the page footer. */
+export const ContactSection = () => (
+  <>
+    <div
+      style={{
+        position: "relative",
+        padding: "clamp(28px,5vw,64px)",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
+        gap: 36,
+        alignItems: "center",
+      }}
+    >
       <div
-        ref={ref}
-        className={`opacity-0 transition-all duration-700 ease-in-out ${
-          isVisible ? "opacity-100" : ""
-        }`}
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: crayon.maroon,
+          borderRadius: "14px 20px 12px 24px",
+          filter: CRAYON_FILTER,
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          right: "-3%",
+          top: "-8%",
+          width: "34%",
+          aspectRatio: "1",
+          background: crayon.yellow,
+          borderRadius: "50% 45% 55% 50%",
+          filter: CRAYON_FILTER,
+          mixBlendMode: "multiply",
+          opacity: 0.8,
+        }}
+      />
+
+      <h2
+        className="crayon-hand"
+        style={{
+          position: "relative",
+          fontSize: "clamp(56px,7vw,100px)",
+          lineHeight: 0.95,
+          color: crayon.cream,
+          textShadow: `var(--mis) var(--mis) 0 ${crayon.red}`,
+        }}
       >
-      <section className="grid gap-10 p-5 grid-cols-[auto_1fr] max-md:grid-cols-[1fr]">
-        <img
-          src="/LinkedIn1.png"
-          alt="Profile"
-          className="object-cover rounded-3xl h-[360px] w-[359px] max-sm:w-full max-sm:h-auto"
-        />
-        <div className="flex flex-col gap-10">
-        <div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-  <strong>Email</strong>
-  <p>
-    <a href="mailto:laurenator1784@gmail.com" className="text-blue-500 hover:underline">
-      laurenator1784@gmail.com
-    </a>
-  </p>
-</div>
+        Contact Me
+      </h2>
 
-<div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-  <strong>LinkedIn</strong>
-  <p>
-    <a 
-      href="https://www.linkedin.com/in/lauren-e-gardner02/" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className="text-blue-500 hover:underline"
-    >
-      https://www.linkedin.com/in/lauren-e-gardner02/
-    </a>
-  </p>
-</div>
-
-<div className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-  <strong>GitHub</strong>
-  <p>
-    <a 
-      href="https://github.com/lauren-e-gardner" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className="text-blue-500 hover:underline"
-    >
-      https://github.com/lauren-e-gardner
-    </a>
-  </p>
-</div>
-
-        </div>
-      </section>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 22 }}>
+        {contacts.map((contact) => (
+          <div key={contact.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <span className="crayon-hand" style={{ fontSize: 24, color: crayon.yellow }}>{contact.label}</span>
+            <a className="crayon-contact-link" href={contact.href} target="_blank" rel="noopener noreferrer">
+              {contact.text}
+            </a>
+          </div>
+        ))}
       </div>
-    );
-  };
-  
+    </div>
+
+    <div
+      style={{
+        marginTop: 40,
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 12,
+        fontFamily: "'Space Mono', ui-monospace, monospace",
+        fontSize: 12,
+        color: crayon.mutedInk,
+      }}
+    >
+      <span>© {new Date().getFullYear()} Lauren Gardner</span>
+      <span>drawn, pixelized &amp; coded by hand</span>
+    </div>
+  </>
+);
+
+export default ContactSection;

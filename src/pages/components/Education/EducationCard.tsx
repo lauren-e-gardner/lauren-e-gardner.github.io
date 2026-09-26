@@ -1,78 +1,88 @@
-import { useState, useRef, useEffect } from "react";
-import React from "react";
-import { Education } from "../types";
+import { CRAYON_FILTER, crayon } from "../../../components/tokens/crayon";
+import { CrayonBorder } from "../../../components/atoms/Crayon";
+import { education } from "../../../configs";
 
-interface EducationCardProps {
-  isDarkMode: boolean;
-}
+/** Crayon dot color per bullet, cycled down the list. */
+const BULLET_COLORS = [crayon.red, crayon.blue, crayon.green];
 
-const education: Education = {
-  degree: "Bachelor of Arts Computer Science",
-  school: "Princeton University",
-  period: "2020 - 2024",
-  gpa: "GPA: 3.52/4.00",
-  details:
-    "Major in Computer Science Focus in Computer Graphics Focus in Visual Arts Thesis project in Computer Graphics",
-  logoDark: "/pu_logo.png",
-  logoLight: "/pu_logo.png",
-};
+/**
+ * The degree, on paper stock with an orange crayon block offset behind it.
+ * The block is a sibling rather than a negative-z child so it stays behind the
+ * paper regardless of the card's own stacking context.
+ */
+export const EducationCard = () => (
+  <>
+    {education.map((edu) => (
+      <div key={edu.school} style={{ position: "relative" }}>
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            transform: "translate(10px,10px) rotate(-0.4deg)",
+            background: crayon.orange,
+            borderRadius: 10,
+            filter: CRAYON_FILTER,
+          }}
+        />
+        <div
+          style={{
+            position: "relative",
+            padding: "clamp(22px,4vw,40px)",
+            background: crayon.paper,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))",
+            gap: "28px 48px",
+            transform: "rotate(-0.4deg)",
+          }}
+        >
+          <CrayonBorder radius={10} />
 
-export const EducationCard: React.FC<EducationCardProps> = ({ isDarkMode }) => {
-  const [isVisible, setIsVisible] = useState(false);
-    const ref = useRef<HTMLDivElement | null>(null);
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              // When the element comes into view, trigger fade-in
-              setIsVisible(true);
-            } else {
-              // When the element exits view, reset the fade effect
-              setIsVisible(false);
-            }
-          },
-          { threshold: 0.2 }
-        );
-    
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-      }, []);
-  return (
-    <div
-        ref={ref}
-        className={`opacity-0 transition-all duration-700 ease-in-out ${
-          isVisible ? "opacity-100" : ""
-        }`}
-      >
-  
-  <article className="grid p-5 rounded-3xl border border-solid grid-cols-[auto_1fr] max-md:p-2.5 max-md:grid-cols-[1fr]">
-  <div className="flex justify-center items-center"> {/* Flexbox container for centering */}
-    <img
-      src={isDarkMode ? education.logoDark : education.logoLight}
-      alt={education.school}
-      className="object-contain h-[100px] md:h-[150px] lg:h-[292px] max-md:w-full"
-    />
-  </div>
-  <div className="p-5">
-    <h3 className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-bold">
-      {education.degree}
-    </h3>
-    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
-      {education.school}
-    </p>
-    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
-      {education.period}
-    </p>
-    <p className="mx-0 my-2.5 text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
-      {education.gpa}
-    </p>
-    <hr className="mx-0 my-5 h-px bg-black dark:bg-white" />
-    <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl leading-relaxed">
-      {education.details}
-    </p>
-  </div>
-</article>
+          <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 10 }}>
+            <span className="crayon-meta" style={{ fontSize: 13 }}>{edu.year} · {edu.gpa}</span>
+            <h3
+              className="crayon-hand"
+              style={{ fontSize: "clamp(40px,4.5vw,56px)", lineHeight: 1, color: crayon.red }}
+            >
+              {edu.school}
+            </h3>
+            <span style={{ fontSize: 18, fontWeight: 500 }}>{edu.degree}</span>
+          </div>
 
-    </div>
-  );
-};
+          <ul
+            style={{
+              position: "relative",
+              padding: 0,
+              listStyle: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+            }}
+          >
+            {edu.points?.map((point, index) => (
+              <li
+                key={point}
+                style={{ display: "grid", gridTemplateColumns: "18px minmax(0,1fr)", gap: 12, fontSize: 16, lineHeight: 1.55 }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: 14,
+                    height: 14,
+                    marginTop: 5,
+                    background: BULLET_COLORS[index % BULLET_COLORS.length],
+                    borderRadius: "50% 40% 55% 45%",
+                    filter: CRAYON_FILTER,
+                  }}
+                />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </>
+);
+
+export default EducationCard;
