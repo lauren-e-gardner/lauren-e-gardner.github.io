@@ -1,17 +1,29 @@
 import React from 'react'
 import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
-import { BORDER, CrayonBorder, CrayonPill } from '../atoms/Crayon'
+import { BORDER, CrayonBorder, CrayonBulletList, CrayonPill } from '../atoms/Crayon'
 import { Button } from '../atoms/Button/Button'
 
 /** Screenshot proportions, and how far the color block sits behind it. */
 const SCREENSHOT = { ratio: "4/3", blockOffset: "9px" } as const;
 
+/** The education variant's block offset, and the width its columns split at. */
+const DEGREE = { blockOffset: "10px", minColumn: "280px" } as const;
+
 export interface CardProps {
+    /**
+     * `project` is the default portrait card: screenshot, blurb, pills, buttons.
+     * `education` is the wide degree card: label, school, degree, bullet points.
+     */
+    variant?: "project" | "education";
     title: string;
     role?: string;
     date?: string;
+    /** Secondary line under the title. Used by the education variant. */
+    subtitle?: string;
     description?: string;
     skills?: string[];
+    /** Bulleted highlights. Used by the education variant. */
+    points?: string[];
     /** Mono line of frameworks, e.g. "Three.js · JavaScript · OpenGL". */
     tech?: string;
     src?: string;
@@ -26,15 +38,18 @@ export interface CardProps {
 }
 
 /**
- * Project card: paper stock, crayon border, a color block peeking out from
- * behind the screenshot, and a resting tilt that straightens on hover.
+ * Paper stock, crayon border, a color block peeking out from behind, and a
+ * resting tilt that straightens on hover — as a project card or a degree card.
  */
 export const Card: React.FC<CardProps> = ({
+    variant = "project",
     title,
     role,
     date,
+    subtitle,
     description,
     skills,
+    points,
     tech,
     src,
     color = crayon.yellow,
@@ -43,6 +58,52 @@ export const Card: React.FC<CardProps> = ({
     onDemo,
     githubLink,
 }) => {
+    if (variant === "education") {
+        /* The block is a sibling rather than a negative-z child so it stays
+           behind the paper regardless of the card's own stacking context. The
+           tilt lives on the wrapper so block and paper move as one. */
+        const label = [role, date].filter(Boolean).join(" · ");
+
+        return (
+            <div
+                className="crayon-card"
+                style={{ position: "relative", ["--tilt" as string]: `${tilt}deg` }}
+            >
+                <div
+                    aria-hidden
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        transform: `translate(${DEGREE.blockOffset},${DEGREE.blockOffset})`,
+                        background: color,
+                        borderRadius: radius.lg,
+                        filter: CRAYON_FILTER,
+                    }}
+                />
+                <article
+                    style={{
+                        position: "relative",
+                        padding: `clamp(${space.lg}, 4vw, ${space.xlLg})`,
+                        background: crayon.paper,
+                        display: "grid",
+                        gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${DEGREE.minColumn}),1fr))`,
+                        gap: `${space.lg} ${space["2xl"]}`,
+                    }}
+                >
+                    <CrayonBorder radius={radius.lg} />
+
+                    <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
+                        {label && <span className="body-b6 caps-wide crayon-label">{label}</span>}
+                        <h3 className="headline-h4" style={{ color: ink }}>{title}</h3>
+                        {subtitle && <span className="bodyMedium-b3">{subtitle}</span>}
+                    </div>
+
+                    {points && points.length > 0 && <CrayonBulletList points={points} />}
+                </article>
+            </div>
+        )
+    }
+
     return (
         <article
             className="crayon-card"

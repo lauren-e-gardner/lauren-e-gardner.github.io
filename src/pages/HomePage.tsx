@@ -2,12 +2,11 @@
 import { Card, CrayonBlob, CrayonMark, Divider, FadeInSection, Header } from "../components";
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
-import { projects } from "../configs";
+import { education, projects } from "../configs";
 import { CRAYON_FILTER, crayon, radius, SCROLL_OFFSET, space } from "../components/tokens/crayon";
 import { PixelHero } from "./sections/PixelHero.tsx";
 import { SkillsSection } from "./sections/Skills/SkillsSection.tsx";
 import { ExperienceSection } from "./sections/Experience/ExperienceSection.tsx";
-import { EducationCard } from "./sections/Education/EducationCard.tsx";
 import { ContactSection } from "./sections/ContactSection.tsx";
 
 /** Languages called out under the hero, each on its own crayon blob. */
@@ -184,7 +183,20 @@ export default function HomePage() {
         <FadeInSection id="education" style={scrollStyle}>
           <div className="crayon-section">
             <Header title="Education" variant="section" highlight={crayon.lavender} shadow={HEADING_SHADOW.yellow} swipeRotate={1.5} />
-            <EducationCard />
+            {education.map((edu) => (
+              <Card
+                key={edu.school}
+                variant="education"
+                title={edu.school}
+                subtitle={edu.degree}
+                role={edu.year}
+                date={edu.gpa}
+                points={edu.points}
+                color={crayon.orange}
+                ink={crayon.red}
+                tilt={-0.4}
+              />
+            ))}
           </div>
         </FadeInSection>
 
