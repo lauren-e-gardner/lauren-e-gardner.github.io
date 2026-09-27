@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "sh bin/git-gh-deploy dist",
+    "deploy:full": "npm run build && git add -f dist && git commit -m \"chore: build for gh-pages\" && npm run deploy"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
