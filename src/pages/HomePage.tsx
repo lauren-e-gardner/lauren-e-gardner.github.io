@@ -49,6 +49,7 @@ const HEADING_SHADOW = {
 /** Hero artwork: the two background blobs and the underline stroke. */
 const HERO = {
   minHeight: "88vh",
+  paddingBottom: space["2xl"],
   lavenderBlob: { left: "-12%", top: "14%", width: 260, height: 230, opacity: 0.9 },
   limeBlob: { right: "-8%", bottom: "6%", width: 200, height: 200, opacity: 0.8, radius: "45% 55% 60% 40%" },
   underline: { width: "min(340px,70%)", height: 10, tilt: "-1.5deg" },
@@ -67,6 +68,7 @@ export default function HomePage() {
               position: "relative",
               minHeight: HERO.minHeight,
               paddingTop: space["6xl"],
+              paddingBottom: HERO.paddingBottom,
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))",
               gap: `clamp(${space.xl}, 6vw, ${space["5xl"]})`,
