@@ -42,6 +42,25 @@ $body-size: (
     "b6": (12px, 1.2),
 );
 
+$headline-size-mobile: (
+    "h1": (56px, 1),
+    "h2": (50px, 1),
+    "h3": (44px, 1),
+    "h4": (36px, 1),
+    "h5": (32px, 1),
+    "h6": (28px, 1),
+    "h7": (26px, 1),
+    "h8": (20px, 1),
+);
+$body-size-mobile: (
+    "b1": (18px, 1.2),
+    "b2": (17px, 1.2),
+    "b3": (16px, 1.2),
+    "b4": (15px, 1.2),
+    "b5": (14px, 1.2),
+    "b6": (12px, 1.2),
+);
+
 @each $name, $family in $typography {
     $sizes: if($name == "headline", $headline-size, $body-size);
     $weight: if($name == "headline", 400, if($name == "bodyMedium", 500, 400));
@@ -52,6 +71,19 @@ $body-size: (
             font-size: nth($spec, 1);
             line-height: nth($spec, 2);
             font-weight: $weight;
+        }
+    }
+}
+
+@media (max-width: 1032px) {
+    @each $name, $family in $typography {
+        $sizes: if($name == "headline", $headline-size-mobile, $body-size-mobile);
+
+        @each $size-name, $spec in $sizes {
+            .#{$name}-#{$size-name} {
+                font-size: nth($spec, 1);
+                line-height: nth($spec, 2);
+            }
         }
     }
 }

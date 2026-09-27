@@ -1,4 +1,5 @@
 import { CRAYON_FILTER, crayon, space } from "../../components/tokens/crayon";
+import { CrayonBlob } from "../../components/atoms/Crayon";
 import { contacts } from "../../configs";
 import { ContactPortrait } from "./ContactPortrait";
 
@@ -29,20 +30,10 @@ export const ContactSection = () => (
           filter: CRAYON_FILTER,
         }}
       />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          right: BLOB.right,
-          top: BLOB.top,
-          width: BLOB.width,
-          aspectRatio: "1",
-          background: crayon.yellow,
-          borderRadius: BLOB.radius,
-          filter: CRAYON_FILTER,
-          mixBlendMode: "multiply",
-          opacity: BLOB.opacity,
-        }}
+      <CrayonBlob
+        color={crayon.yellow}
+        radius={BLOB.radius}
+        style={{ right: BLOB.right, top: BLOB.top, width: BLOB.width, aspectRatio: "1", opacity: BLOB.opacity }}
       />
 
       <div style={{ position: "relative" }}>

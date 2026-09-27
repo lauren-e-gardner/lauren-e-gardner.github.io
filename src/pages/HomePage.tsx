@@ -77,16 +77,7 @@ export default function HomePage() {
 
             <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.lg }}>
               <div className="body-b6 caps-wider crayon-label">software developer · princeton ’24</div>
-              <h1
-                className="headline-h1"
-                style={{
-                  color: crayon.red,
-                  textShadow: `var(--mis) var(--mis) 0 ${crayon.yellow}, calc(var(--mis) * -0.8) calc(var(--mis) * 0.3) 0 rgba(35,80,216,.55)`,
-                  textWrap: "balance",
-                }}
-              >
-                Hi, I’m Lauren Gardner!
-              </h1>
+              <Header title="Hi, I’m Lauren Gardner!" variant="page" />
               <div
                 aria-hidden
                 style={{
@@ -127,6 +118,7 @@ export default function HomePage() {
           <div className="crayon-section">
             <Header
               title="Projects"
+              variant="section"
               description="A selection of my work, showcasing my skills in software development and design."
               highlight={crayon.yellow}
               shadow={HEADING_SHADOW.magenta}
@@ -166,7 +158,7 @@ export default function HomePage() {
 
         <FadeInSection id="skills" style={scrollStyle}>
           <div className="crayon-section" style={{ gap: space["2xl"] }}>
-            <Header title="Skills" highlight={crayon.lime} shadow={HEADING_SHADOW.blue} swipeRotate={1.5} />
+            <Header title="Skills" variant="section" highlight={crayon.lime} shadow={HEADING_SHADOW.blue} swipeRotate={1.5} />
             <SkillsSection />
           </div>
         </FadeInSection>
@@ -177,6 +169,7 @@ export default function HomePage() {
           <div className="crayon-section">
             <Header
               title="Experience"
+              variant="section"
               highlight={crayon.orange}
               shadow={HEADING_SHADOW.magentaSoft}
               swipeRotate={-1}
@@ -190,7 +183,7 @@ export default function HomePage() {
 
         <FadeInSection id="education" style={scrollStyle}>
           <div className="crayon-section">
-            <Header title="Education" highlight={crayon.lavender} shadow={HEADING_SHADOW.yellow} swipeRotate={1.5} />
+            <Header title="Education" variant="section" highlight={crayon.lavender} shadow={HEADING_SHADOW.yellow} swipeRotate={1.5} />
             <EducationCard />
           </div>
         </FadeInSection>
