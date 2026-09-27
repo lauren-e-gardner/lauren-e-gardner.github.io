@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { win7Palette } from "./Windows7Palette";
 import { win95Palette } from "./Windows95Palette";
-import { RGB, Palette} from "../components/types.ts";
+import { RGB, Palette} from "../sections/types.ts";
 
 const colorDistance = (c1: RGB, c2: RGB): number =>
   Math.sqrt((c1.r - c2.r) ** 2 + (c1.g - c2.g) ** 2 + (c1.b - c2.b) ** 2);

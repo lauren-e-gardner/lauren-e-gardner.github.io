@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Pixelator from './Pixelator';
 import Ditherer from './Ditherer';
 import PageLayout from '../../layouts/PageLayout';
-import { DraggableProps } from '../components/types';
+import { DraggableProps } from '../sections/types';
 import BootUp from './BootUp'; // Import BootUp component
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 

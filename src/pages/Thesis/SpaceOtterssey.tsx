@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import ThreeScene from '../components/ThreeJS/ThreeScene';
-import ThreeScene2 from '../components/ThreeJS/ThreeScene2';
-import ThreeScene3 from '../components/ThreeJS/ThreeScene3';
-import ThreeScene4 from '../components/ThreeJS/ThreeScene4';
+import ThreeScene from '../sections/ThreeJS/ThreeScene';
+import ThreeScene2 from '../sections/ThreeJS/ThreeScene2';
+import ThreeScene3 from '../sections/ThreeJS/ThreeScene3';
+import ThreeScene4 from '../sections/ThreeJS/ThreeScene4';
 import { vertexShaders } from './VertexText';
 import { useNavigate } from 'react-router-dom';
 

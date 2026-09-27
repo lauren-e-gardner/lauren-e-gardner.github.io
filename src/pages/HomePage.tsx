@@ -4,11 +4,11 @@ import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
 import { projects } from "../configs";
 import { CRAYON_FILTER, crayon, radius, SCROLL_OFFSET, space } from "../components/tokens/crayon";
-import { PixelHero } from "./components/PixelHero.tsx";
-import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
-import { ExperienceSection } from "./components/Experience/ExperienceSection.tsx";
-import { EducationCard } from "./components/Education/EducationCard.tsx";
-import { ContactSection } from "./components/ContactSection.tsx";
+import { PixelHero } from "./sections/PixelHero.tsx";
+import { SkillsSection } from "./sections/Skills/SkillsSection.tsx";
+import { ExperienceSection } from "./sections/Experience/ExperienceSection.tsx";
+import { EducationCard } from "./sections/Education/EducationCard.tsx";
+import { ContactSection } from "./sections/ContactSection.tsx";
 
 /** Languages called out under the hero, each on its own crayon blob. */
 const CURRENTLY_USING = [

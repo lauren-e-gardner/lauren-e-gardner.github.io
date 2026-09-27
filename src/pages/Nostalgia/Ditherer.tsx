@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { win7Palette } from "./Windows7Palette";
 import { win95Palette } from "./Windows95Palette";
-import { RGB, Palette, ImageDataType, HTMLCanvas, HTMLInputEvent, HTMLImage } from "../components/types.ts";
+import { RGB, Palette, ImageDataType, HTMLCanvas, HTMLInputEvent, HTMLImage } from "../sections/types.ts";
 
 
 const colorDistance = (c1: RGB, c2: RGB): number =>
