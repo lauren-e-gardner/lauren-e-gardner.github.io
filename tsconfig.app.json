@@ -24,7 +24,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/shaders.d.ts"  // Make sure to include this line
-, "src/pages/SkillsHub/Home.jsx"  ]
+    "src/**/*.tsx"
+  ]
 }
