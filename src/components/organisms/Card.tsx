@@ -1,11 +1,10 @@
 import React from 'react'
 import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
 import { BORDER, CrayonBorder, CrayonPill } from '../atoms/Crayon'
+import { Button } from '../atoms/Button/Button'
 
 /** Screenshot proportions, and how far the color block sits behind it. */
 const SCREENSHOT = { ratio: "4/3", blockOffset: "9px" } as const;
-/** Buttons are hand-drawn, so no two corners share a radius. */
-const BUTTON_RADIUS = { filled: "10px 14px 9px 16px", outlined: "12px 9px 15px 10px" } as const;
 
 export interface CardProps {
     title: string;
@@ -116,40 +115,20 @@ export const Card: React.FC<CardProps> = ({
             {(onDemo || githubLink) && (
                 <div style={{ display: "flex", gap: space.smLg, marginTop: "auto", paddingTop: space.xs }}>
                     {onDemo && (
-                        <button className="crayon-btn crayon-btn-filled bodyMedium-b6" onClick={onDemo}>
-                            <span
-                                aria-hidden
-                                style={{
-                                    position: "absolute",
-                                    inset: 0,
-                                    background: color,
-                                    borderRadius: BUTTON_RADIUS.filled,
-                                    filter: CRAYON_FILTER,
-                                }}
-                            />
-                            <span style={{ position: "relative" }}>Demo</span>
-                        </button>
+                        <Button variant="primary" color={color} onClick={onDemo}>
+                            Demo
+                        </Button>
                     )}
                     {githubLink && (
-                        <a
-                            className="crayon-btn crayon-btn-outlined bodyMedium-b6"
+                        <Button
+                            variant="secondary"
                             href={githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ color: crayon.ink }}
+                            external
+                            icon={{ name: "external-link" }}
+                            iconPosition="trailing"
                         >
-                            <span
-                                aria-hidden
-                                style={{
-                                    position: "absolute",
-                                    inset: 0,
-                                    border: `${BORDER.button}px solid ${crayon.ink}`,
-                                    borderRadius: BUTTON_RADIUS.outlined,
-                                    filter: CRAYON_FILTER,
-                                }}
-                            />
-                            <span style={{ position: "relative" }}>GitHub ↗</span>
-                        </a>
+                            GitHub
+                        </Button>
                     )}
                 </div>
             )}

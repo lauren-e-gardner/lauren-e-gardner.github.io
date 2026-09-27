@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CRAYON_FILTER, crayon, radius, scrollToSection, space } from "../tokens/crayon";
 import { BORDER, CrayonBorder } from "../atoms/Crayon";
+import { Button } from "../atoms/Button/Button";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import Icon from "../atoms/Icon/Icon";
 
 /** The yellow scribble behind the "LG" monogram, and the bar along the base. */
 const LOGO_BLOB = { left: -6, top: 4, width: 44, height: 30, radius: "48% 52% 40% 60%" } as const;
 const EDGE_BAR = { height: 5, overhang: -3 } as const;
 /** The hamburger panel hangs off the nav's bottom edge, clear of the crayon bar. */
 const MENU_PANEL = { top: "100%", minWidth: 200, offset: space.sm, radius: radius.lg } as const;
+const TOGGLE_ICON = 28;
 
 export interface NavLink {
   label: string;
@@ -103,23 +104,14 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
 
       {isMobile ? (
         <div ref={menuRef} style={{ position: "relative", display: "flex" }}>
-          <button
-            type="button"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-haspopup="menu"
+          <Button
+            variant="link"
+            accessibilityLabel={menuOpen ? "Close menu" : "Open menu"}
+            ariaExpanded={menuOpen}
+            ariaHasPopup
+            icon={{ name: menuOpen ? "close" : "hamburger", size: TOGGLE_ICON, color: crayon.maroon }}
             onClick={() => setMenuOpen((open) => !open)}
-            style={{
-              background: "none",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Icon name={menuOpen ? "close" : "hamburger"} size={28} color={crayon.maroon} />
-          </button>
+          />
 
           {menuOpen && (
             <div
@@ -145,15 +137,17 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
               <CrayonBorder color={crayon.blue} width={BORDER.frame} radius={MENU_PANEL.radius} />
 
               {links.map((link) => (
-                <button
+                <Button
                   key={link.target}
+                  variant="link"
                   role="menuitem"
-                  className="crayon-nav-link headline-h6"
-                  style={{ position: "relative", textAlign: "left", width: "100%" }}
+                  textClass="headline-h6"
+                  fullWidth
+                  textAlign="left"
                   onClick={() => select(link.target)}
                 >
                   {link.label}
-                </button>
+                </Button>
               ))}
             </div>
           )}
@@ -168,9 +162,9 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
           }}
         >
           {links.map((link) => (
-            <button key={link.target} className="crayon-nav-link headline-h8" onClick={() => scrollToSection(link.target)}>
+            <Button key={link.target} variant="link" onClick={() => scrollToSection(link.target)}>
               {link.label}
-            </button>
+            </Button>
           ))}
         </div>
       )}

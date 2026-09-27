@@ -1,4 +1,3 @@
-import React from 'react'
 import { ALL_ICONS } from './Icons';
 
 export interface IconProps {
@@ -12,7 +11,7 @@ export const Icon = ({
   size = 24, 
   color, 
 }: IconProps) => {
-  const iconSvg = ALL_ICONS[name];
+  const iconSvg: string | undefined = (ALL_ICONS as Record<string, string>)[name];
 
   if (!iconSvg) {
     console.warn(`Icon "${name}" not found.`);
