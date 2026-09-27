@@ -9,3 +9,5 @@ export { FadeInSection } from "./molecules/FadeInSection";
 // Organisms
 export { Card } from "./organisms/Card";
 export { NavBar } from "./organisms/NavBar";
+export { ThreeScene } from "./organisms/ThreeScene/ThreeScene";
+export type { ThreeSceneVariant } from "./organisms/ThreeScene/ThreeScene";

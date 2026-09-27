@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
-import ThreeScene from '../sections/ThreeJS/ThreeScene';
-import ThreeScene2 from '../sections/ThreeJS/ThreeScene2';
-import ThreeScene3 from '../sections/ThreeJS/ThreeScene3';
-import ThreeScene4 from '../sections/ThreeJS/ThreeScene4';
+import ThreeScene from '../../components/organisms/ThreeScene/ThreeScene';
 import { vertexShaders } from './VertexText';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,15 +40,15 @@ const SpaceOtterssey = () => {
   const renderScene = () => {
     switch (activeScene) {
       case 1:
-        return <ThreeScene />;
+        return <ThreeScene variant="fruit" />;
       case 2:
-        return <ThreeScene2 />;
+        return <ThreeScene variant="fruit2" />;
       case 3:
-        return <ThreeScene3 />;
+        return <ThreeScene variant="fruit3" />;
       case 4:
-        return <ThreeScene4 />;
+        return <ThreeScene variant="poison" />;
       default:
-        return <ThreeScene />;
+        return <ThreeScene variant="fruit" />;
     }
   };
 
