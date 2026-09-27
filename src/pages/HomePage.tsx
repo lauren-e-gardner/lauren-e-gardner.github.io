@@ -76,7 +76,7 @@ export default function HomePage() {
             <CrayonBlob color={crayon.lime} radius={HERO.limeBlob.radius} style={HERO.limeBlob} />
 
             <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.lg }}>
-              <div className="body-b7 caps-wider crayon-label">software developer · princeton ’24</div>
+              <div className="body-b6 caps-wider crayon-label">software developer · princeton ’24</div>
               <h1
                 className="headline-h1"
                 style={{
@@ -104,7 +104,6 @@ export default function HomePage() {
                 whether it’s finding innovative solutions or using code to fuel artistic expression.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: space.sm, alignItems: "center" }}>
-                <span className="headline-h10" style={{ color: crayon.maroon }}>currently working with</span>
                 {CURRENTLY_USING.map((item) => (
                   <CrayonMark
                     key={item.name}

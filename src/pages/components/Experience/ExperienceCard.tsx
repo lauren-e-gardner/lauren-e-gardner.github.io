@@ -21,7 +21,7 @@ export const ExperienceCard = ({ experience, color }: ExperienceCardProps) => {
       }}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: space.xs }}>
-        <span className="body-b7 caps-wide crayon-label">{experience.date}</span>
+        <span className="body-b6 caps-wide crayon-label">{experience.date}</span>
         <CrayonMark
           className="headline-h7"
           color={color}

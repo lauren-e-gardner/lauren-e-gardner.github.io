@@ -59,7 +59,7 @@ export const ContactSection = () => (
 
         {contacts.map((contact) => (
           <div key={contact.label} style={{ display: "flex", flexDirection: "column", gap: space["3xs"] }}>
-            <span className="headline-h9" style={{ color: crayon.yellow }}>{contact.label}</span>
+            <span className="headline-h8" style={{ color: crayon.yellow }}>{contact.label}</span>
             <a className="crayon-contact-link bodyMedium-b2" href={contact.href} target="_blank" rel="noopener noreferrer">
               {contact.text}
             </a>
@@ -69,7 +69,7 @@ export const ContactSection = () => (
     </div>
 
     <div
-      className="body-b9 crayon-muted"
+      className="body-b6 crayon-muted"
       style={{
         marginTop: space.xlLg,
         display: "flex",

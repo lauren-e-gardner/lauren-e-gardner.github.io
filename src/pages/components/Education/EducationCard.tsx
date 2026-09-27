@@ -40,7 +40,7 @@ export const EducationCard = () => (
           <CrayonBorder radius={radius.lg} />
 
           <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
-            <span className="body-b7 caps-wide crayon-label">{edu.year} · {edu.gpa}</span>
+            <span className="body-b6 caps-wide crayon-label">{edu.year} · {edu.gpa}</span>
             <h3 className="headline-h4" style={{ color: crayon.red }}>{edu.school}</h3>
             <span className="bodyMedium-b3">{edu.degree}</span>
           </div>

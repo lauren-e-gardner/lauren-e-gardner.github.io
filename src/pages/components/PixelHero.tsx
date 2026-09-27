@@ -165,7 +165,7 @@ export const PixelHero = () => {
         }}
       />
       <div
-        className="headline-h10"
+        className="headline-h8"
         style={{
           position: "absolute",
           right: CAPTION.right,

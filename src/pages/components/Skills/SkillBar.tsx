@@ -88,7 +88,7 @@ export const SkillBar = ({ name, icon, percentage, color }: SkillBarProps) => {
         />
       </div>
 
-      <span className="body-b7" style={{ textAlign: "right" }}>{percentage}%</span>
+      <span className="body-b6" style={{ textAlign: "right" }}>{percentage}%</span>
     </div>
   );
 };

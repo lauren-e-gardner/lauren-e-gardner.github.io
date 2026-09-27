@@ -164,7 +164,7 @@ export const CrayonMark = ({
 
 /** Outlined (rather than filled) crayon pill, used for the skill tags. */
 export const CrayonPill = ({ children, color }: { children: React.ReactNode; color: string }) => (
-  <span className="bodyMedium-b7" style={{ position: "relative", padding: `${space["3xs"]} ${space.sm}` }}>
+  <span className="bodyMedium-b6" style={{ position: "relative", padding: `${space["3xs"]} ${space.sm}` }}>
     <span
       aria-hidden
       style={{
@@ -188,7 +188,7 @@ export const BULLET_COLORS = [crayon.red, crayon.blue, crayon.green];
  */
 export const CrayonBulletList = ({
   points,
-  textClass = "body-b5",
+  textClass = "body-b4",
   style,
 }: {
   points: string[];

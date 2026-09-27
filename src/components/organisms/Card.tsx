@@ -91,7 +91,7 @@ export const Card: React.FC<CardProps> = ({
 
             {(role || date) && (
                 <div
-                    className="body-b9 caps-wide crayon-label"
+                    className="body-b6 caps-wide crayon-label"
                     style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: space.sm }}
                 >
                     <span>{role}</span>
@@ -111,7 +111,7 @@ export const Card: React.FC<CardProps> = ({
                 </div>
             )}
 
-            {tech && <div className="body-b8 crayon-muted">{tech}</div>}
+            {tech && <div className="body-b6 crayon-muted">{tech}</div>}
 
             {(onDemo || githubLink) && (
                 <div style={{ display: "flex", gap: space.smLg, marginTop: "auto", paddingTop: space.xs }}>

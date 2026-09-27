@@ -69,7 +69,7 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
         }}
       >
         {links.map((link) => (
-          <button key={link.target} className="crayon-nav-link headline-h9" onClick={() => scrollToSection(link.target)}>
+          <button key={link.target} className="crayon-nav-link headline-h8" onClick={() => scrollToSection(link.target)}>
             {link.label}
           </button>
         ))}

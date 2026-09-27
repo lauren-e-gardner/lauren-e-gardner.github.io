@@ -60,7 +60,6 @@ $crayon: (
 
 /* --- color roles ------------------------------------------------------ */
 
-/* Paired with a size class, e.g. `body-b9 caps-wide crayon-label`. */
 .crayon .crayon-label {
     color: map.get($crayon, "maroon");
 }
