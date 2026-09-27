@@ -38,6 +38,13 @@ $crayon: (
     --page-gutter: clamp(18px, 5vw, 48px);
 }
 
+@media (max-width: 1032px) {
+    :root {
+        /* Reduce misregistration gently on smaller page and section headings. */
+        --mis: 3px;
+    }
+}
+
 .crayon {
     background: map.get($crayon, "cream");
     color: map.get($crayon, "ink");

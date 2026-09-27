@@ -14,7 +14,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className="crayon"
-      style={{ position: "relative", overflowX: "clip", minHeight: "100vh", ["--mis" as string]: `${MISREGISTER}px` }}
+      style={{ position: "relative", overflowX: "clip", minHeight: "100vh", ["--mis" as string]: MISREGISTER }}
     >
       {/* Rendered once for the whole page: every decorative shape below points
           at #crayon, and the grain multiplies over the lot. */}

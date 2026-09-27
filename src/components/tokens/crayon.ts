@@ -58,8 +58,13 @@ export const radius = {
 /** Applied to decorative shapes only — never to text. */
 export const CRAYON_FILTER = "url(#crayon)";
 
-/** Offset of the colored heading shadows (misregistration), in px. */
-export const MISREGISTER = 4;
+/**
+ * Offset of the colored heading shadows (misregistration), as a fraction of the
+ * heading's own font size. `em` so the shadow stays the same visual distance
+ * from the strokes when the headline scales down at the mobile breakpoint —
+ * floored so it never disappears on the smallest type.
+ */
+export const MISREGISTER = "clamp(1.5px, 0.042em, 5px)";
 
 /** Offset a nav anchor scroll needs to clear the fixed nav. */
 export const SCROLL_OFFSET = 70;
