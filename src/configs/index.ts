@@ -1,4 +1,5 @@
 export { skills } from "./skillsConfig"
 export { projects } from "./projectsConfig"
 export { education } from "./educationConfig"
+export { experience } from "./experienceConfig"
 export { contacts, portrait } from "./contactConfig"

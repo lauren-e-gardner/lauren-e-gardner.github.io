@@ -2,11 +2,10 @@
 import { Card, CrayonBlob, CrayonMark, Divider, FadeInSection, Header } from "../components";
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
-import { education, projects } from "../configs";
+import { education, experience, projects } from "../configs";
 import { CRAYON_FILTER, crayon, radius, SCROLL_OFFSET, space } from "../components/tokens/crayon";
 import { PixelHero } from "./sections/PixelHero.tsx";
 import { SkillsSection } from "./sections/Skills/SkillsSection.tsx";
-import { ExperienceSection } from "./sections/Experience/ExperienceSection.tsx";
 import { ContactSection } from "./sections/ContactSection.tsx";
 
 /** Languages called out under the hero, each on its own crayon blob. */
@@ -26,6 +25,9 @@ const PROJECT_STYLES = [
   { color: crayon.yellow, ink: crayon.red, tilt: 0.9 },
   { color: crayon.green, ink: crayon.green, tilt: -0.6 },
 ];
+
+/** Blob color behind each company name, cycled in the order the jobs are listed. */
+const COMPANY_COLORS = [crayon.yellow, crayon.lavender, crayon.lime];
 
 /** Divider bar color and tilt, in page order. */
 const DIVIDERS = {
@@ -174,7 +176,20 @@ export default function HomePage() {
               swipeRotate={-1}
               swipeOpacity={0.85}
             />
-            <ExperienceSection />
+            <div style={{ display: "flex", flexDirection: "column", gap: space.xlLg }}>
+              {experience.map((job, index) => (
+                <Card
+                  key={job.company}
+                  variant="experience"
+                  title={job.title}
+                  org={job.company}
+                  date={job.date}
+                  subtitle={job.location}
+                  points={job.points}
+                  color={COMPANY_COLORS[index % COMPANY_COLORS.length]}
+                />
+              ))}
+            </div>
           </div>
         </FadeInSection>
 

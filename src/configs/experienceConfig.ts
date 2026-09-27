@@ -1,4 +1,14 @@
-import type { Experience } from "../types.js";
+interface Experience {
+  date: string;
+  /** Route to an in-site demo of the work, where one exists. */
+  demo?: string;
+  title: string;
+  company: string;
+  /** Optional location, e.g. "Remote" or "Princeton, NJ". */
+  location?: string;
+  /** Responsibilities and results, one bullet each. */
+  points: string[];
+}
 
 // Most recent first.
 export const experience: Experience[] = [

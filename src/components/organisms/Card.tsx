@@ -1,6 +1,6 @@
 import React from 'react'
 import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
-import { BORDER, CrayonBorder, CrayonBulletList, CrayonPill } from '../atoms/Crayon'
+import { BORDER, CrayonBorder, CrayonBulletList, CrayonMark, CrayonPill } from '../atoms/Crayon'
 import { Button } from '../atoms/Button/Button'
 
 /** Screenshot proportions, and how far the color block sits behind it. */
@@ -9,20 +9,27 @@ const SCREENSHOT = { ratio: "4/3", blockOffset: "9px" } as const;
 /** The education variant's block offset, and the width its columns split at. */
 const DEGREE = { blockOffset: "10px", minColumn: "280px" } as const;
 
+/** The experience variant's left column width, and its company blob. */
+const JOB = { minColumn: "220px", blobOpacity: 0.9 } as const;
+
 export interface CardProps {
     /**
      * `project` is the default portrait card: screenshot, blurb, pills, buttons.
      * `education` is the wide degree card: label, school, degree, bullet points.
+     * `experience` is the job row: date and company beside a card of bullets.
      */
-    variant?: "project" | "education";
+    variant?: "project" | "education" | "experience";
+    /** Project title, school, or job title. */
     title: string;
     role?: string;
     date?: string;
-    /** Secondary line under the title. Used by the education variant. */
+    /** Degree, for `education`; location, for `experience`. */
     subtitle?: string;
+    /** Company name, marked with a crayon blob. Used by `experience`. */
+    org?: string;
     description?: string;
     skills?: string[];
-    /** Bulleted highlights. Used by the education variant. */
+    /** Bulleted highlights. Used by `education` and `experience`. */
     points?: string[];
     /** Mono line of frameworks, e.g. "Three.js · JavaScript · OpenGL". */
     tech?: string;
@@ -47,6 +54,7 @@ export const Card: React.FC<CardProps> = ({
     role,
     date,
     subtitle,
+    org,
     description,
     skills,
     points,
@@ -58,6 +66,52 @@ export const Card: React.FC<CardProps> = ({
     onDemo,
     githubLink,
 }) => {
+    if (variant === "experience") {
+        return (
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${JOB.minColumn}),1fr))`,
+                    gap: `${space.smLg} ${space.xlLg}`,
+                }}
+            >
+                <div style={{ display: "flex", flexDirection: "column", gap: space.xs }}>
+                    {date && <span className="body-b6 caps-wide crayon-label">{date}</span>}
+                    {org && (
+                        <CrayonMark
+                            className="headline-h7"
+                            color={color}
+                            radius={radius["2xl"]}
+                            style={{ alignSelf: "flex-start", padding: `${space["3xs"]} ${space.xs}` }}
+                            markStyle={{ opacity: JOB.blobOpacity }}
+                        >
+                            {org}
+                        </CrayonMark>
+                    )}
+                    {subtitle && (
+                        <span className="body-b6" style={{ color: crayon.mutedInk }}>{subtitle}</span>
+                    )}
+                </div>
+
+                <article
+                    style={{
+                        gridColumn: "span 2",
+                        minWidth: 0,
+                        position: "relative",
+                        padding: space.lg,
+                        background: crayon.paper,
+                    }}
+                >
+                    <CrayonBorder />
+                    <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
+                        <h3 className="bodyMedium-b1">{title}</h3>
+                        {points && points.length > 0 && <CrayonBulletList points={points} textClass="body-b6" />}
+                    </div>
+                </article>
+            </div>
+        )
+    }
+
     if (variant === "education") {
         /* The block is a sibling rather than a negative-z child so it stays
            behind the paper regardless of the card's own stacking context. The
