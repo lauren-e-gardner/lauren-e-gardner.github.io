@@ -24,7 +24,7 @@ export const projects: Project[] = [
     ],
     tech: "Three.js · JavaScript · OpenGL",
     description:
-      "This 3D game uses procedural generation to create unique environments and objects in real-time, without relying on imported mesh files. Each play through offers a completely different experience, with dynamic visuals generated as you play.",
+      "This 3D game uses procedural generation to create unique environments and objects in real-time, without relying on imported mesh files.",
     skills: [
       "Video Game Development",
       "3D Graphics",
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     ],
     tech: "Three.js · JavaScript · Python",
     description:
-      "A design project inspired by Windows operating system versions and the nostalgic feeling they have. Custom-coded tools, including an image pixelizer, and a dithering program that can create new colors with a limited palette.",
+      "A coding and design project inspired by Windows operating system versions and the nostalgic feeling they have.",
     skills: [ 
       "Image Processing",
     ],
@@ -65,7 +65,7 @@ export const projects: Project[] = [
     ],
     tech: "Three.js · JavaScript",
     description:
-      "A fabric simulator that realistically models the behavior of cloth in various environments. It accounts for factors like gravity, collisions with objects, and dynamic elements such as wind and weather patterns.",
+      "A fabric simulator that realistically models the behavior of cloth in various environments.",
     skills: [ 
       "3D Graphics",
       "Procedural Generation",

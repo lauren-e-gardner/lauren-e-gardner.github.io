@@ -1,5 +1,10 @@
-import { CRAYON_FILTER, crayon } from "../../components/tokens/crayon";
+import { CRAYON_FILTER, crayon, space } from "../../components/tokens/crayon";
 import { contacts } from "../../configs";
+import { ContactPortrait } from "./ContactPortrait";
+
+/** Hand-drawn panel corners, and the yellow blob spilling off its top right. */
+const PANEL_RADIUS = "14px 20px 12px 24px";
+const BLOB = { right: "-2%", top: "-9%", width: "20%", radius: "50% 45% 55% 50%", opacity: 0.8 } as const;
 
 /** Maroon crayon panel with the contact links, plus the page footer. */
 export const ContactSection = () => (
@@ -7,10 +12,10 @@ export const ContactSection = () => (
     <div
       style={{
         position: "relative",
-        padding: "clamp(28px,5vw,64px)",
+        padding: `clamp(${space.lg}, 5vw, ${space["3xl"]})`,
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
-        gap: 36,
+        gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))",
+        gap: space.xlLg,
         alignItems: "center",
       }}
     >
@@ -20,7 +25,7 @@ export const ContactSection = () => (
           position: "absolute",
           inset: 0,
           background: crayon.maroon,
-          borderRadius: "14px 20px 12px 24px",
+          borderRadius: PANEL_RADIUS,
           filter: CRAYON_FILTER,
         }}
       />
@@ -28,36 +33,34 @@ export const ContactSection = () => (
         aria-hidden
         style={{
           position: "absolute",
-          right: "-3%",
-          top: "-8%",
-          width: "34%",
+          right: BLOB.right,
+          top: BLOB.top,
+          width: BLOB.width,
           aspectRatio: "1",
           background: crayon.yellow,
-          borderRadius: "50% 45% 55% 50%",
+          borderRadius: BLOB.radius,
           filter: CRAYON_FILTER,
           mixBlendMode: "multiply",
-          opacity: 0.8,
+          opacity: BLOB.opacity,
         }}
       />
 
-      <h2
-        className="crayon-hand"
-        style={{
-          position: "relative",
-          fontSize: "clamp(56px,7vw,100px)",
-          lineHeight: 0.95,
-          color: crayon.cream,
-          textShadow: `var(--mis) var(--mis) 0 ${crayon.red}`,
-        }}
-      >
-        Contact Me
-      </h2>
+      <div style={{ position: "relative" }}>
+        <ContactPortrait />
+      </div>
 
-      <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 22 }}>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.lg }}>
+        <h2
+          className="headline-h2"
+          style={{ color: crayon.cream, textShadow: `var(--mis) var(--mis) 0 ${crayon.red}` }}
+        >
+          Contact Me
+        </h2>
+
         {contacts.map((contact) => (
-          <div key={contact.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <span className="crayon-hand" style={{ fontSize: 24, color: crayon.yellow }}>{contact.label}</span>
-            <a className="crayon-contact-link" href={contact.href} target="_blank" rel="noopener noreferrer">
+          <div key={contact.label} style={{ display: "flex", flexDirection: "column", gap: space["3xs"] }}>
+            <span className="headline-h9" style={{ color: crayon.yellow }}>{contact.label}</span>
+            <a className="crayon-contact-link bodyMedium-b2" href={contact.href} target="_blank" rel="noopener noreferrer">
               {contact.text}
             </a>
           </div>
@@ -66,19 +69,16 @@ export const ContactSection = () => (
     </div>
 
     <div
+      className="body-b9 crayon-muted"
       style={{
-        marginTop: 40,
+        marginTop: space.xlLg,
         display: "flex",
         justifyContent: "space-between",
         flexWrap: "wrap",
-        gap: 12,
-        fontFamily: "'Space Mono', ui-monospace, monospace",
-        fontSize: 12,
-        color: crayon.mutedInk,
+        gap: space.smLg,
       }}
     >
       <span>© {new Date().getFullYear()} Lauren Gardner</span>
-      <span>drawn, pixelized &amp; coded by hand</span>
     </div>
   </>
 );

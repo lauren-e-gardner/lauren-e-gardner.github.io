@@ -1,5 +1,5 @@
 import { skills } from "../../../configs";
-import { crayon } from "../../../components/tokens/crayon";
+import { crayon, space } from "../../../components/tokens/crayon";
 import { SkillBar } from "./SkillBar";
 
 /** One crayon color per skill, per the handoff. Falls back to red. */
@@ -14,7 +14,7 @@ const SKILL_COLORS: Record<string, string> = {
 };
 
 export const SkillsSection = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+  <div style={{ display: "flex", flexDirection: "column", gap: space.lg }}>
     {skills.map((skill) => (
       <SkillBar
         key={skill.name}

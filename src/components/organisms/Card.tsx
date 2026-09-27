@@ -1,6 +1,11 @@
 import React from 'react'
-import { CRAYON_FILTER, crayon } from '../tokens/crayon'
-import { CrayonBorder, CrayonPill } from '../atoms/Crayon'
+import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
+import { BORDER, CrayonBorder, CrayonPill } from '../atoms/Crayon'
+
+/** Screenshot proportions, and how far the color block sits behind it. */
+const SCREENSHOT = { ratio: "4/3", blockOffset: "9px" } as const;
+/** Buttons are hand-drawn, so no two corners share a radius. */
+const BUTTON_RADIUS = { filled: "10px 14px 9px 16px", outlined: "12px 9px 15px 10px" } as const;
 
 export interface CardProps {
     title: string;
@@ -46,24 +51,24 @@ export const Card: React.FC<CardProps> = ({
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                gap: 16,
-                padding: "16px 16px 22px",
+                gap: space.md,
+                padding: `${space.md} ${space.md} ${space.lg}`,
                 background: crayon.paper,
-                transform: `rotate(${tilt}deg)`,
+                ["--tilt" as string]: `${tilt}deg`,
             }}
         >
             <CrayonBorder />
 
             {src && (
-                <div style={{ position: "relative", aspectRatio: "4/3" }}>
+                <div style={{ position: "relative", aspectRatio: SCREENSHOT.ratio }}>
                     <div
                         aria-hidden
                         style={{
                             position: "absolute",
                             inset: 0,
-                            transform: "translate(9px,9px)",
+                            transform: `translate(${SCREENSHOT.blockOffset},${SCREENSHOT.blockOffset})`,
                             background: color,
-                            borderRadius: 4,
+                            borderRadius: radius.xs,
                             filter: CRAYON_FILTER,
                         }}
                     />
@@ -76,9 +81,9 @@ export const Card: React.FC<CardProps> = ({
                             width: "100%",
                             height: "100%",
                             objectFit: "cover",
-                            border: `3px solid ${crayon.ink}`,
-                            borderRadius: 4,
-                            background: "#e9e1c8",
+                            border: `${BORDER.card}px solid ${crayon.ink}`,
+                            borderRadius: radius.xs,
+                            background: crayon.paperShade,
                         }}
                     />
                 </div>
@@ -86,43 +91,39 @@ export const Card: React.FC<CardProps> = ({
 
             {(role || date) && (
                 <div
-                    className="crayon-meta"
-                    style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}
+                    className="body-b9 caps-wide crayon-label"
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: space.sm }}
                 >
                     <span>{role}</span>
                     <span>{date}</span>
                 </div>
             )}
 
-            <h3 className="crayon-hand" style={{ fontSize: 40, lineHeight: 1, color: ink }}>{title}</h3>
+            <h3 className="headline-h5" style={{ color: ink }}>{title}</h3>
 
-            {description && <p style={{ fontSize: 15.5, lineHeight: 1.55 }}>{description}</p>}
+            {description && <p className="body-b6">{description}</p>}
 
             {skills && skills.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: space.sm }}>
                     {skills.map((skill) => (
                         <CrayonPill key={skill} color={ink}>{skill}</CrayonPill>
                     ))}
                 </div>
             )}
 
-            {tech && (
-                <div style={{ fontFamily: "'Space Mono', ui-monospace, monospace", fontSize: 12.5, color: crayon.mutedInk }}>
-                    {tech}
-                </div>
-            )}
+            {tech && <div className="body-b8 crayon-muted">{tech}</div>}
 
             {(onDemo || githubLink) && (
-                <div style={{ display: "flex", gap: 12, marginTop: "auto", paddingTop: 6 }}>
+                <div style={{ display: "flex", gap: space.smLg, marginTop: "auto", paddingTop: space.xs }}>
                     {onDemo && (
-                        <button className="crayon-btn crayon-btn-filled" onClick={onDemo}>
+                        <button className="crayon-btn crayon-btn-filled bodyMedium-b6" onClick={onDemo}>
                             <span
                                 aria-hidden
                                 style={{
                                     position: "absolute",
                                     inset: 0,
                                     background: color,
-                                    borderRadius: "10px 14px 9px 16px",
+                                    borderRadius: BUTTON_RADIUS.filled,
                                     filter: CRAYON_FILTER,
                                 }}
                             />
@@ -131,7 +132,7 @@ export const Card: React.FC<CardProps> = ({
                     )}
                     {githubLink && (
                         <a
-                            className="crayon-btn crayon-btn-outlined"
+                            className="crayon-btn crayon-btn-outlined bodyMedium-b6"
                             href={githubLink}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -142,8 +143,8 @@ export const Card: React.FC<CardProps> = ({
                                 style={{
                                     position: "absolute",
                                     inset: 0,
-                                    border: `2.5px solid ${crayon.ink}`,
-                                    borderRadius: "12px 9px 15px 10px",
+                                    border: `${BORDER.button}px solid ${crayon.ink}`,
+                                    borderRadius: BUTTON_RADIUS.outlined,
                                     filter: CRAYON_FILTER,
                                 }}
                             />

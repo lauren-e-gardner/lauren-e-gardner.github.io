@@ -1,11 +1,19 @@
 @use "sass:map";
 
 /* Crayon / primary-color home page. Everything here is scoped to .crayon so the
-   other pages (Nostalgia, SkillsHub, ...) keep their own look. */
+   other pages (Nostalgia, SkillsHub, ...) keep their own look.
+
+   Typography lives in fonts.scss (the .headline-* / .body-* classes); spacing and radii live
+   in spacing.scss (--space-* / --radius-*). This file holds only color, layout
+   and interaction.
+
+   Keep $crayon in step with the `crayon` palette in crayon.ts, which is what
+   inline styles and the canvas read from. */
 
 $crayon: (
     "cream": #f5eedb,
     "paper": #fbf7ea,
+    "paper-shade": #e9e1c8,
     "ink": #2a1a14,
     "muted-ink": #5a4336,
     "red": #e3261b,
@@ -23,13 +31,17 @@ $crayon: (
     @each $name, $value in $crayon {
         --crayon-#{$name}: #{$value};
     }
+    /* Offset of the misregistered heading shadows. */
     --mis: 4px;
+    /* Content column, and the gutter either side of it. */
+    --page-max: 1180px;
+    --page-gutter: clamp(18px, 5vw, 48px);
 }
 
 .crayon {
     background: map.get($crayon, "cream");
     color: map.get($crayon, "ink");
-    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-family: "Roboto", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
 
     ::selection {
@@ -46,49 +58,35 @@ $crayon: (
     }
 }
 
-/* --- type ------------------------------------------------------------- */
+/* --- color roles ------------------------------------------------------ */
 
-.crayon .crayon-hand {
-    font-family: "MyHand", "Space Grotesk", system-ui, sans-serif;
-    font-weight: 400;
-}
-
-.crayon .crayon-mono {
-    font-family: "Space Mono", ui-monospace, monospace;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+/* Paired with a size class, e.g. `body-b9 caps-wide crayon-label`. */
+.crayon .crayon-label {
     color: map.get($crayon, "maroon");
 }
 
-.crayon .crayon-meta {
-    font-family: "Space Mono", ui-monospace, monospace;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: map.get($crayon, "maroon");
+.crayon .crayon-muted {
+    color: map.get($crayon, "muted-ink");
 }
 
 /* --- layout ----------------------------------------------------------- */
 
 .crayon-main {
-    max-width: 1180px;
+    max-width: var(--page-max);
     margin: 0 auto;
-    padding: 0 clamp(18px, 5vw, 48px);
+    padding: 0 var(--page-gutter);
 }
 
 .crayon-section {
-    padding: 72px 0;
+    padding: var(--space-4xl) 0;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: var(--space-xl-lg);
 }
 
 /* --- nav -------------------------------------------------------------- */
 
 .crayon .crayon-nav-link {
-    font-family: "MyHand", "Space Grotesk", system-ui, sans-serif;
-    font-size: clamp(18px, 2vw, 24px);
     color: map.get($crayon, "ink");
     background: none;
     border: none;
@@ -104,6 +102,9 @@ $crayon: (
 /* --- cards ------------------------------------------------------------ */
 
 .crayon .crayon-card {
+    /* The resting tilt comes in as --tilt rather than an inline transform, so
+       the hover rule below can actually override it. */
+    transform: rotate(var(--tilt, 0deg));
     transition: transform 0.25s;
 
     &:hover {
@@ -114,14 +115,11 @@ $crayon: (
 .crayon .crayon-btn {
     position: relative;
     display: inline-block;
-    padding: 9px 20px;
-    font-weight: 700;
+    padding: var(--space-sm) var(--space-md-lg);
     color: map.get($crayon, "ink");
     cursor: pointer;
     background: none;
     border: none;
-    font-family: inherit;
-    font-size: 15px;
     transition: transform 0.15s, color 0.15s;
 }
 
@@ -138,8 +136,6 @@ $crayon: (
 
 .crayon .crayon-contact-link {
     color: map.get($crayon, "cream");
-    font-size: clamp(16px, 1.8vw, 20px);
-    font-weight: 500;
     overflow-wrap: anywhere;
     text-decoration: underline;
     text-decoration-color: map.get($crayon, "magenta");

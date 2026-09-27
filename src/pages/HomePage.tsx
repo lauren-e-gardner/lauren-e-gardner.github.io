@@ -3,7 +3,7 @@ import { Card, CrayonBlob, CrayonMark, Divider, FadeInSection, Header } from "..
 import AppLayout from "../layouts/AppLayout.tsx";
 import { useNavigate } from "react-router-dom";
 import { projects } from "../configs";
-import { crayon } from "../components/tokens/crayon";
+import { CRAYON_FILTER, crayon, radius, SCROLL_OFFSET, space } from "../components/tokens/crayon";
 import { PixelHero } from "./components/PixelHero.tsx";
 import { SkillsSection } from "./components/Skills/SkillsSection.tsx";
 import { ExperienceSection } from "./components/Experience/ExperienceSection.tsx";
@@ -28,39 +28,58 @@ const PROJECT_STYLES = [
   { color: crayon.green, ink: crayon.green, tilt: -0.6 },
 ];
 
+/** Divider bar color and tilt, in page order. */
+const DIVIDERS = {
+  hero: { color: crayon.yellow, rotate: -0.6 },
+  projects: { color: crayon.blue, rotate: 0.5 },
+  skills: { color: crayon.magenta, rotate: -0.4 },
+  experience: { color: crayon.green, rotate: 0.6 },
+  education: { color: crayon.red, rotate: -0.5 },
+};
+
+/** Misregistered shadow colors, one per section heading. */
+const HEADING_SHADOW = {
+  magenta: "rgba(236,30,140,.55)",
+  magentaSoft: "rgba(236,30,140,.5)",
+  blue: "rgba(35,80,216,.5)",
+  yellow: "rgba(255,196,20,.9)",
+};
+
+/** Hero artwork: the two background blobs and the underline stroke. */
+const HERO = {
+  minHeight: "88vh",
+  lavenderBlob: { left: "-12%", top: "14%", width: 260, height: 230, opacity: 0.9 },
+  limeBlob: { right: "-8%", bottom: "6%", width: 200, height: 200, opacity: 0.8, radius: "45% 55% 60% 40%" },
+  underline: { width: "min(340px,70%)", height: 10, tilt: "-1.5deg" },
+};
+
 export default function HomePage() {
   const navigate = useNavigate();
-  const scrollStyle = { scrollMarginTop: 70 };
+  const scrollStyle = { scrollMarginTop: SCROLL_OFFSET };
 
   return (
     <AppLayout>
       <main className="crayon-main">
-        <FadeInSection id="home" style={scrollStyle} placeholderHeight="88vh">
+        <FadeInSection id="home" style={scrollStyle} placeholderHeight={HERO.minHeight}>
           <div
             style={{
               position: "relative",
-              minHeight: "88vh",
-              paddingTop: 120,
+              minHeight: HERO.minHeight,
+              paddingTop: space["6xl"],
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))",
-              gap: "clamp(32px,6vw,80px)",
+              gap: `clamp(${space.xl}, 6vw, ${space["5xl"]})`,
               alignItems: "center",
             }}
           >
-            <CrayonBlob color={crayon.lavender} style={{ left: "-12%", top: "14%", width: 260, height: 230, opacity: 0.9 }} />
-            <CrayonBlob
-              color={crayon.lime}
-              radius="45% 55% 60% 40%"
-              style={{ right: "-8%", bottom: "6%", width: 200, height: 200, opacity: 0.8 }}
-            />
+            <CrayonBlob color={crayon.lavender} style={HERO.lavenderBlob} />
+            <CrayonBlob color={crayon.lime} radius={HERO.limeBlob.radius} style={HERO.limeBlob} />
 
-            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 24 }}>
-              <div className="crayon-mono">software developer · princeton ’24</div>
+            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.lg }}>
+              <div className="body-b7 caps-wider crayon-label">software developer · princeton ’24</div>
               <h1
-                className="crayon-hand"
+                className="headline-h1"
                 style={{
-                  fontSize: "clamp(56px,8vw,112px)",
-                  lineHeight: 0.92,
                   color: crayon.red,
                   textShadow: `var(--mis) var(--mis) 0 ${crayon.yellow}, calc(var(--mis) * -0.8) calc(var(--mis) * 0.3) 0 rgba(35,80,216,.55)`,
                   textWrap: "balance",
@@ -71,28 +90,27 @@ export default function HomePage() {
               <div
                 aria-hidden
                 style={{
-                  width: "min(340px,70%)",
-                  height: 10,
+                  width: HERO.underline.width,
+                  height: HERO.underline.height,
                   background: crayon.blue,
-                  borderRadius: 6,
-                  transform: "rotate(-1.5deg)",
-                  filter: "url(#crayon)",
+                  borderRadius: radius.sm,
+                  transform: `rotate(${HERO.underline.tilt})`,
+                  filter: CRAYON_FILTER,
                 }}
               />
-              <p style={{ fontSize: "clamp(17px,1.6vw,20px)", lineHeight: 1.6, maxWidth: "34em" }}>
+              <p className="body-b2" style={{ maxWidth: "34em" }}>
                 I’m a software developer with experience in frontend design, 3D graphics, and full-stack
                 development. As a Princeton University graduate, I approach programming with creativity —
                 whether it’s finding innovative solutions or using code to fuel artistic expression.
               </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
-                <span className="crayon-hand" style={{ fontSize: 22, color: crayon.maroon }}>
-                  currently working with
-                </span>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: space.sm, alignItems: "center" }}>
+                <span className="headline-h10" style={{ color: crayon.maroon }}>currently working with</span>
                 {CURRENTLY_USING.map((item) => (
                   <CrayonMark
                     key={item.name}
+                    className="bodyMedium-b6"
                     color={item.color}
-                    style={{ padding: "4px 12px", fontWeight: 700, fontSize: 15 }}
+                    style={{ padding: `${space.xs} ${space.smLg}` }}
                   >
                     {item.name}
                   </CrayonMark>
@@ -104,7 +122,7 @@ export default function HomePage() {
           </div>
         </FadeInSection>
 
-        <Divider color={crayon.yellow} rotate={-0.6} />
+        <Divider {...DIVIDERS.hero} />
 
         <FadeInSection id="projects" style={scrollStyle}>
           <div className="crayon-section">
@@ -112,14 +130,14 @@ export default function HomePage() {
               title="Projects"
               description="A selection of my work, showcasing my skills in software development and design."
               highlight={crayon.yellow}
-              shadow="rgba(236,30,140,.55)"
+              shadow={HEADING_SHADOW.magenta}
               swipeRotate={-2}
             />
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))",
-                gap: "clamp(28px,3vw,40px)",
+                gap: `clamp(${space.lg}, 3vw, ${space.xlLg})`,
               }}
             >
               {projects.map((project, index) => {
@@ -145,23 +163,23 @@ export default function HomePage() {
           </div>
         </FadeInSection>
 
-        <Divider color={crayon.blue} rotate={0.5} />
+        <Divider {...DIVIDERS.projects} />
 
         <FadeInSection id="skills" style={scrollStyle}>
-          <div className="crayon-section" style={{ gap: 44 }}>
-            <Header title="Skills" highlight={crayon.lime} shadow="rgba(35,80,216,.5)" swipeRotate={1.5} />
+          <div className="crayon-section" style={{ gap: space["2xl"] }}>
+            <Header title="Skills" highlight={crayon.lime} shadow={HEADING_SHADOW.blue} swipeRotate={1.5} />
             <SkillsSection />
           </div>
         </FadeInSection>
 
-        <Divider color={crayon.magenta} rotate={-0.4} />
+        <Divider {...DIVIDERS.skills} />
 
         <FadeInSection id="work-experience" style={scrollStyle}>
           <div className="crayon-section">
             <Header
               title="Experience"
               highlight={crayon.orange}
-              shadow="rgba(236,30,140,.5)"
+              shadow={HEADING_SHADOW.magentaSoft}
               swipeRotate={-1}
               swipeOpacity={0.85}
             />
@@ -169,19 +187,19 @@ export default function HomePage() {
           </div>
         </FadeInSection>
 
-        <Divider color={crayon.green} rotate={0.6} />
+        <Divider {...DIVIDERS.experience} />
 
         <FadeInSection id="education" style={scrollStyle}>
           <div className="crayon-section">
-            <Header title="Education" highlight={crayon.lavender} shadow="rgba(255,196,20,.9)" swipeRotate={1.5} />
+            <Header title="Education" highlight={crayon.lavender} shadow={HEADING_SHADOW.yellow} swipeRotate={1.5} />
             <EducationCard />
           </div>
         </FadeInSection>
 
-        <Divider color={crayon.red} rotate={-0.5} />
+        <Divider {...DIVIDERS.education} />
 
         <FadeInSection id="contact" style={scrollStyle}>
-          <div className="crayon-section" style={{ padding: "72px 0 96px" }}>
+          <div className="crayon-section" style={{ paddingBottom: space["5xl"] }}>
             <ContactSection />
           </div>
         </FadeInSection>

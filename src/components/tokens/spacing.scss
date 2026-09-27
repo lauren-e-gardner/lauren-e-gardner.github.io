@@ -1,13 +1,35 @@
+/* Steps named "<size>-lg" sit one notch above <size>; the digit-prefixed
+   names continue upward. Every step is also emitted as a --space-* custom
+   property at the bottom of this file, for use from inline styles. */
 $sizes: (
+    "3xs": 2px,
     "xs": 4px,    
     "sm": 8px,
+    "sm-lg": 12px,
     "md": 16px,
+    "md-lg": 20px,
     "lg": 24px,
     "xl": 32px,
+    "xl-lg": 40px,
     "2xl": 48px,
     "3xl": 64px,
-    "4xl": 72px
+    "4xl": 72px,
+    "5xl": 96px,
+    "6xl": 120px
 );
+/* Corner radii. Organic, multi-corner blob shapes are artwork rather than
+   scale, and live with the components that draw them. */
+$radii: (
+    "xs": 4px,
+    "sm": 6px,
+    "md": 8px,
+    "lg": 10px,
+    "xl": 12px,
+    "2xl": 14px,
+    "3xl": 30px,
+    "full": 999px
+);
+
 $alignments: top, right, bottom, left;
 $properties: (
     "margin": "mr",
@@ -84,3 +106,13 @@ $flex-number: (
 
 
 
+
+
+:root {
+    @each $name, $size in $sizes {
+        --space-#{$name}: #{$size};
+    }
+    @each $name, $radius in $radii {
+        --radius-#{$name}: #{$radius};
+    }
+}

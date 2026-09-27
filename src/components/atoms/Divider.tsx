@@ -1,4 +1,4 @@
-import { CRAYON_FILTER, crayon } from '../tokens/crayon'
+import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
 
 interface DividerProps {
   /** Crayon bar color. Defaults to yellow, the first divider in the page order. */
@@ -14,9 +14,9 @@ export const Divider = ({ color = crayon.yellow, rotate = -0.6, height = 9 }: Di
       aria-hidden
       style={{
         height,
-        margin: "24px 0",
+        margin: `${space.lg} 0`,
         background: color,
-        borderRadius: 6,
+        borderRadius: radius.sm,
         transform: `rotate(${rotate}deg)`,
         filter: CRAYON_FILTER,
       }}

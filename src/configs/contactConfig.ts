@@ -4,6 +4,16 @@ interface Contact {
     href: string;
 }
 
+/**
+ * Portrait shown beside the contact links. A square, background-free cut-out,
+ * so the crayon disc shows around the subject. To swap it, replace the file
+ * under `public/` keeping those two properties.
+ */
+export const portrait = {
+    src: "/images/Portrait.webp",
+    alt: "Lauren Gardner, holding a cat mug",
+};
+
 export const contacts: Contact[] = [
     {
         label: "email",

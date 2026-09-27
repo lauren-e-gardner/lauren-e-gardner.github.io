@@ -1,5 +1,8 @@
 import React from "react";
-import { CRAYON_FILTER, crayon } from "../tokens/crayon";
+import { CRAYON_FILTER, crayon, radius, space } from "../tokens/crayon";
+
+/** The highlighter swipe overshoots the text, the way a marker would. */
+const SWIPE = { left: -14, right: -18, top: "30%", bottom: "4%" } as const;
 
 interface HeaderProps {
     title: string;
@@ -34,40 +37,29 @@ export const Header = ({
                 flexWrap: "wrap",
                 alignItems: "flex-end",
                 justifyContent: "space-between",
-                gap: 16,
+                gap: space.md,
             }}
         >
-            <h2
-                className="crayon-hand"
-                style={{
-                    position: "relative",
-                    alignSelf: "flex-start",
-                    fontSize: "clamp(52px,6.5vw,88px)",
-                    lineHeight: 1,
-                    color: crayon.ink,
-                }}
-            >
+            <h2 className="headline-h3" style={{ position: "relative", alignSelf: "flex-start", color: crayon.ink }}>
                 <span
                     aria-hidden
                     style={{
                         position: "absolute",
-                        left: -14,
-                        right: -18,
-                        top: "30%",
-                        bottom: "4%",
+                        left: SWIPE.left,
+                        right: SWIPE.right,
+                        top: SWIPE.top,
+                        bottom: SWIPE.bottom,
                         background: highlight,
                         filter: CRAYON_FILTER,
                         mixBlendMode: "multiply",
                         transform: `rotate(${swipeRotate}deg)`,
-                        borderRadius: 30,
+                        borderRadius: radius["3xl"],
                         opacity: swipeOpacity,
                     }}
                 />
                 <span style={{ position: "relative", textShadow: `var(--mis) 0 0 ${shadow}` }}>{title}</span>
             </h2>
-            {description && (
-                <p style={{ maxWidth: "26em", fontSize: 17, lineHeight: 1.55 }}>{description}</p>
-            )}
+            {description && <p className="body-b4" style={{ maxWidth: "26em" }}>{description}</p>}
         </div>
     );
 };

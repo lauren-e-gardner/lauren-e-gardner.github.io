@@ -43,10 +43,14 @@ export interface Project {
   
   export interface Experience {
     date: string;
-    demo: string;
+    /** Route to an in-site demo of the work, where one exists. */
+    demo?: string;
     title: string;
     company: string;
-    description: string;
+    /** Optional location, e.g. "Remote" or "Princeton, NJ". */
+    location?: string;
+    /** Responsibilities and results, one bullet each. */
+    points: string[];
   }
   
   export interface Education {

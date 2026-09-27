@@ -5,6 +5,8 @@
 export const crayon = {
     cream: "#f5eedb",
     paper: "#fbf7ea",
+    /** Slightly deeper paper, behind images while they load. */
+    paperShade: "#e9e1c8",
     ink: "#2a1a14",
     mutedInk: "#5a4336",
     red: "#e3261b",
@@ -19,6 +21,39 @@ export const crayon = {
 } as const;
 
 export type CrayonColor = (typeof crayon)[keyof typeof crayon];
+
+/**
+ * Spacing and radius scales, as declared in spacing.scss. These resolve to the
+ * same custom properties the `.pad-*` / `.gap-*` utility classes use, so a
+ * value set from an inline style stays in step with one set from a class.
+ */
+export const space = {
+    "3xs": "var(--space-3xs)",
+    xs: "var(--space-xs)",
+    sm: "var(--space-sm)",
+    smLg: "var(--space-sm-lg)",
+    md: "var(--space-md)",
+    mdLg: "var(--space-md-lg)",
+    lg: "var(--space-lg)",
+    xl: "var(--space-xl)",
+    xlLg: "var(--space-xl-lg)",
+    "2xl": "var(--space-2xl)",
+    "3xl": "var(--space-3xl)",
+    "4xl": "var(--space-4xl)",
+    "5xl": "var(--space-5xl)",
+    "6xl": "var(--space-6xl)",
+} as const;
+
+export const radius = {
+    xs: "var(--radius-xs)",
+    sm: "var(--radius-sm)",
+    md: "var(--radius-md)",
+    lg: "var(--radius-lg)",
+    xl: "var(--radius-xl)",
+    "2xl": "var(--radius-2xl)",
+    "3xl": "var(--radius-3xl)",
+    full: "var(--radius-full)",
+} as const;
 
 /** Applied to decorative shapes only — never to text. */
 export const CRAYON_FILTER = "url(#crayon)";

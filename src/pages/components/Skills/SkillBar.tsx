@@ -1,4 +1,15 @@
-import { CRAYON_FILTER, crayon } from "../../../components/tokens/crayon";
+import { CRAYON_FILTER, crayon, radius, space } from "../../../components/tokens/crayon";
+import { BORDER } from "../../../components/atoms/Crayon";
+
+/** Row geometry: icon well, name column, bar, percentage. */
+const ROW = { icon: 48, glyph: 28, bar: 28, stat: 48, inset: 2 } as const;
+/** The bar reads as crayon hatching rather than a solid fill. */
+const HATCH_ANGLE = "-58deg";
+const TRACK_OPACITY = 0.45;
+const WELL_OPACITY = 0.35;
+const FILL_ALPHA = "80";
+const FILL_RADIUS = "10px 14px 9px 12px";
+const WELL_RADIUS = "46% 54% 50% 50% / 55% 45% 55% 45%";
 
 interface SkillBarProps {
   name: string;
@@ -16,51 +27,68 @@ export const SkillBar = ({ name, icon, percentage, color }: SkillBarProps) => {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "48px minmax(110px,170px) minmax(0,1fr) 48px",
-        gap: 16,
+        gridTemplateColumns: `${ROW.icon}px minmax(110px,170px) minmax(0,1fr) ${ROW.stat}px`,
+        gap: space.md,
         alignItems: "center",
       }}
     >
-      <span style={{ position: "relative", width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <span
+        style={{
+          position: "relative",
+          width: ROW.icon,
+          height: ROW.icon,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <span
           aria-hidden
           style={{
             position: "absolute",
             inset: 0,
             background: color,
-            opacity: 0.35,
-            borderRadius: "46% 54% 50% 50% / 55% 45% 55% 45%",
+            opacity: WELL_OPACITY,
+            borderRadius: WELL_RADIUS,
             filter: CRAYON_FILTER,
           }}
         />
-        <img src={icon} alt="" style={{ position: "relative", width: 28, height: 28, objectFit: "contain" }} />
+        <img
+          src={icon}
+          alt=""
+          style={{ position: "relative", width: ROW.glyph, height: ROW.glyph, objectFit: "contain" }}
+        />
       </span>
 
-      <span className="crayon-hand" style={{ fontSize: 28, lineHeight: 1 }}>{name}</span>
+      <span className="headline-h8">{name}</span>
 
-      <div style={{ position: "relative", height: 28 }}>
+      <div style={{ position: "relative", height: ROW.bar }}>
         <div
           aria-hidden
-          style={{ position: "absolute", inset: 0, border: `2px dashed ${crayon.ink}`, borderRadius: 12, opacity: 0.45 }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            border: `${BORDER.pill}px dashed ${crayon.ink}`,
+            borderRadius: radius.xl,
+            opacity: TRACK_OPACITY,
+          }}
         />
         <div
           aria-hidden
           style={{
             position: "absolute",
-            left: 2,
-            top: 2,
-            bottom: 2,
-            width: `calc(${percentage}% - 4px)`,
-            background: `repeating-linear-gradient(-58deg, ${color} 0 5px, transparent 5px 7px), ${color}80`,
-            borderRadius: "10px 14px 9px 12px",
+            left: ROW.inset,
+            top: ROW.inset,
+            bottom: ROW.inset,
+            width: `calc(${percentage}% - ${ROW.inset * 2}px)`,
+            background: `repeating-linear-gradient(${HATCH_ANGLE}, ${color} 0 5px, transparent 5px 7px), ${color}${FILL_ALPHA}`,
+            borderRadius: FILL_RADIUS,
             filter: CRAYON_FILTER,
           }}
         />
       </div>
 
-      <span style={{ fontFamily: "'Space Mono', ui-monospace, monospace", fontSize: 13, textAlign: "right" }}>
-        {percentage}%
-      </span>
+      <span className="body-b7" style={{ textAlign: "right" }}>{percentage}%</span>
     </div>
   );
 };

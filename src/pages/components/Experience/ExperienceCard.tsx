@@ -1,5 +1,5 @@
-import { crayon } from "../../../components/tokens/crayon";
-import { CrayonBorder, CrayonMark } from "../../../components/atoms/Crayon";
+import { crayon, radius, space } from "../../../components/tokens/crayon";
+import { CrayonBorder, CrayonBulletList, CrayonMark } from "../../../components/atoms/Crayon";
 import type { Experience } from "../types";
 
 interface ExperienceCardProps {
@@ -8,6 +8,8 @@ interface ExperienceCardProps {
   color: string;
 }
 
+const BLOB_OPACITY = 0.9;
+
 /** A job: date + company on the left, the role card spanning the rest. */
 export const ExperienceCard = ({ experience, color }: ExperienceCardProps) => {
   return (
@@ -15,20 +17,23 @@ export const ExperienceCard = ({ experience, color }: ExperienceCardProps) => {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
-        gap: "12px 40px",
+        gap: `${space.smLg} ${space.xlLg}`,
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        <span className="crayon-meta" style={{ fontSize: 13 }}>{experience.date}</span>
+      <div style={{ display: "flex", flexDirection: "column", gap: space.xs }}>
+        <span className="body-b7 caps-wide crayon-label">{experience.date}</span>
         <CrayonMark
-          className="crayon-hand"
+          className="headline-h7"
           color={color}
-          radius="14px"
-          style={{ alignSelf: "flex-start", fontSize: 30, lineHeight: 1.05, padding: "2px 6px" }}
-          markStyle={{ opacity: 0.9 }}
+          radius={radius["2xl"]}
+          style={{ alignSelf: "flex-start", padding: `${space["3xs"]} ${space.xs}` }}
+          markStyle={{ opacity: BLOB_OPACITY }}
         >
           {experience.company}
         </CrayonMark>
+        {experience.location && (
+          <span className="body-b6" style={{ color: crayon.mutedInk }}>{experience.location}</span>
+        )}
       </div>
 
       <div
@@ -36,14 +41,14 @@ export const ExperienceCard = ({ experience, color }: ExperienceCardProps) => {
           gridColumn: "span 2",
           minWidth: 0,
           position: "relative",
-          padding: "22px 24px",
+          padding: `${space.lg} ${space.lg}`,
           background: crayon.paper,
         }}
       >
         <CrayonBorder />
-        <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 10 }}>
-          <h3 style={{ fontSize: 22, fontWeight: 700 }}>{experience.title}</h3>
-          <p style={{ fontSize: 15.5, lineHeight: 1.6 }}>{experience.description}</p>
+        <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
+          <h3 className="bodyMedium-b1">{experience.title}</h3>
+          <CrayonBulletList points={experience.points} textClass="body-b6" />
         </div>
       </div>
     </div>

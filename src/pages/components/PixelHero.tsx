@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { CRAYON_FILTER, crayon } from "../../components/tokens/crayon";
+import { CRAYON_FILTER, crayon, radius, space } from "../../components/tokens/crayon";
 
 const ORIGINAL = "/images/ex.jpg";
 const PIXELIZED = "/images/Pixel.png";
@@ -12,6 +12,12 @@ const CELL = 20;
 const STEPS = 24;
 /** hold original · dissolve in · hold pixelized · dissolve back (seconds) */
 const TIMELINE = [2.2, 1.4, 2.2, 1.4];
+
+/** The two blocks tucked behind the frame, and the frame's own tilt. */
+const FRAME = { ratio: "4/3", maxWidth: "500px", tilt: "-1.5deg", border: 4 } as const;
+const YELLOW_BLOCK = { inset: "6% -4% -5% 8%", tilt: "4deg" } as const;
+const MAGENTA_BLOCK = { inset: "-3% 10% 12% -6%", tilt: "-5deg", opacity: 0.75 } as const;
+const CAPTION = { right: "-8px", bottom: "-22px", tilt: "-6deg" } as const;
 
 const loadImage = (src: string) =>
   new Promise<HTMLImageElement>((resolve, reject) => {
@@ -108,15 +114,22 @@ export const PixelHero = () => {
   }, []);
 
   return (
-    <div style={{ position: "relative", justifySelf: "center", width: "min(100%,500px)", aspectRatio: "4/3" }}>
+    <div
+      style={{
+        position: "relative",
+        justifySelf: "center",
+        width: `min(100%,${FRAME.maxWidth})`,
+        aspectRatio: FRAME.ratio,
+      }}
+    >
       <div
         aria-hidden
         style={{
           position: "absolute",
-          inset: "6% -4% -5% 8%",
+          inset: YELLOW_BLOCK.inset,
           background: crayon.yellow,
-          borderRadius: 12,
-          transform: "rotate(4deg)",
+          borderRadius: radius.xl,
+          transform: `rotate(${YELLOW_BLOCK.tilt})`,
           filter: CRAYON_FILTER,
         }}
       />
@@ -124,13 +137,13 @@ export const PixelHero = () => {
         aria-hidden
         style={{
           position: "absolute",
-          inset: "-3% 10% 12% -6%",
+          inset: MAGENTA_BLOCK.inset,
           background: crayon.magenta,
-          borderRadius: 10,
-          transform: "rotate(-5deg)",
+          borderRadius: radius.lg,
+          transform: `rotate(${MAGENTA_BLOCK.tilt})`,
           filter: CRAYON_FILTER,
           mixBlendMode: "multiply",
-          opacity: 0.75,
+          opacity: MAGENTA_BLOCK.opacity,
         }}
       />
       <canvas
@@ -145,23 +158,22 @@ export const PixelHero = () => {
           height: "100%",
           background: `#fff url(${PIXELIZED}) center/cover`,
           imageRendering: "pixelated",
-          border: `4px solid ${crayon.ink}`,
-          borderRadius: 6,
-          transform: "rotate(-1.5deg)",
+          border: `${FRAME.border}px solid ${crayon.ink}`,
+          borderRadius: radius.sm,
+          transform: `rotate(${FRAME.tilt})`,
           boxSizing: "border-box",
         }}
       />
       <div
-        className="crayon-hand"
+        className="headline-h10"
         style={{
           position: "absolute",
-          right: -8,
-          bottom: -22,
-          transform: "rotate(-6deg)",
-          fontSize: 22,
+          right: CAPTION.right,
+          bottom: CAPTION.bottom,
+          transform: `rotate(${CAPTION.tilt})`,
           color: crayon.ink,
           background: crayon.cream,
-          padding: "2px 10px",
+          padding: `${space["3xs"]} ${space.sm}`,
         }}
       >
         made w/ my pixelizer ↑
