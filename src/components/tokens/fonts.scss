@@ -17,6 +17,8 @@
   font-weight: 500; 
 }
 
+/* JetBrains Mono is loaded from Google Fonts in index.html. */
+
 $typography: (
     "headline": "MyHand",
     "body": "Roboto",
@@ -24,21 +26,24 @@ $typography: (
 );
 
 $headline-size: (
-    "h1": (112px, 1),   
-    "h2": (100px, 1),   
-    "h3": (88px, 1),   
-    "h4": (56px, 1), 
-    "h5": (40px, 1), 
-    "h6": (34px, 1),
-    "h7": (30px, 1),
-    "h8": (24px, 1),
+    "h1": (104px, 1),   // hero title
+    "h2": (100px, 1),   // "Contact Me"
+    "h3": (88px, 1),    // section titles
+    "h4": (56px, 1),    // school name
+    "h5": (36px, 1),    // project card titles
+    "h6": (34px, 1),    // "LG" monogram, mobile menu links
+    "h7": (32px, 1),    // contact labels
+    "h8": (30px, 1),    // nav links, company names
+    "h9": (26px, 1),    // handwritten card links
+    "h10": (24px, 1),   // skill names, hero note
+    "h11": (24px, 1),   // "try the pixelizer" link
 );
 $body-size: (
     "b1": (22px, 1.2),
     "b2": (20px, 1.2),
     "b3": (18px, 1.2),
     "b4": (16px, 1.2),
-    "b5": (14px, 1.2),
+    "b5": (13px, 1.2),
     "b6": (12px, 1.2),
 );
 
@@ -47,18 +52,29 @@ $headline-size-mobile: (
     "h2": (50px, 1),
     "h3": (44px, 1),
     "h4": (36px, 1),
-    "h5": (32px, 1),
+    "h5": (30px, 1),
     "h6": (28px, 1),
     "h7": (26px, 1),
-    "h8": (20px, 1),
+    "h8": (26px, 1),
+    "h9": (26px, 1),
+    "h10": (20px, 1),
+    "h11": (24px, 1),
 );
 $body-size-mobile: (
     "b1": (18px, 1.2),
     "b2": (17px, 1.2),
     "b3": (16px, 1.2),
     "b4": (15px, 1.2),
-    "b5": (14px, 1.2),
+    "b5": (13px, 1.2),
     "b6": (12px, 1.2),
+);
+
+/* Eyebrows, dates, tags, tech lines and code. Same size at every width. */
+$mono-size: (
+    "m1": 12.5px,   // code block
+    "m2": 12px,     // eyebrow, pills, percentages, footer
+    "m3": 11.5px,   // job and degree dates
+    "m4": 11px,     // project year
 );
 
 @each $name, $family in $typography {
@@ -88,8 +104,30 @@ $body-size-mobile: (
     }
 }
 
+@each $name, $size in $mono-size {
+    .mono-#{$name} {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: $size;
+        line-height: 1.2;
+        font-weight: 400;
+    }
+}
+
+/* Line-height overrides for running text; the scales above default to 1.2. */
+$leading: (
+    "tight": 1.1,
+    "snug": 1.35,
+    "relaxed": 1.4,
+);
+
+@each $name, $height in $leading {
+    .lh-#{$name} {
+        line-height: $height;
+    }
+}
+
 $tracking: (
-    "wide": 0.06em,
+    "wide": 0.04em,
     "wider": 0.12em,
 );
 

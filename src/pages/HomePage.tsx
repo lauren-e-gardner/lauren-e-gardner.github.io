@@ -1,62 +1,35 @@
 "use client";
-import { Card, CrayonBlob, CrayonMark, Divider, FadeInSection, Header } from "../components";
+import { Card, CrayonPill, Divider, FadeInSection, Header } from "../components";
 import AppLayout from "../layouts/AppLayout.tsx";
-import { useNavigate } from "react-router-dom";
 import { education, experience, projects } from "../configs";
-import { CRAYON_FILTER, crayon, radius, SCROLL_OFFSET, space } from "../components/tokens/crayon";
+import { CRAYON_FILTER, crayon, SCROLL_OFFSET, space } from "../components/tokens/crayon";
 import { PixelHero } from "./sections/PixelHero.tsx";
 import { SkillsSection } from "./sections/Skills/SkillsSection.tsx";
 import { ContactSection } from "./sections/ContactSection.tsx";
 
-/** Languages called out under the hero, each on its own crayon blob. */
-const CURRENTLY_USING = [
-  { name: "Python", color: crayon.lime },
-  { name: "JavaScript", color: crayon.yellow },
-  { name: "TypeScript", color: crayon.lavender },
-  { name: "ReactJS", color: crayon.orange },
-];
+/** Languages called out under the hero, each in a crayon-outlined pill. */
+const CURRENTLY_USING = ["JavaScript", "TypeScript", "ReactJS"];
 
-/**
- * Per-card crayon treatment, applied in the order the projects are listed:
- * the block behind the screenshot, the title color, and the resting tilt.
- */
-const PROJECT_STYLES = [
-  { color: crayon.blue, ink: crayon.blue, tilt: -1.2 },
-  { color: crayon.yellow, ink: crayon.red, tilt: 0.9 },
-  { color: crayon.green, ink: crayon.green, tilt: -0.6 },
-];
+/** Resting tilt of each project card, in the order the projects are listed. */
+const PROJECT_TILTS = [-1.2, 0.9, -0.6];
 
-/** Blob color behind each company name, cycled in the order the jobs are listed. */
-const COMPANY_COLORS = [crayon.yellow, crayon.lavender, crayon.lime];
-
-/** Divider bar color and tilt, in page order. */
+/** Divider tilt, in page order. The first sits further below the hero. */
 const DIVIDERS = {
-  hero: { color: crayon.yellow, rotate: -0.6 },
-  projects: { color: crayon.blue, rotate: 0.5 },
-  skills: { color: crayon.magenta, rotate: -0.4 },
-  experience: { color: crayon.green, rotate: 0.6 },
-  education: { color: crayon.red, rotate: -0.5 },
+  hero: { rotate: -0.3, margin: `${space["2xl"]} 0 ${space.lg}` },
+  projects: { rotate: 0.3 },
+  skills: { rotate: -0.25 },
+  experience: { rotate: 0.35 },
+  education: { rotate: -0.3 },
 };
 
-/** Misregistered shadow colors, one per section heading. */
-const HEADING_SHADOW = {
-  magenta: "rgba(236,30,140,.55)",
-  magentaSoft: "rgba(236,30,140,.5)",
-  blue: "rgba(35,80,216,.5)",
-  yellow: "rgba(255,196,20,.9)",
-};
+/** Hero layout, and the handwritten note under the title. */
+const HERO = { minHeight: "88vh", minColumn: "420px", titleGap: 14 };
+const NOTE = { tilt: "-2deg", indent: 6, textTop: 10, maxWidth: "22em" };
 
-/** Hero artwork: the two background blobs and the underline stroke. */
-const HERO = {
-  minHeight: "88vh",
-  paddingBottom: space["2xl"],
-  lavenderBlob: { left: "-12%", top: "14%", width: 260, height: 230, opacity: 0.9 },
-  limeBlob: { right: "-8%", bottom: "6%", width: 200, height: 200, opacity: 0.8, radius: "45% 55% 60% 40%" },
-  underline: { width: "min(340px,70%)", height: 10, tilt: "-1.5deg" },
-};
+/** "Jan. 2024 - May. 2025" → "2024–2025"; a single year stays as is. */
+const yearSpan = (date: string) => [...new Set(date.match(/\d{4}/g) ?? [])].join("–");
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const scrollStyle = { scrollMarginTop: SCROLL_OFFSET };
 
   return (
@@ -68,45 +41,47 @@ export default function HomePage() {
               position: "relative",
               minHeight: HERO.minHeight,
               paddingTop: space["6xl"],
-              paddingBottom: HERO.paddingBottom,
+              paddingBottom: space["2xl"],
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,360px),1fr))",
-              gap: `clamp(${space.xl}, 6vw, ${space["5xl"]})`,
+              gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${HERO.minColumn}),1fr))`,
+              gap: `clamp(${space.xlLg}, 5vw, ${space["4xl"]})`,
               alignItems: "center",
             }}
           >
-            <CrayonBlob color={crayon.lavender} style={HERO.lavenderBlob} />
-            <CrayonBlob color={crayon.lime} radius={HERO.limeBlob.radius} style={HERO.limeBlob} />
-
             <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.lg }}>
-              <div className="body-b6 caps-wider crayon-label">software developer · princeton ’24</div>
-              <Header title="Hi, I’m Lauren Gardner!" variant="page" />
-              <div
-                aria-hidden
-                style={{
-                  width: HERO.underline.width,
-                  height: HERO.underline.height,
-                  background: crayon.blue,
-                  borderRadius: radius.sm,
-                  transform: `rotate(${HERO.underline.tilt})`,
-                  filter: CRAYON_FILTER,
-                }}
-              />
-              <p className="body-b2" style={{ maxWidth: "34em" }}>
+              <div className="mono-m2 caps-wider crayon-label">software engineer · princeton ’24</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: HERO.titleGap }}>
+                <Header title="Hi, I’m Lauren Gardner" variant="page" />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: space.sm,
+                    transform: `rotate(${NOTE.tilt})`,
+                    transformOrigin: "left",
+                    marginLeft: NOTE.indent,
+                  }}
+                >
+                  <svg width="34" height="30" viewBox="0 0 34 30" fill="none" aria-hidden style={{ flex: "none", filter: CRAYON_FILTER }}>
+                    <path d="M30 26 C 22 24, 10 20, 6 5" stroke={crayon.accentBlue} strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M1 10 L 6 3 L 12 8" stroke={crayon.accentBlue} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <p
+                    className="headline-h10 lh-tight crayon-label"
+                    style={{ maxWidth: NOTE.maxWidth, paddingTop: NOTE.textTop }}
+                  >
+                    this font is my actual handwriting!
+                  </p>
+                </div>
+              </div>
+              <p className="body-b2 lh-snug" style={{ maxWidth: "32em" }}>
                 I’m a software developer with experience in frontend design, 3D graphics, and full-stack
                 development. As a Princeton University graduate, I approach programming with creativity —
                 whether it’s finding innovative solutions or using code to fuel artistic expression.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: space.sm, alignItems: "center" }}>
-                {CURRENTLY_USING.map((item) => (
-                  <CrayonMark
-                    key={item.name}
-                    className="bodyMedium-b6"
-                    color={item.color}
-                    style={{ padding: `${space.xs} ${space.smLg}` }}
-                  >
-                    {item.name}
-                  </CrayonMark>
+                {CURRENTLY_USING.map((name) => (
+                  <CrayonPill key={name}>{name}</CrayonPill>
                 ))}
               </div>
             </div>
@@ -123,8 +98,6 @@ export default function HomePage() {
               title="Projects"
               variant="section"
               description="A selection of my work, showcasing my skills in software development and design."
-              highlight={crayon.yellow}
-              shadow={HEADING_SHADOW.magenta}
               swipeRotate={-2}
             />
             <div
@@ -135,21 +108,18 @@ export default function HomePage() {
               }}
             >
               {projects.map((project, index) => {
-                const treatment = PROJECT_STYLES[index % PROJECT_STYLES.length];
                 const hasDemo = project.demoLink && project.demoLink !== "#";
                 return (
                   <Card
                     key={project.title}
                     title={project.title}
-                    role={project.role}
-                    date={project.date}
+                    date={yearSpan(project.date)}
                     description={project.description}
-                    skills={project.skills}
                     tech={project.tech}
                     src={project.screenshot}
                     githubLink={project.githubLink}
-                    onDemo={hasDemo ? () => navigate(project.demoLink as string) : undefined}
-                    {...treatment}
+                    demoHref={hasDemo ? `#${project.demoLink}` : undefined}
+                    tilt={PROJECT_TILTS[index % PROJECT_TILTS.length]}
                   />
                 );
               })}
@@ -161,7 +131,7 @@ export default function HomePage() {
 
         <FadeInSection id="skills" style={scrollStyle}>
           <div className="crayon-section" style={{ gap: space["2xl"] }}>
-            <Header title="Skills" variant="section" highlight={crayon.lime} shadow={HEADING_SHADOW.blue} swipeRotate={1.5} />
+            <Header title="Skills" variant="section" swipeRotate={1.5} />
             <SkillsSection />
           </div>
         </FadeInSection>
@@ -170,16 +140,9 @@ export default function HomePage() {
 
         <FadeInSection id="work-experience" style={scrollStyle}>
           <div className="crayon-section">
-            <Header
-              title="Experience"
-              variant="section"
-              highlight={crayon.orange}
-              shadow={HEADING_SHADOW.magentaSoft}
-              swipeRotate={-1}
-              swipeOpacity={0.85}
-            />
+            <Header title="Experience" variant="section" swipeRotate={-1} />
             <div style={{ display: "flex", flexDirection: "column", gap: space.xlLg }}>
-              {experience.map((job, index) => (
+              {experience.map((job) => (
                 <Card
                   key={job.company}
                   variant="experience"
@@ -188,7 +151,6 @@ export default function HomePage() {
                   date={job.date}
                   subtitle={job.location}
                   points={job.points}
-                  color={COMPANY_COLORS[index % COMPANY_COLORS.length]}
                 />
               ))}
             </div>
@@ -199,7 +161,7 @@ export default function HomePage() {
 
         <FadeInSection id="education" style={scrollStyle}>
           <div className="crayon-section">
-            <Header title="Education" variant="section" highlight={crayon.lavender} shadow={HEADING_SHADOW.yellow} swipeRotate={1.5} />
+            <Header title="Education" variant="section" swipeRotate={1.5} />
             {education.map((edu) => (
               <Card
                 key={edu.school}
@@ -209,8 +171,6 @@ export default function HomePage() {
                 role={edu.year}
                 date={edu.gpa}
                 points={edu.points}
-                color={crayon.orange}
-                ink={crayon.red}
                 tilt={-0.4}
               />
             ))}
@@ -220,7 +180,7 @@ export default function HomePage() {
         <Divider {...DIVIDERS.education} />
 
         <FadeInSection id="contact" style={scrollStyle}>
-          <div className="crayon-section" style={{ paddingBottom: space["5xl"] }}>
+          <div className="crayon-section" style={{ paddingBottom: space["5xl"], gap: 0 }}>
             <ContactSection />
           </div>
         </FadeInSection>

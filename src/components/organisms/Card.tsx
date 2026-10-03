@@ -1,52 +1,59 @@
 import React from 'react'
 import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
-import { BORDER, CrayonBorder, CrayonBulletList, CrayonMark, CrayonPill } from '../atoms/Crayon'
-import { Button } from '../atoms/Button/Button'
+import { BLOB_RADIUS, CrayonBlob, CrayonBulletList, CrayonFill, CrayonMark, HAND_RADIUS } from '../atoms/Crayon'
+import Button from '../atoms/Button/Button';
+import { Text } from '../atoms/Text';
 
-/** Screenshot proportions, and how far the color block sits behind it. */
-const SCREENSHOT = { ratio: "4/3", blockOffset: "9px" } as const;
+/** Screenshot proportions and corners, and the lantern blob glowing behind it. */
+const SCREENSHOT = { ratio: "16/10", radius: "6px" } as const;
+const PROJECT_BLOB = { top: 95, left: -15, width: 205, height: 192, opacity: 0.8 } as const;
+const PROJECT = { padding: "14px 14px 18px", titleTop: 6, arrowGap: 6 } as const;
+/** The blue crayon swipe under the "play demo →" link. */
+const CTA_SWIPE = { left: -6, right: -8, top: "45%", bottom: -2, tilt: "-1.5deg" } as const;
+const SOURCE_ICON = 13;
 
-/** The education variant's block offset, and the width its columns split at. */
-const DEGREE = { blockOffset: "10px", minColumn: "280px" } as const;
+/** The education variant's panel and text opacity, and the width its columns split at. */
+const DEGREE = { opacity: 0.8, minColumn: "280px" } as const;
 
-/** The experience variant's left column width, and its company blob. */
-const JOB = { minColumn: "220px", blobOpacity: 0.9 } as const;
+/** The experience variant's left column width and spacing, and its company highlight. */
+const JOB = { minColumn: "220px", columnGap: 6, markPadding: "2px 4px", markOpacity: 0.28, bulletGap: 10 } as const;
 
 export interface CardProps {
     /**
-     * `project` is the default portrait card: screenshot, blurb, pills, buttons.
-     * `education` is the wide degree card: label, school, degree, bullet points.
+     * `project` is the default navy card: screenshot, blurb, tech line, links.
+     * `education` is the wide degree panel: label, school, degree, bullet points.
      * `experience` is the job row: date and company beside a card of bullets.
      */
     variant?: "project" | "education" | "experience";
     /** Project title, school, or job title. */
     title: string;
+    /** Year label for `education`. */
     role?: string;
+    /** Year span for `project`; date range for `experience`; GPA for `education`. */
     date?: string;
     /** Degree, for `education`; location, for `experience`. */
     subtitle?: string;
-    /** Company name, marked with a crayon blob. Used by `experience`. */
+    /** Company name, marked with a crayon highlight. Used by `experience`. */
     org?: string;
     description?: string;
-    skills?: string[];
     /** Bulleted highlights. Used by `education` and `experience`. */
     points?: string[];
     /** Mono line of frameworks, e.g. "Three.js · JavaScript · OpenGL". */
     tech?: string;
     src?: string;
-    /** Crayon block offset behind the screenshot, and the Demo button fill. */
-    color?: string;
-    /** Color of the card's title and skill pills. */
-    ink?: string;
     /** Resting tilt, in degrees. The card straightens on hover. */
     tilt?: number;
-    onDemo?: () => void;
+    /** In-site demo, opened in the same tab. Without one the card links to its code. */
+    demoHref?: string;
     githubLink?: string;
 }
 
+/** Inner links handle their own navigation; the card's click is for the rest of it. */
+const stop = (e: React.MouseEvent) => e.stopPropagation();
+
 /**
- * Paper stock, crayon border, a color block peeking out from behind, and a
- * resting tilt that straightens on hover — as a project card or a degree card.
+ * Crayon-filled cards with a resting tilt that straightens on hover — as a
+ * project card, a degree panel, or a job row.
  */
 export const Card: React.FC<CardProps> = ({
     variant = "project",
@@ -56,14 +63,11 @@ export const Card: React.FC<CardProps> = ({
     subtitle,
     org,
     description,
-    skills,
     points,
     tech,
     src,
-    color = crayon.yellow,
-    ink = crayon.ink,
     tilt = 0,
-    onDemo,
+    demoHref,
     githubLink,
 }) => {
     if (variant === "experience") {
@@ -75,37 +79,34 @@ export const Card: React.FC<CardProps> = ({
                     gap: `${space.smLg} ${space.xlLg}`,
                 }}
             >
-                <div style={{ display: "flex", flexDirection: "column", gap: space.xs }}>
-                    {date && <span className="body-b6 caps-wide crayon-label">{date}</span>}
+                <div style={{ display: "flex", flexDirection: "column", gap: JOB.columnGap }}>
+                    {date && <Text className="mono-m3 caps-wide crayon-label">{date}</Text>}
                     {org && (
                         <CrayonMark
-                            className="headline-h7"
-                            color={color}
+                            className="headline-h8"
+                            color={crayon.blue}
                             radius={radius["2xl"]}
-                            style={{ alignSelf: "flex-start", padding: `${space["3xs"]} ${space.xs}` }}
-                            markStyle={{ opacity: JOB.blobOpacity }}
+                            style={{ alignSelf: "flex-start", padding: JOB.markPadding }}
+                            markStyle={{ opacity: JOB.markOpacity }}
                         >
                             {org}
                         </CrayonMark>
                     )}
-                    {subtitle && (
-                        <span className="body-b6" style={{ color: crayon.mutedInk }}>{subtitle}</span>
-                    )}
+                    {subtitle && <Text className="body-b6 crayon-muted">{subtitle}</Text>}
                 </div>
 
-                <article
-                    style={{
-                        gridColumn: "span 2",
-                        minWidth: 0,
-                        position: "relative",
-                        padding: space.lg,
-                        background: crayon.paper,
-                    }}
-                >
-                    <CrayonBorder />
-                    <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
-                        <h3 className="bodyMedium-b1">{title}</h3>
-                        {points && points.length > 0 && <CrayonBulletList points={points} textClass="body-b6" />}
+                <article style={{ gridColumn: "span 2", minWidth: 0, position: "relative", padding: space.lg }}>
+                    <CrayonFill color={crayon.paperCard} />
+                    <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.smLg }}>
+                        <Text className="bodyMedium-b1">{title}</Text>
+                        {points && points.length > 0 && (
+                            <CrayonBulletList
+                                points={points}
+                                textClass="body-b5 lh-relaxed"
+                                gap={JOB.bulletGap}
+                                dotOffset={4}
+                            />
+                        )}
                     </div>
                 </article>
             </div>
@@ -113,138 +114,119 @@ export const Card: React.FC<CardProps> = ({
     }
 
     if (variant === "education") {
-        /* The block is a sibling rather than a negative-z child so it stays
-           behind the paper regardless of the card's own stacking context. The
-           tilt lives on the wrapper so block and paper move as one. */
         const label = [role, date].filter(Boolean).join(" · ");
 
         return (
-            <div
-                className="crayon-card"
-                style={{ position: "relative", ["--tilt" as string]: `${tilt}deg` }}
-            >
-                <div
-                    aria-hidden
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        transform: `translate(${DEGREE.blockOffset},${DEGREE.blockOffset})`,
-                        background: color,
-                        borderRadius: radius.lg,
-                        filter: CRAYON_FILTER,
-                    }}
-                />
+            <div className="crayon-card" style={{ position: "relative", ["--tilt" as string]: `${tilt}deg` }}>
+                <CrayonFill color={crayon.paperCard} radius={HAND_RADIUS.panel} style={{ opacity: DEGREE.opacity }} />
                 <article
                     style={{
                         position: "relative",
                         padding: `clamp(${space.lg}, 4vw, ${space.xlLg})`,
-                        background: crayon.paper,
                         display: "grid",
                         gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${DEGREE.minColumn}),1fr))`,
                         gap: `${space.lg} ${space["2xl"]}`,
+                        opacity: DEGREE.opacity,
                     }}
                 >
-                    <CrayonBorder radius={radius.lg} />
-
                     <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: space.sm }}>
-                        {label && <span className="body-b6 caps-wide crayon-label">{label}</span>}
-                        <h3 className="headline-h4" style={{ color: ink }}>{title}</h3>
-                        {subtitle && <span className="bodyMedium-b3">{subtitle}</span>}
+                        {label && <Text className="mono-m3 caps-wide crayon-label">{label}</Text>}
+                        <Text className="headline-h4" style={{ color: crayon.accentBlue }}>{title}</Text>
+                        {subtitle && <Text className="bodyMedium-b3">{subtitle}</Text>}
                     </div>
 
-                    {points && points.length > 0 && <CrayonBulletList points={points} />}
+                    {points && points.length > 0 && (
+                        <CrayonBulletList points={points} colors={[crayon.accentBlue, crayon.ink]} />
+                    )}
                 </article>
             </div>
         )
     }
 
+    const primaryHref = demoHref ?? githubLink;
+    const open = () => {
+        if (demoHref) window.location.href = demoHref;
+        else if (githubLink) window.open(githubLink, "_blank", "noopener");
+    };
+
     return (
         <article
-            className="crayon-card"
+            className="crayon-project"
+            onClick={open}
             style={{
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                gap: space.md,
-                padding: `${space.md} ${space.md} ${space.lg}`,
-                background: crayon.paper,
+                gap: space.smLg,
+                padding: PROJECT.padding,
                 ["--tilt" as string]: `${tilt}deg`,
             }}
         >
-            <CrayonBorder />
-
+            <CrayonFill color={crayon.paperCard} />
             {src && (
                 <div style={{ position: "relative", aspectRatio: SCREENSHOT.ratio }}>
                     <div
-                        aria-hidden
                         style={{
                             position: "absolute",
                             inset: 0,
-                            transform: `translate(${SCREENSHOT.blockOffset},${SCREENSHOT.blockOffset})`,
-                            background: color,
-                            borderRadius: radius.xs,
-                            filter: CRAYON_FILTER,
-                        }}
-                    />
-                    <img
-                        src={src}
-                        alt={`${title} screenshot`}
-                        style={{
-                            position: "absolute",
-                            inset: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            border: `${BORDER.card}px solid ${crayon.ink}`,
-                            borderRadius: radius.xs,
+                            borderRadius: SCREENSHOT.radius,
+                            overflow: "hidden",
                             background: crayon.paperShade,
                         }}
-                    />
+                    >
+                        <img
+                            className="crayon-project-img"
+                            src={src}
+                            alt={`${title} screenshot`}
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        />
+                    </div>
                 </div>
             )}
+            <Text className="headline-h5" style={{color: crayon.navyDeep, zIndex: 2}}>{title}</Text>
 
-            {(role || date) && (
+            <div
+                style={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    gap: space.smLg,
+                    paddingTop: PROJECT.titleTop,
+                }}
+            >
+                {date && <Text className="mono-m4" style={{ flex: "none" }}>{date}</Text>}
+            </div>
+
+            {description && (
+                <Text className="body-b5" style={{ position: "relative" }}>{description}</Text>
+            )}
+
+            {tech && <Text className="mono-m2" style={{ position: "relative" }}>{tech}</Text>}
+
+            {primaryHref && (
                 <div
-                    className="body-b6 caps-wide crayon-label"
-                    style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: space.sm }}
+                    style={{
+                        position: "relative",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: space.smLg,
+                        marginTop: "auto",
+                        paddingTop: space.xs,
+                    }}
                 >
-                    <span>{role}</span>
-                    <span>{date}</span>
-                </div>
-            )}
-
-            <h3 className="headline-h5" style={{ color: ink }}>{title}</h3>
-
-            {description && <p className="body-b6">{description}</p>}
-
-            {skills && skills.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: space.sm }}>
-                    {skills.map((skill) => (
-                        <CrayonPill key={skill} color={ink}>{skill}</CrayonPill>
-                    ))}
-                </div>
-            )}
-
-            {tech && <div className="body-b6 crayon-muted">{tech}</div>}
-
-            {(onDemo || githubLink) && (
-                <div style={{ display: "flex", gap: space.smLg, marginTop: "auto", paddingTop: space.xs }}>
-                    {onDemo && (
-                        <Button variant="primary" color={color} onClick={onDemo}>
-                            Demo
-                        </Button>
-                    )}
-                    {githubLink && (
-                        <Button
-                            variant="secondary"
-                            href={githubLink}
-                            external
-                            icon={{ name: "external-link" }}
-                            iconPosition="trailing"
-                        >
-                            GitHub
-                        </Button>
-                    )}
+                    <Button fullWidth textClass="headline-h8 text-crayon-ink" onClick={stop} href={primaryHref} external={!demoHref} color={crayon.blue}>
+                        {demoHref ? "View demo" : "View code"}
+                    </Button>
+                    {demoHref && githubLink && <a className="body-b6" href={githubLink} onClick={stop} style={{ alignSelf: 'flex-start', display: "inline-flex", alignItems: "center", gap: space.xs }}>
+                        GitHub 
+                        <svg width={SOURCE_ICON} height={SOURCE_ICON} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                            <path d="M13.5 3.5h7v7h-2.1V7.06l-8.2 8.2-1.48-1.49 8.2-8.2H13.5V3.5z" />
+                            <path d="M5 5.9h5.4V8H7.1v8.9H16v-3.3h2.1V19H5V5.9z" />
+                        </svg>
+                    </a>}
                 </div>
             )}
         </article>

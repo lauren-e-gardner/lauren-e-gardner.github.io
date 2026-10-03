@@ -1,26 +1,48 @@
 /**
- * Palette for the crayon / primary-color home page.
- * See design_handoff_crayon_homepage/README.md ("Design Tokens").
+ * Palette for the "Lanterns" home page, taken from the painting
+ * public/images/Lanterns.jpg.
+ * See design_handoff_lantern_redesign/README.md ("Design tokens").
  */
 export const crayon = {
-    cream: "#f5eedb",
-    paper: "#fbf7ea",
-    /** Slightly deeper paper, behind images while they load. */
+    /** Page and nav background; light text on dark panels. */
+    paper: "#f5eedb",
+    /** Pixelizer card surface, mobile menu. */
+    paperRaised: "#fbf7ea",
+    /** Experience cards, Education panel. */
+    paperCard: "#ebdfbf",
+    /** Slightly deeper paper, behind screenshots while they load. */
     paperShade: "#e9e1c8",
-    ink: "#2a1a14",
-    mutedInk: "#5a4336",
-    red: "#e3261b",
-    maroon: "#8b0a17",
-    yellow: "#ffc414",
-    orange: "#ff7f11",
-    lime: "#b5e02b",
-    green: "#1fa84f",
-    lavender: "#c9c5ee",
-    blue: "#2350d8",
-    magenta: "#ec1e8c",
+    ink: "#13283a",
+    inkMuted: "#4a6274",
+    /** Project cards, Contact panel, code block. */
+    navy: "#12324a",
+    /** Behind the hero canvas while the painting loads; Skills panel. */
+    navyDeep: "#0b1d2b",
+    /** Section-title highlights, skill rail, logo wells, company highlights. */
+    blue: "#2b74b0",
+    /** Links, dates, the "LG" logo, nav hover, bullets. */
+    accentBlue: "#1d5a8c",
+    /** The lantern yellow: blobs, Contact labels, card links, skill bar fill. */
+    lantern: "#e8e36a",
+    /** Hero H1 offset shadow. */
+    mint: "#5fc8b0",
+    /** Tech line on project cards. */
+    onNavyMuted: "#a9c3d1",
 } as const;
 
 export type CrayonColor = (typeof crayon)[keyof typeof crayon];
+
+/** Syntax colors for the navy code block under the pixelizer. */
+export const codeColors = {
+    keyword: "#eef08c",
+    string: "#8fd8f0",
+    comment: "#7fa2b4",
+    text: "#e6efe8",
+    fn: "#9fe3c4",
+    lineNumber: "#5d8296",
+} as const;
+
+export type CodeToken = Exclude<keyof typeof codeColors, "lineNumber">;
 
 /**
  * Spacing and radius scales, as declared in spacing.scss. These resolve to the
@@ -55,16 +77,8 @@ export const radius = {
     full: "var(--radius-full)",
 } as const;
 
-/** Applied to decorative shapes only — never to text. */
+/** Applied to decorative shapes only — never to text or photos. */
 export const CRAYON_FILTER = "url(#crayon)";
-
-/**
- * Offset of the colored heading shadows (misregistration), as a fraction of the
- * heading's own font size. `em` so the shadow stays the same visual distance
- * from the strokes when the headline scales down at the mobile breakpoint —
- * floored so it never disappears on the smallest type.
- */
-export const MISREGISTER = "clamp(1.5px, 0.042em, 5px)";
 
 /** Offset a nav anchor scroll needs to clear the fixed nav. */
 export const SCROLL_OFFSET = 70;

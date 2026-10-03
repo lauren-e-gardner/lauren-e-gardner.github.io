@@ -17,14 +17,21 @@ const ROUGHNESS: Record<Roughness, number> = { clean: 0, crayon: 4, scribbly: 9 
  */
 export const BLOB_RADIUS = {
   organic: "58% 42% 55% 45% / 50% 60% 40% 50%",
+  round: "50% 45% 55% 50%",
   mark: "40% 60% 50% 50% / 60% 40% 60% 40%",
   dot: "50% 40% 55% 45%",
+} as const;
+
+/** Deliberately uneven corners, so filled shapes look hand-cut. */
+export const HAND_RADIUS = {
+  card: "12px 16px 10px 18px",
+  panel: "14px 20px 12px 24px",
 } as const;
 
 /** Crayon stroke weights. Thinner than 2px and the filter eats the line. */
 export const BORDER = { card: 3, pill: 2, button: 2.5, frame: 4 } as const;
 
-const DOT = { size: 14, offset: 5, column: "18px" } as const;
+const DOT = { size: 12, column: "18px" } as const;
 
 /**
  * The single SVG filter every crayon shape points at. Render once, near the
@@ -56,23 +63,6 @@ export const CrayonDefs = ({ roughness = "crayon" }: { roughness?: Roughness }) 
   </svg>
 );
 
-/** Full-screen paper grain, multiplied over everything. */
-export const PaperGrain = () => (
-  <div
-    aria-hidden
-    style={{
-      position: "fixed",
-      inset: 0,
-      pointerEvents: "none",
-      zIndex: 60,
-      opacity: 0.35,
-      mixBlendMode: "multiply",
-      backgroundImage: "radial-gradient(rgba(80,40,10,.22) 0.6px, transparent 1px)",
-      backgroundSize: "3px 3px",
-    }}
-  />
-);
-
 /**
  * A crayon-drawn border, absolutely positioned over its container so the text
  * inside is never displaced by the filter.
@@ -95,6 +85,33 @@ export const CrayonBorder = ({
       borderRadius: radius,
       filter: CRAYON_FILTER,
       pointerEvents: "none",
+    }}
+  />
+);
+
+/**
+ * A crayon-filled panel, absolutely positioned behind its container's content.
+ * The content must be `position: relative` to sit above it.
+ */
+export const CrayonFill = ({
+  color,
+  radius = HAND_RADIUS.card,
+  style,
+}: {
+  color: string;
+  radius?: string;
+  style?: CSSProperties;
+}) => (
+  <div
+    aria-hidden
+    style={{
+      position: "absolute",
+      inset: 0,
+      background: color,
+      borderRadius: radius,
+      filter: CRAYON_FILTER,
+      pointerEvents: "none",
+      ...style,
     }}
   />
 );
@@ -162,9 +179,11 @@ export const CrayonMark = ({
   </span>
 );
 
-/** Outlined (rather than filled) crayon pill, used for the skill tags. */
-export const CrayonPill = ({ children, color }: { children: React.ReactNode; color: string }) => (
-  <span className="bodyMedium-b6" style={{ position: "relative", padding: `${space["3xs"]} ${space.sm}` }}>
+const PILL_PADDING = "5px 12px";
+
+/** Outlined (rather than filled) crayon pill, used for the hero's language tags. */
+export const CrayonPill = ({ children, color = crayon.ink }: { children: React.ReactNode; color?: string }) => (
+  <span className="mono-m2" style={{ position: "relative", padding: PILL_PADDING }}>
     <span
       aria-hidden
       style={{
@@ -180,7 +199,7 @@ export const CrayonPill = ({ children, color }: { children: React.ReactNode; col
 );
 
 /** Dot colors cycled down a crayon bullet list. */
-export const BULLET_COLORS = [crayon.red, crayon.blue, crayon.green];
+export const BULLET_COLORS = [crayon.accentBlue, crayon.blue];
 
 /**
  * A bulleted list whose markers are crayon dots. Shared by Education and
@@ -188,12 +207,21 @@ export const BULLET_COLORS = [crayon.red, crayon.blue, crayon.green];
  */
 export const CrayonBulletList = ({
   points,
-  textClass = "body-b4",
+  textClass = "body-b4 lh-relaxed",
+  colors = BULLET_COLORS,
+  gap = space.smLg,
+  dotOffset = 5,
   style,
 }: {
   points: string[];
   /** Type scale class for the bullet text — see fonts.scss. */
   textClass?: string;
+  /** Dot colors, cycled down the list. */
+  colors?: readonly string[];
+  /** Space between bullets. */
+  gap?: string | number;
+  /** Nudges the dot down onto the first line of text, in px. */
+  dotOffset?: number;
   style?: CSSProperties;
 }) => (
   <ul
@@ -203,7 +231,7 @@ export const CrayonBulletList = ({
       listStyle: "none",
       display: "flex",
       flexDirection: "column",
-      gap: space.smLg,
+      gap,
       ...style,
     }}
   >
@@ -218,8 +246,8 @@ export const CrayonBulletList = ({
           style={{
             width: DOT.size,
             height: DOT.size,
-            marginTop: DOT.offset,
-            background: BULLET_COLORS[index % BULLET_COLORS.length],
+            marginTop: dotOffset,
+            background: colors[index % colors.length],
             borderRadius: BLOB_RADIUS.dot,
             filter: CRAYON_FILTER,
           }}

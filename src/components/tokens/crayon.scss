@@ -1,66 +1,64 @@
 @use "sass:map";
 
-/* Crayon / primary-color home page. Everything here is scoped to .crayon so the
-   other pages (Nostalgia, SkillsHub, ...) keep their own look.
+/* "Lanterns" home page. Everything here is scoped to .crayon so the other
+   pages (Nostalgia, SkillsHub, ...) keep their own look.
 
-   Typography lives in fonts.scss (the .headline-* / .body-* classes); spacing and radii live
-   in spacing.scss (--space-* / --radius-*). This file holds only color, layout
-   and interaction.
+   Typography lives in fonts.scss (the .headline-* / .body-* / .mono-* classes);
+   spacing and radii live in spacing.scss (--space-* / --radius-*). This file
+   holds only color, layout and interaction.
 
    Keep $crayon in step with the `crayon` palette in crayon.ts, which is what
    inline styles and the canvas read from. */
 
 $crayon: (
-    "cream": #f5eedb,
-    "paper": #fbf7ea,
+    "paper": #f5eedb,
+    "paper-raised": #fbf7ea,
+    "paper-card": #ebdfbf,
     "paper-shade": #e9e1c8,
-    "ink": #2a1a14,
-    "muted-ink": #5a4336,
-    "red": #e3261b,
-    "maroon": #8b0a17,
-    "yellow": #ffc414,
-    "orange": #ff7f11,
-    "lime": #b5e02b,
-    "green": #1fa84f,
-    "lavender": #c9c5ee,
-    "blue": #2350d8,
-    "magenta": #ec1e8c,
+    "ink": #13283a,
+    "ink-muted": #4a6274,
+    "navy": #12324a,
+    "navy-deep": #0b1d2b,
+    "blue": #2b74b0,
+    "accent-blue": #1d5a8c,
+    "lantern": #e8e36a,
+    "mint": #5fc8b0,
+    "on-navy-muted": #a9c3d1,
 );
 
 :root {
     @each $name, $value in $crayon {
         --crayon-#{$name}: #{$value};
     }
-    /* Offset of the misregistered heading shadows. */
-    --mis: 4px;
+    /* Offset of the misregistered heading shadows, as a fraction of the
+       heading's own font size — `em` so it scales with the type, floored so it
+       never disappears on the smallest headings. */
+    --mis: clamp(1.5px, 0.042em, 5px);
     /* Content column, and the gutter either side of it. */
     --page-max: 1180px;
     --page-gutter: clamp(18px, 5vw, 48px);
 }
 
-@media (max-width: 1032px) {
-    :root {
-        /* Reduce misregistration gently on smaller page and section headings. */
-        --mis: 3px;
-    }
-}
-
 .crayon {
-    background: map.get($crayon, "cream");
+    background: map.get($crayon, "paper");
     color: map.get($crayon, "ink");
     font-family: "Roboto", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
 
     ::selection {
-        background: map.get($crayon, "yellow");
+        background: map.get($crayon, "lantern");
     }
 
     a {
-        color: map.get($crayon, "blue");
+        color: map.get($crayon, "accent-blue");
         text-decoration: none;
+
+        &:hover {
+            color: map.get($crayon, "ink");
+        }
     }
 
-    h1, h2, h3, p, ul {
+    h1, h2, h3, p, ul, pre {
         margin: 0;
     }
 }
@@ -68,16 +66,18 @@ $crayon: (
 /* --- color roles ------------------------------------------------------ */
 
 .crayon .crayon-label {
-    color: map.get($crayon, "maroon");
+    color: map.get($crayon, "accent-blue");
 }
 
 .crayon .crayon-muted {
-    color: map.get($crayon, "muted-ink");
+    color: map.get($crayon, "ink-muted");
 }
 
 /* --- layout ----------------------------------------------------------- */
 
 .crayon-main {
+    /* --page-max is the content column; the gutters sit outside it. */
+    box-sizing: content-box;
     max-width: var(--page-max);
     margin: 0 auto;
     padding: 0 var(--page-gutter);
@@ -101,7 +101,7 @@ $crayon: (
     transition: color 0.15s;
 
     &:hover {
-        color: map.get($crayon, "red");
+        color: map.get($crayon, "accent-blue");
     }
 }
 
@@ -115,6 +115,56 @@ $crayon: (
 
     &:hover {
         transform: rotate(0deg) translateY(-4px);
+    }
+}
+
+/* Navy project card. Hovering anywhere on the card straightens and lifts it,
+   zooms the screenshot, lights the title and deepens the link swipe. */
+.crayon .crayon-project {
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 0.25s;
+    cursor: pointer;
+
+    &:hover {
+        transform: rotate(0deg) translateY(-6px);
+    }
+
+    .crayon-project-img {
+        transition: transform 0.35s;
+    }
+
+    &:hover .crayon-project-img {
+        transform: scale(1.05);
+    }
+
+    .crayon-project-swipe {
+        opacity: 0.45;
+        transition: opacity 0.2s;
+    }
+
+    &:hover .crayon-project-swipe {
+        opacity: 0.9;
+    }
+
+    .crayon-project-arrow {
+        transition: transform 0.2s;
+    }
+
+    &:hover .crayon-project-arrow {
+        transform: translateX(4px);
+    }
+}
+
+.crayon .crayon-project-cta,
+.crayon .crayon-project-cta:hover {
+    color: map.get($crayon, "lantern");
+}
+
+.crayon .crayon-project-source {
+    color: map.get($crayon, "paper");
+
+    &:hover {
+        color: map.get($crayon, "lantern");
     }
 }
 
@@ -135,26 +185,28 @@ $crayon: (
 }
 
 .crayon .crayon-btn-outlined:hover {
-    color: map.get($crayon, "red");
+    color: map.get($crayon, "accent-blue");
 }
 
 /* --- contact ---------------------------------------------------------- */
 
 .crayon .crayon-contact-link {
-    color: map.get($crayon, "cream");
+    color: map.get($crayon, "paper");
     overflow-wrap: anywhere;
     text-decoration: underline;
-    text-decoration-color: map.get($crayon, "magenta");
+    text-decoration-color: map.get($crayon, "lantern");
     text-decoration-thickness: 3px;
     text-underline-offset: 5px;
 
     &:hover {
-        color: map.get($crayon, "yellow");
+        color: map.get($crayon, "lantern");
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .crayon .crayon-card,
+    .crayon .crayon-project,
+    .crayon .crayon-project *,
     .crayon .crayon-btn {
         transition: none;
     }

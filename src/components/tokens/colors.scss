@@ -19,6 +19,20 @@ $colors: (
     "w-light-gray": #fffbf0,
     "w-gray": #c0c0c0,
     "w-dark-gray": #808080,
+    // Crayon (Lanterns home page) colors, prefixed to avoid clashing with "blue" etc.
+    "crayon-paper": #f5eedb,
+    "crayon-paper-raised": #fbf7ea,
+    "crayon-paper-card": #ebdfbf,
+    "crayon-paper-shade": #e9e1c8,
+    "crayon-ink": #13283a,
+    "crayon-ink-muted": #4a6274,
+    "crayon-navy": #12324a,
+    "crayon-navy-deep": #0b1d2b,
+    "crayon-blue": #2b74b0,
+    "crayon-accent-blue": #1d5a8c,
+    "crayon-lantern": #e8e36a,
+    "crayon-mint": #5fc8b0,
+    "crayon-on-navy-muted": #a9c3d1,
 );
 $properties: (
     "background": "bg",

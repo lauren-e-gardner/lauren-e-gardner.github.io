@@ -1,6 +1,5 @@
 import { NavBar } from "../components";
-import { CrayonDefs, PaperGrain } from "../components/atoms/Crayon";
-import { MISREGISTER } from "../components/tokens/crayon";
+import { CrayonDefs } from "../components/atoms/Crayon";
 
 const NAV_LINKS = [
   { label: "projects", target: "projects" },
@@ -14,12 +13,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className="crayon"
-      style={{ position: "relative", overflowX: "clip", minHeight: "100vh", ["--mis" as string]: MISREGISTER }}
+      style={{ position: "relative", overflowX: "clip", minHeight: "100vh" }}
     >
       {/* Rendered once for the whole page: every decorative shape below points
-          at #crayon, and the grain multiplies over the lot. */}
+          at #crayon. */}
       <CrayonDefs />
-      <PaperGrain />
 
       <NavBar links={NAV_LINKS} />
 

@@ -37,7 +37,7 @@ export interface ButtonProps {
     variant?: ButtonVariant;
     /** Optional so an icon can stand alone — label it with accessibilityLabel. */
     children?: React.ReactNode | string;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent) => void;
     /** Renders an anchor instead of a button. External links get noopener. */
     href?: string;
     /** Opens `href` in a new tab. Ignored without an href. */
@@ -80,7 +80,7 @@ export const Button: React.FC<ButtonProps> = ({
     color,
     textClass,
     fullWidth,
-    textAlign,
+    textAlign = 'center',
     disabled,
     icon,
     iconPosition = "leading",
@@ -88,7 +88,7 @@ export const Button: React.FC<ButtonProps> = ({
     ariaExpanded,
     ariaHasPopup,
 }) => {
-    const shapeColor = color ?? (variant === "primary" ? crayon.yellow : crayon.ink);
+    const shapeColor = color ?? (variant === "primary" ? crayon.lantern : crayon.ink);
     const renderedIcon = icon && <Icon {...icon} size={icon.size ?? ICON_SIZE} color={icon.color ?? crayon.ink} />;
 
     const content = (
@@ -116,6 +116,8 @@ export const Button: React.FC<ButtonProps> = ({
 
     const className = `${VARIANT_CLASS[variant]} ${textClass ?? TEXT_CLASS[variant]}`;
     const style: React.CSSProperties = {
+        // A lone icon hugs its own box rather than sitting on a line of text.
+        display: children ? undefined : "inline-flex",
         width: fullWidth ? "100%" : "fit-content",
         textAlign,
         color: variant === "link" ? color : undefined,

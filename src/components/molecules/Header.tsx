@@ -16,7 +16,7 @@ interface HeaderProps {
     shadow?: string;
     /** Tilt of the highlighter swipe, in degrees. */
     swipeRotate?: number;
-    /** Opacity of the swipe, for the lighter orange one. */
+    /** Opacity of the swipe. */
     swipeOpacity?: number;
 }
 
@@ -28,18 +28,18 @@ export const Header = ({
     title,
     variant = "section",
     description,
-    highlight = crayon.yellow,
-    shadow = `color-mix(in srgb, ${crayon.magenta} 55%, transparent)`,
+    highlight = crayon.blue,
+    shadow = `color-mix(in srgb, ${crayon.blue} 50%, transparent)`,
     swipeRotate = -2,
-    swipeOpacity,
+    swipeOpacity = 0.35,
 }: HeaderProps) => {
     if (variant === "page") {
         return (
             <h1
                 className="headline-h1"
                 style={{
-                    color: crayon.red,
-                    textShadow: `var(--mis) var(--mis) 0 ${crayon.yellow}, calc(var(--mis) * -0.8) calc(var(--mis) * 0.3) 0 color-mix(in srgb, ${crayon.blue} 55%, transparent)`,
+                    color: crayon.ink,
+                    textShadow: `calc(var(--mis) * -0.8) calc(var(--mis) * 0.3) 0 color-mix(in srgb, ${crayon.blue} 45%, transparent)`,
                     textWrap: "balance",
                 }}
             >
@@ -59,25 +59,9 @@ export const Header = ({
             }}
         >
             <h2 className="headline-h3" style={{ position: "relative", alignSelf: "flex-start", color: crayon.ink }}>
-                <span
-                    aria-hidden
-                    style={{
-                        position: "absolute",
-                        left: SWIPE.left,
-                        right: SWIPE.right,
-                        top: SWIPE.top,
-                        bottom: SWIPE.bottom,
-                        background: highlight,
-                        filter: CRAYON_FILTER,
-                        mixBlendMode: "multiply",
-                        transform: `rotate(${swipeRotate}deg)`,
-                        borderRadius: radius["3xl"],
-                        opacity: swipeOpacity,
-                    }}
-                />
-                <span style={{ position: "relative", textShadow: `var(--mis) 0 0 ${shadow}` }}>{title}</span>
+                <span style={{ position: "relative"}}>{title}</span>
             </h2>
-            {description && <p className="body-b4" style={{ maxWidth: "26em" }}>{description}</p>}
+            {description && <p className="body-b4 lh-snug" style={{ maxWidth: "26em" }}>{description}</p>}
         </div>
     );
 };

@@ -2,7 +2,7 @@
 export { Text } from "./atoms/Text";
 export { Divider } from "./atoms/Divider";
 export { Button } from "./atoms/Button/Button";
-export { CrayonDefs, PaperGrain, CrayonBorder, CrayonBlob, CrayonMark, CrayonPill, CrayonBulletList } from "./atoms/Crayon";
+export { CrayonDefs, CrayonBorder, CrayonFill, CrayonBlob, CrayonMark, CrayonPill, CrayonBulletList } from "./atoms/Crayon";
 // Molecules
 export { Header } from "./molecules/Header";
 export { FadeInSection } from "./molecules/FadeInSection";

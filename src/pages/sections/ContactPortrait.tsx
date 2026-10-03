@@ -12,12 +12,13 @@ export const ContactPortrait = () => (
     style={{
       position: "relative",
       justifySelf: "center",
+      margin: "0 auto",
       width: `min(100%, ${MAX_WIDTH})`,
       aspectRatio: "1",
     }}
   >
     <CrayonBlob
-      color={crayon.yellow}
+      color={crayon.lantern}
       radius={BLOB.radius}
       style={{ right: BLOB.right, top: BLOB.top, width: BLOB.width, aspectRatio: "1", opacity: BLOB.opacity }}
     />

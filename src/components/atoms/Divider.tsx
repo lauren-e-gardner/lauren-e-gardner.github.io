@@ -1,22 +1,32 @@
-import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
+import { CRAYON_FILTER, crayon, space } from '../tokens/crayon'
 
 interface DividerProps {
-  /** Crayon bar color. Defaults to yellow, the first divider in the page order. */
+  /** Crayon rule color. Defaults to ink. */
   color?: string;
-  /** Degrees of tilt, so no two bars sit perfectly level. */
+  /** Degrees of tilt, so no two rules sit perfectly level. */
   rotate?: number;
   height?: number;
+  opacity?: number;
+  /** Space above and below the rule. */
+  margin?: string;
 }
 
-export const Divider = ({ color = crayon.yellow, rotate = -0.6, height = 9 }: DividerProps) => {
+/** The thin crayon rule between home page sections. */
+export const Divider = ({
+  color = crayon.ink,
+  rotate = -0.3,
+  height = 2,
+  opacity = 0.3,
+  margin = `${space.lg} 0`,
+}: DividerProps) => {
   return (
     <div
       aria-hidden
       style={{
         height,
-        margin: `${space.lg} 0`,
+        margin,
         background: color,
-        borderRadius: radius.sm,
+        opacity,
         transform: `rotate(${rotate}deg)`,
         filter: CRAYON_FILTER,
       }}

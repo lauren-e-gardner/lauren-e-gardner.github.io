@@ -4,12 +4,13 @@ import { BORDER, CrayonBorder } from "../atoms/Crayon";
 import { Button } from "../atoms/Button/Button";
 import { useDeviceType } from "../../hooks/useDeviceType";
 
-/** The yellow scribble behind the "LG" monogram, and the bar along the base. */
-const LOGO_BLOB = { left: -6, top: 4, width: 44, height: 30, radius: "48% 52% 40% 60%" } as const;
-const EDGE_BAR = { height: 5, overhang: -3 } as const;
+/** The ink rule along the nav's base. */
+const EDGE_RULE = { height: 2, overhang: -2, opacity: 0.55 } as const;
 /** The hamburger panel hangs off the nav's bottom edge, clear of the crayon bar. */
 const MENU_PANEL = { top: "100%", minWidth: 200, offset: space.sm, radius: radius.lg } as const;
 const TOGGLE_ICON = 28;
+/** Desktop tabs are spread evenly across this width, centered in the bar. */
+const DESKTOP_NAV_WIDTH = 1032;
 
 export interface NavLink {
   label: string;
@@ -25,11 +26,6 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
   const isMobile = useDeviceType() === "mobile";
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const go = (target: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    scrollToSection(target);
-  };
 
   /** Selecting a link closes the menu; the desktop bar has none to close. */
   const select = (target: string) => {
@@ -71,37 +67,14 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
         left: 0,
         right: 0,
         zIndex: 50,
-        background: crayon.cream,
+        background: crayon.paper,
         padding: `${space.smLg} clamp(${space.md}, 5vw, ${space["3xl"]}) ${space.sm}`,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: isMobile ? "flex-end" : "center",
         gap: space.md,
       }}
     >
-      <a
-        href="#home"
-        onClick={go("home")}
-        className="headline-h6"
-        style={{ color: crayon.maroon, position: "relative", display: "flex" }}
-      >
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            left: LOGO_BLOB.left,
-            top: LOGO_BLOB.top,
-            width: LOGO_BLOB.width,
-            height: LOGO_BLOB.height,
-            background: crayon.yellow,
-            borderRadius: LOGO_BLOB.radius,
-            filter: CRAYON_FILTER,
-            mixBlendMode: "multiply",
-          }}
-        />
-        <span style={{ position: "relative" }}>LG</span>
-      </a>
-
       {isMobile ? (
         <div ref={menuRef} style={{ position: "relative", display: "flex" }}>
           <Button
@@ -109,7 +82,7 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
             accessibilityLabel={menuOpen ? "Close menu" : "Open menu"}
             ariaExpanded={menuOpen}
             ariaHasPopup
-            icon={{ name: menuOpen ? "close" : "hamburger", size: TOGGLE_ICON, color: crayon.maroon }}
+            icon={{ name: menuOpen ? "close" : "hamburger", size: TOGGLE_ICON, color: crayon.accentBlue }}
             onClick={() => setMenuOpen((open) => !open)}
           />
 
@@ -122,8 +95,10 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
                 right: 0,
                 zIndex: 1,
                 marginTop: MENU_PANEL.offset,
+                // The links get the full min-width; the padding sits outside it.
+                boxSizing: "content-box",
                 minWidth: MENU_PANEL.minWidth,
-                background: crayon.paper,
+                background: crayon.paperRaised,
                 borderRadius: MENU_PANEL.radius,
                 padding: `${space.mdLg} ${space.lg}`,
                 display: "flex",
@@ -134,7 +109,7 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
             >
               {/* Drawn border rather than a CSS one, so the filter roughens the
                   frame without displacing the labels inside it. */}
-              <CrayonBorder color={crayon.blue} width={BORDER.frame} radius={MENU_PANEL.radius} />
+              <CrayonBorder color={crayon.ink} width={BORDER.card} radius={MENU_PANEL.radius} />
 
               {links.map((link) => (
                 <Button
@@ -156,9 +131,9 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
-            gap: `clamp(${space.sm}, 2.4vw, ${space.xl})`,
-            justifyContent: "flex-end",
+            width: "100%",
+            maxWidth: DESKTOP_NAV_WIDTH,
+            justifyContent: "space-between",
           }}
         >
           {links.map((link) => (
@@ -169,16 +144,17 @@ export const NavBar: React.FC<NavBarProps> = ({ links = [] }) => {
         </div>
       )}
 
-      {/* Red crayon bar along the bottom edge */}
+      {/* Ink crayon rule along the bottom edge */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: EDGE_BAR.overhang,
-          height: EDGE_BAR.height,
-          background: crayon.red,
+          bottom: EDGE_RULE.overhang,
+          height: EDGE_RULE.height,
+          background: crayon.ink,
+          opacity: EDGE_RULE.opacity,
           filter: CRAYON_FILTER,
         }}
       />
