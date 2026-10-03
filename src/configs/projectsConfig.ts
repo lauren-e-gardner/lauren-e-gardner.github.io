@@ -70,7 +70,7 @@ export const projects: Project[] = [
       "3D Graphics",
       "Procedural Generation",
     ],
-    demoLink: "#",
+    demoLink: "/fabricsimulator",
     githubLink: "https://github.com/lauren-e-gardner/Fabric_Simulator",
     screenshot:
       "/images/Fabric.png",  

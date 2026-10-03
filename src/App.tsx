@@ -11,6 +11,7 @@ import SpaceOtterssey from './pages/Thesis/SpaceOtterssey.tsx';
 import SkillsHub from './pages/SkillsHub/SkillsHub.tsx';
 import Profile from './pages/SkillsHub/Profile.tsx';
 import ImportClub from './pages/ImportClub/ImportClub.tsx';
+import FabricSimulator from './pages/FabricSimulator/FabricSimulator.tsx';
 
 // Adjusted transition for a seamless fade in and out
 const pageVariants = {
@@ -100,6 +101,19 @@ function AnimatedRoutes() {
               exit="exit"
             >
               <ImportClub />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/fabricsimulator"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <FabricSimulator />
             </motion.div>
           }
         />
