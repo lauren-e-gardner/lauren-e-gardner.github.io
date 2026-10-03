@@ -1,8 +1,5 @@
 import React from "react";
-import { CRAYON_FILTER, crayon, radius, space } from "../tokens/crayon";
-
-/** The highlighter swipe overshoots the text, the way a marker would. */
-const SWIPE = { left: -14, right: -18, top: "30%", bottom: "4%" } as const;
+import { crayon, space } from "../tokens/crayon";
 
 interface HeaderProps {
     title: string;
@@ -28,10 +25,6 @@ export const Header = ({
     title,
     variant = "section",
     description,
-    highlight = crayon.blue,
-    shadow = `color-mix(in srgb, ${crayon.blue} 50%, transparent)`,
-    swipeRotate = -2,
-    swipeOpacity = 0.35,
 }: HeaderProps) => {
     if (variant === "page") {
         return (

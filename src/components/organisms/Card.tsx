@@ -1,15 +1,12 @@
 import React from 'react'
-import { CRAYON_FILTER, crayon, radius, space } from '../tokens/crayon'
-import { BLOB_RADIUS, CrayonBlob, CrayonBulletList, CrayonFill, CrayonMark, HAND_RADIUS } from '../atoms/Crayon'
+import { crayon, radius, space } from '../tokens/crayon'
+import { CrayonBulletList, CrayonFill, CrayonMark, HAND_RADIUS } from '../atoms/Crayon'
 import Button from '../atoms/Button/Button';
 import { Text } from '../atoms/Text';
 
 /** Screenshot proportions and corners, and the lantern blob glowing behind it. */
 const SCREENSHOT = { ratio: "16/10", radius: "6px" } as const;
-const PROJECT_BLOB = { top: 95, left: -15, width: 205, height: 192, opacity: 0.8 } as const;
 const PROJECT = { padding: "14px 14px 18px", titleTop: 6, arrowGap: 6 } as const;
-/** The blue crayon swipe under the "play demo →" link. */
-const CTA_SWIPE = { left: -6, right: -8, top: "45%", bottom: -2, tilt: "-1.5deg" } as const;
 const SOURCE_ICON = 13;
 
 /** The education variant's panel and text opacity, and the width its columns split at. */
