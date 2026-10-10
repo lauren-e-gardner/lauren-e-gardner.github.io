@@ -101,24 +101,24 @@ export default function Pixelator() {
   };
 
   return (
-    <div className="w-[80vh] flex flex-col items-center justify-center p-4">
-      <div className="border border-black shadow-md bg-[#c0c0c0] relative">
-        <div className="flex items-center justify-between bg-[#000080] text-white px-2 py-1">
-          <span className="text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-bold">Pixelator - Windows 95</span>
-          <div className="flex space-x-1">
-            <img src="/Nostalgia/Buttons.png" alt="Close" className="h-6 cursor-pointer" />
+    <div className="w95-app col align-center justify-center pad-md">
+      <div className="w95-window">
+        <div className="w95-titlebar">
+          <span className="ui-u3 weight-bold">Pixelator - Windows 95</span>
+          <div className="row gap-xs">
+            <img src="/Nostalgia/Buttons.png" alt="Close" className="w95-titlebar-icon" />
           </div>
         </div>
   
-        <div className="p-4">
+        <div className="pad-md">
           <input 
             type="file" 
             accept="image/*" 
             onChange={handleFileSelect} 
-            className="w-full border-black border-t-2 border-l-2 p-1 text-xs text-[#000000] font-mono cursor-pointer mb-4"
+            className="w95-field w95-inset pad-xs mono-m2 mr-bottom-md"
           />
-          <div className="flex items-center justify-center border-t-2 border-l-2 border-black bg-[#fffbf0] p-2">
-            <canvas ref={canvasRef} className="h-[40vh]"></canvas>
+          <div className="w95-inset w95-well">
+            <canvas ref={canvasRef} className="w95-canvas"></canvas>
           </div>
   
           {imageLoaded && (
@@ -126,36 +126,36 @@ export default function Pixelator() {
               ref={downloadRef} 
               href={canvasRef.current?.toDataURL("image/png")} 
               download="pixelized-image.png"
-              className="text-black mt-4 block bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl text-center cursor-pointer shadow-inner active:shadow-none"
+              className="w95-button w95-button-block ui-u3 mr-top-md"
             >
               Download Image
             </a>
           )}
   
-          <div className="mt-4 flex space-x-2">
+          <div className="row gap-sm mr-top-md">
             <button 
               onClick={() => handlePaletteChange(win7Palette)} 
-              className="text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl cursor-pointer shadow-inner active:border-2"
+              className="w95-button ui-u3"
             >
               Windows 7 Palette
             </button>
             <button 
               onClick={() => handlePaletteChange(win95Palette)} 
-              className="text-black bg-[#c0c0c0] border-b-2 border-r-2 border-black px-3 py-1 text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl cursor-pointer shadow-inner active:border-2"
+              className="w95-button ui-u3"
             >
               Windows 95 Palette
             </button>
           </div>
   
-          <div className="mt-4">
-            <label className="text-black text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl">Pixelation Level</label>
+          <div className="mr-top-md">
+            <label className="ui-u3">Pixelation Level</label>
             <input 
               type="range" 
               min="10" 
               max="200" 
               value={pixelation} 
               onChange={handlePixelationChange} 
-              className="w-full cursor-pointer"
+              className="w95-field"
             />
           </div>
         </div>

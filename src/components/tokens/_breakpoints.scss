@@ -1,0 +1,6 @@
+/* Shared breakpoints. A partial: @use it from another token file; it emits no
+   CSS of its own. */
+
+$bp-md: 768px;    // side-by-side layouts start here
+$bp-xl: 1280px;   // ui-* type and demo padding step up
+$bp-2xl: 1536px;  // ...and again for large monitors

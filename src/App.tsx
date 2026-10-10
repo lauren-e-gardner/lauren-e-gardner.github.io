@@ -1,8 +1,10 @@
-import './index.css';
+import './components/tokens/reset.scss'
 import './components/tokens/spacing.scss'
 import './components/tokens/colors.scss'
 import './components/tokens/fonts.scss'
 import './components/tokens/crayon.scss'
+import './components/tokens/windows95.scss'
+import './components/tokens/demo.scss'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import HomePage from './pages/HomePage/HomePage.tsx';

@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 import glsl from 'vite-plugin-glsl';
 
 
@@ -13,7 +12,6 @@ export default defineConfig({
   // base: '/lauren-e-gardner.github.io/', // Set this to match your GitHub Pages repo name
   plugins: [
     react(),
-    tailwindcss(),
     glsl(),
   ],
 })

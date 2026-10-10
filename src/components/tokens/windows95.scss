@@ -1,0 +1,219 @@
+/* Windows 95 look for the Nostalgia page (PageLayout, BootUp, Pixelator,
+   Ditherer). Colors come from colors.scss (--color-w-*), spacing and radii
+   from spacing.scss (--space-* / --radius-*), type from the ui-* scale in
+   fonts.scss. */
+
+$bevel: 2px solid var(--color-black);
+/* One drop shadow for every floating surface; matches .shadow-* in colors.scss. */
+$raised-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+$taskbar-height: var(--space-2xl);
+
+/* --- desktop chrome --------------------------------------------------- */
+
+.w95-desktop {
+    position: relative;
+    min-height: 100vh;
+    overflow: auto;
+    /* Room for the fixed taskbar. */
+    padding-bottom: $taskbar-height;
+    background: var(--color-w-aqua);
+    color: var(--color-black);
+}
+
+.w95-menubar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-w-gray);
+    border-bottom: $bevel;
+    border-right: $bevel;
+    box-shadow: $raised-shadow;
+}
+
+.w95-taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    height: $taskbar-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--space-md);
+    background: var(--color-w-gray);
+    border-top: $bevel;
+}
+
+.w95-start {
+    background: var(--color-w-gray);
+    border: $bevel;
+
+    img {
+        height: var(--space-xl);
+    }
+}
+
+.w95-clock {
+    width: var(--space-6xl);
+    padding: var(--space-xs) var(--space-sm-lg);
+}
+
+/* --- bevels ------------------------------------------------------------ */
+
+/* Raised: lit from the top left, so the dark edge sits bottom and right. */
+.w95-button {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm-lg);
+    color: var(--color-black);
+    background: var(--color-w-gray);
+    border-bottom: $bevel;
+    border-right: $bevel;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+
+    &:active {
+        border: $bevel;
+        box-shadow: none;
+    }
+}
+
+.w95-button-block {
+    display: block;
+    text-align: center;
+}
+
+/* Sunken: the dark edge moves to the top and left. */
+.w95-inset {
+    border-top: $bevel;
+    border-left: $bevel;
+}
+
+/* --- windows ----------------------------------------------------------- */
+
+.w95-app {
+    width: 80vh;
+}
+
+.w95-window {
+    position: relative;
+    color: var(--color-black);
+    background: var(--color-w-gray);
+    border: 1px solid var(--color-black);
+    box-shadow: $raised-shadow;
+}
+
+.w95-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--color-white);
+    background: var(--color-w-blue);
+}
+
+.w95-titlebar-icon {
+    height: var(--space-lg);
+    cursor: pointer;
+}
+
+.w95-field {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Sunken white well the canvas sits in. */
+.w95-well {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-sm);
+    background: var(--color-w-light-gray);
+}
+
+.w95-canvas {
+    height: 40vh;
+}
+
+/* --- desktop ----------------------------------------------------------- */
+
+.w95-workspace {
+    position: relative;
+    height: 100%;
+}
+
+.w95-draggable {
+    width: 100%;
+    max-width: 45%;
+}
+
+/* Invisible strip over a window's title bar that you drag it by. */
+.w95-drag-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: var(--space-3xl);
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+/* --- boot screen and mobile notice ------------------------------------ */
+
+.w95-boot {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xl);
+    color: var(--color-black);
+    background: var(--color-w-aqua);
+}
+
+.w95-boot-logo {
+    height: 200px;
+}
+
+.w95-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-white);
+    background: var(--color-black);
+}
+
+.w95-alert {
+    padding: var(--space-md);
+    text-align: center;
+    background: var(--color-pink);
+    border-radius: var(--radius-md);
+}
+
+.w95-alert-button {
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    color: var(--color-white);
+    background: var(--color-blue);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--color-dark-blue);
+    }
+}

@@ -30,13 +30,13 @@ const BootUp: React.FC = () => {
 
   return (
     isBooting && (
-      <div className="absolute top-0 left-0 w-full h-full bg-[#008080] flex flex-col justify-center items-center z-50">
+      <div className="w95-boot">
         <img
           src="/Nostalgia/WindowsLogo.png"
           alt="Windows 95 Logo"
-          className="h-50 mx-auto mb-4" 
+          className="w95-boot-logo" 
         />
-        <div className="text-black text-xl mt-4">
+        <div className="ui-u2">
           <p>Booting Up {dots}</p>
         </div>
       </div>

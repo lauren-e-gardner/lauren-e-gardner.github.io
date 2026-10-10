@@ -1,0 +1,137 @@
+@use "breakpoints" as *;
+
+/* Full-screen demo pages (Thesis, Fabric Simulator): a stage, a floating Back
+   button, and on the Thesis page a code pane beside it. */
+
+$scrim: rgba(0, 0, 0, 0.6);
+$scrim-strong: rgba(0, 0, 0, 0.75);
+
+.demo-page {
+    /* One padding step for the whole page, so the pane, its heading and the
+       code block stay in proportion as the screen grows. */
+    --demo-pad: var(--space-md);
+
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    @media (min-width: $bp-xl) {
+        --demo-pad: var(--space-lg);
+    }
+
+    @media (min-width: $bp-2xl) {
+        --demo-pad: var(--space-xl-lg);
+    }
+}
+
+.demo-split {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $bp-md) {
+        flex-direction: row;
+    }
+}
+
+.demo-back {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    z-index: 10;
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-white);
+    background: $scrim;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:hover {
+        background: $scrim-strong;
+    }
+}
+
+.demo-caption {
+    position: absolute;
+    bottom: var(--space-md);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2 * var(--space-md));
+    max-width: 576px;
+    padding: var(--space-sm) var(--space-md);
+    text-align: center;
+    color: var(--color-white);
+    background: $scrim;
+    border-radius: var(--radius-md);
+    pointer-events: none;
+}
+
+/* --- split layout (Thesis) -------------------------------------------- */
+
+.demo-stage {
+    width: 100%;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-black);
+
+    @media (min-width: $bp-md) {
+        width: 50%;
+    }
+}
+
+.demo-stage-view {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.demo-pane {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--demo-pad);
+    overflow: auto;
+    /* Lets .demo-tabs lay out by the pane's width rather than the screen's. */
+    container-type: inline-size;
+
+    @media (min-width: $bp-md) {
+        width: 50%;
+    }
+}
+
+.demo-heading {
+    margin-bottom: var(--demo-pad);
+}
+
+.demo-code {
+    width: 100%;
+    padding: var(--demo-pad);
+    overflow: auto;
+    border: 1px solid;
+    border-radius: var(--radius-md);
+}
+
+/* Two by two in a narrow pane, one row once all four fit. */
+.demo-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+
+    @container (min-width: 480px) {
+        grid-template-columns: repeat(4, auto);
+    }
+}
+
+.demo-tab {
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}

@@ -123,7 +123,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ variant = "fruit" }) => {
     };
   }, [variant]);
 
-  return <div ref={mountRef} className="w-full h-full"></div>;
+  return <div ref={mountRef} className="fill"></div>;
 };
 
 export default ThreeScene;

@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "breakpoints" as *;
+
 @font-face {
   font-family: 'MyHand';
   src: url('/fonts/MyHand-Regular.otf') format('opentype');
@@ -111,6 +114,43 @@ $mono-size: (
         line-height: 1.2;
         font-weight: 400;
     }
+}
+
+/* System-font text for the Windows 95 and demo pages (Nostalgia, Thesis,
+   Fabric Simulator). Sets size only, so the font is whatever the page
+   inherits, and grows on large screens: (base, from xl, from 2xl, line-height). */
+$ui-size: (
+    "u1": (24px, 36px, 60px, 1.1),  // page titles
+    "u2": (16px, 20px, 30px, 1.4),  // buttons, code, splash text
+    "u3": (14px, 18px, 20px, 1.4),  // Windows 95 window text
+    "u4": (12px, 14px, 18px, 1.4),  // captions
+);
+
+@each $name, $spec in $ui-size {
+    .ui-#{$name} {
+        font-size: list.nth($spec, 1);
+        line-height: list.nth($spec, 4);
+    }
+}
+
+@media (min-width: $bp-xl) {
+    @each $name, $spec in $ui-size {
+        .ui-#{$name} {
+            font-size: list.nth($spec, 2);
+        }
+    }
+}
+
+@media (min-width: $bp-2xl) {
+    @each $name, $spec in $ui-size {
+        .ui-#{$name} {
+            font-size: list.nth($spec, 3);
+        }
+    }
+}
+
+.weight-bold {
+    font-weight: 700;
 }
 
 /* Line-height overrides for running text; the scales above default to 1.2. */
