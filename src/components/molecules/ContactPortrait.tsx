@@ -1,5 +1,5 @@
-import { CrayonBlob } from "../../components/atoms/Crayon";
-import { crayon } from "../../components/tokens/crayon";
+import { CrayonBlob } from "../atoms/Crayon";
+import { crayon } from "../tokens/crayon";
 import { portrait } from "../../configs";
 
 const PHOTO = { inset: "0%", size: "100%" } as const;

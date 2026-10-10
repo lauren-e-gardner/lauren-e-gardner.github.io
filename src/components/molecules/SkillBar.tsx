@@ -1,6 +1,6 @@
-import { CRAYON_FILTER, crayon, space } from "../../../components/tokens/crayon";
-import { CrayonFill } from "../../../components/atoms/Crayon";
-import { useDeviceType } from "../../../hooks/useDeviceType";
+import { CRAYON_FILTER, crayon, space } from "../tokens/crayon";
+import { CrayonFill } from "../atoms/Crayon";
+import { useDeviceType } from "../../hooks/useDeviceType";
 
 /** Row geometry: icon well, name column, bar, percentage. */
 const ROW = { icon: 48, glyph: 28, bar: 28, stat: 48 } as const;

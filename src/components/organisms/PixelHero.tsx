@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { CRAYON_FILTER, crayon, radius, space } from "../../components/tokens/crayon";
-import { BLOB_RADIUS, CrayonBlob, CrayonFill } from "../../components/atoms/Crayon";
-import { Text } from '../../components/atoms/Text';
+import { CRAYON_FILTER, crayon, radius, space } from "../tokens/crayon";
+import { BLOB_RADIUS, CrayonBlob, CrayonFill } from "../atoms/Crayon";
+import { Text } from '../atoms/Text';
 
 const ORIGINAL = "/images/Lanterns.jpg";
 

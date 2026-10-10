@@ -5,12 +5,9 @@ import './components/tokens/fonts.scss'
 import './components/tokens/crayon.scss'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import HomePage from './pages/HomePage.tsx';
+import HomePage from './pages/HomePage/HomePage.tsx';
 import Nostalgia from './pages/Nostalgia/Nostalgia.tsx';
 import SpaceOtterssey from './pages/Thesis/SpaceOtterssey.tsx';
-import SkillsHub from './pages/SkillsHub/SkillsHub.tsx';
-import Profile from './pages/SkillsHub/Profile.tsx';
-import ImportClub from './pages/ImportClub/ImportClub.tsx';
 import FabricSimulator from './pages/FabricSimulator/FabricSimulator.tsx';
 
 // Adjusted transition for a seamless fade in and out
@@ -62,45 +59,6 @@ function AnimatedRoutes() {
               exit="exit"
             >
               <SpaceOtterssey />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/skillshub"
-          element={
-            <motion.div
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <SkillsHub />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/skillshub/profile"
-          element={
-            <motion.div
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <Profile />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/importclubdemo"
-          element={
-            <motion.div
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <ImportClub />
             </motion.div>
           }
         />

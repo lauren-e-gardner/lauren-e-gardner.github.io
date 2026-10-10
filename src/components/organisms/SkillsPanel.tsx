@@ -1,15 +1,15 @@
-import { skills } from "../../../configs";
-import { crayon, space } from "../../../components/tokens/crayon";
-import { CrayonFill, HAND_RADIUS, CrayonBlob, BLOB_RADIUS } from "../../../components/atoms/Crayon";
-import { useDeviceType } from "../../../hooks/useDeviceType";
-import { SkillBar } from "./SkillBar";
+import { skills } from "../../configs";
+import { crayon, space } from "../tokens/crayon";
+import { CrayonFill, HAND_RADIUS, CrayonBlob, BLOB_RADIUS } from "../atoms/Crayon";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import { SkillBar } from "../molecules/SkillBar";
 
 const NAVY_PANEL = { inset: "4% -3% -4% 6%", tilt: "2.5deg" } as const;
 const LANTERN_BLOB = { left: "-16%", top: "-12%", width: "60%", aspectRatio: "1.2", opacity: 0.85 } as const;
 const MINT_BLOB = { left: "5%", top: "50%", width: "40%", aspectRatio: "1.2", opacity: 0.85 } as const;
 
 /** Skill rows on a deep navy crayon panel. */
-export const SkillsSection = () => {
+export const SkillsPanel = () => {
   // Each row is two lines tall on mobile, so they need less air between them.
   const isMobile = useDeviceType() === "mobile";
 
@@ -57,4 +57,4 @@ export const SkillsSection = () => {
   );
 }
 
-export default SkillsSection;
+export default SkillsPanel;
