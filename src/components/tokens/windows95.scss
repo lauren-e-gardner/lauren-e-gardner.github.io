@@ -1,3 +1,5 @@
+@use "breakpoints" as *;
+
 /* Windows 95 look for the Nostalgia page (PageLayout, BootUp, Pixelator,
    Ditherer). Colors come from colors.scss (--color-w-*), spacing and radii
    from spacing.scss (--space-* / --radius-*), type from the ui-* scale in
@@ -7,6 +9,30 @@ $bevel: 2px solid var(--color-black);
 /* One drop shadow for every floating surface; matches .shadow-* in colors.scss. */
 $raised-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 $taskbar-height: var(--space-2xl);
+
+/* Real Windows 95 bevels are two pixels deep: an outer and an inner line on
+   each side, drawn here as stacked inset shadows. */
+$bevel-raised:
+    inset -1px -1px var(--color-black),
+    inset 1px 1px var(--color-white),
+    inset -2px -2px var(--color-w-dark-gray),
+    inset 2px 2px var(--color-w-silver);
+$bevel-window:
+    inset -1px -1px var(--color-black),
+    inset 1px 1px var(--color-w-silver),
+    inset -2px -2px var(--color-w-dark-gray),
+    inset 2px 2px var(--color-white);
+$bevel-sunken:
+    inset -1px -1px var(--color-white),
+    inset 1px 1px var(--color-w-dark-gray),
+    inset -2px -2px var(--color-w-silver),
+    inset 2px 2px var(--color-black);
+$bevel-pressed:
+    inset -1px -1px var(--color-white),
+    inset 1px 1px var(--color-black),
+    inset -2px -2px var(--color-w-silver),
+    inset 2px 2px var(--color-w-dark-gray);
+$win95-font: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Arial, sans-serif;
 
 /* --- desktop chrome --------------------------------------------------- */
 
@@ -70,17 +96,27 @@ $taskbar-height: var(--space-2xl);
 /* Raised: lit from the top left, so the dark edge sits bottom and right. */
 .w95-button {
     display: inline-block;
+    min-width: 75px;
     padding: var(--space-xs) var(--space-sm-lg);
     color: var(--color-black);
+    text-align: center;
+    text-decoration: none;
     background: var(--color-w-gray);
-    border-bottom: $bevel;
-    border-right: $bevel;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: none;
+    border-radius: 0;
+    box-shadow: $bevel-raised;
     cursor: pointer;
 
+    /* The dotted focus rectangle sits just inside the bevel. */
+    &:focus-visible {
+        outline: 1px dotted var(--color-black);
+        outline-offset: -5px;
+    }
+
     &:active {
-        border: $bevel;
-        box-shadow: none;
+        box-shadow: $bevel-pressed;
+        /* Pressed labels shift one pixel down and right. */
+        padding: calc(var(--space-xs) + 1px) calc(var(--space-sm-lg) - 1px) calc(var(--space-xs) - 1px) calc(var(--space-sm-lg) + 1px);
     }
 }
 
@@ -91,31 +127,83 @@ $taskbar-height: var(--space-2xl);
 
 /* Sunken: the dark edge moves to the top and left. */
 .w95-inset {
-    border-top: $bevel;
-    border-left: $bevel;
+    box-shadow: $bevel-sunken;
 }
 
 /* --- windows ----------------------------------------------------------- */
 
+/* Narrowest the floating window gets on desktop. */
+$window-min-width: 504px;
+
+/* A definite width (sized for a 4:3 image at the canvas's 40vh height) so the
+   window can be centred before its image loads. The min-width adds back the
+   app's pad-md on each side so the window itself is never under 504px. */
 .w95-app {
-    width: 80vh;
+    width: min(92vw, calc(53vh + var(--space-4xl)));
+    min-width: calc(#{$window-min-width} + 2 * var(--space-md));
+
+    /* Fill the app's width rather than shrinking to the canvas. */
+    .w95-window {
+        align-self: stretch;
+    }
+
+    @media (max-width: $bp-md - 1px) {
+        width: 100%;
+        min-width: 0;
+    }
 }
 
 .w95-window {
+    /* Pixel-art controls (radios, slider) are drawn at 1x and scaled up with
+       the ui-* text so they keep the same proportions as on a 1995 screen. */
+    --w95-scale: 1;
     position: relative;
+    padding: 3px;
     color: var(--color-black);
+    font-family: $win95-font;
+    /* Win95 text was bitmap, so keep edges crisp where the browser allows. */
+    -webkit-font-smoothing: none;
     background: var(--color-w-gray);
-    border: 1px solid var(--color-black);
-    box-shadow: $raised-shadow;
+    box-shadow: $bevel-window;
+
+    button,
+    input,
+    label,
+    legend {
+        font-family: inherit;
+    }
+}
+
+@media (min-width: $bp-xl) {
+    .w95-window {
+        --w95-scale: 1.25;
+    }
+}
+
+@media (min-width: $bp-2xl) {
+    .w95-window {
+        --w95-scale: 1.5;
+    }
+}
+
+/* Bigger radios and slider thumb for fingers. */
+@media (pointer: coarse) {
+    .w95-window {
+        --w95-scale: 1.5;
+    }
 }
 
 .w95-titlebar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-3xs) var(--space-3xs) var(--space-3xs) var(--space-xs);
     color: var(--color-white);
     background: var(--color-w-blue);
+}
+
+.w95-window-body {
+    padding: var(--space-sm);
 }
 
 .w95-titlebar-icon {
@@ -137,8 +225,179 @@ $taskbar-height: var(--space-2xl);
     background: var(--color-w-light-gray);
 }
 
+/* Paint-style dark gray backdrop instead of the cream well. */
+.w95-well-dark {
+    background: var(--color-w-dark-gray);
+}
+
+/* Read-only white text box, like the path field in a file dialog. */
+.w95-textbox {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-xs) var(--space-sm);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: var(--color-white);
+    box-shadow: $bevel-sunken;
+}
+
+/* Etched group box ("Playback", "Recording" in the Sound properties). */
+.w95-groupbox {
+    margin: 0;
+    padding: var(--space-sm) var(--space-sm-lg) var(--space-sm-lg);
+    border: 1px solid var(--color-w-dark-gray);
+    box-shadow: 1px 1px 0 var(--color-white), inset 1px 1px 0 var(--color-white);
+
+    legend {
+        padding: 0 var(--space-3xs);
+    }
+}
+
+/* Group boxes sharing a row split it evenly. */
+.w95-groupbox-grow {
+    flex: 1;
+    min-width: 0;
+}
+
+/* --- radio buttons ----------------------------------------------------- */
+
+.w95-radio {
+    display: inline-flex;
+    white-space: nowrap;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+
+    input {
+        appearance: none;
+        flex-shrink: 0;
+        width: calc(12px * var(--w95-scale));
+        height: calc(12px * var(--w95-scale));
+        margin: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Cpath fill='%23808080' d='M4 0h4v1H4zM2 1h2v1H2zM8 1h2v1H8zM1 2h1v1H1zM1 3h1v1H1zM0 4h1v1H0zM0 5h1v1H0zM0 6h1v1H0zM0 7h1v1H0zM1 8h1v1H1zM1 9h1v1H1z'/%3E%3Cpath fill='%23000' d='M4 1h4v1H4zM2 2h2v1H2zM8 2h2v1H8zM2 3h1v1H2zM1 4h1v1H1zM1 5h1v1H1zM1 6h1v1H1zM1 7h1v1H1zM2 8h1v1H2z'/%3E%3Cpath fill='%23fff' d='M4 2h4v1H4zM10 2h1v1H10zM3 3h6v1H3zM10 3h1v1H10zM2 4h8v1H2zM11 4h1v1H11zM2 5h8v1H2zM11 5h1v1H11zM2 6h8v1H2zM11 6h1v1H11zM2 7h8v1H2zM11 7h1v1H11zM3 8h6v1H3zM10 8h1v1H10zM4 9h4v1H4zM10 9h1v1H10zM2 10h2v1H2zM8 10h2v1H8zM4 11h4v1H4z'/%3E%3Cpath fill='%23dfdfdf' d='M9 3h1v1H9zM10 4h1v1H10zM10 5h1v1H10zM10 6h1v1H10zM10 7h1v1H10zM9 8h1v1H9zM2 9h2v1H2zM8 9h2v1H8zM4 10h4v1H4z'/%3E%3C/svg%3E") center / 100% no-repeat;
+        cursor: pointer;
+
+        &:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Cpath fill='%23808080' d='M4 0h4v1H4zM2 1h2v1H2zM8 1h2v1H8zM1 2h1v1H1zM1 3h1v1H1zM0 4h1v1H0zM0 5h1v1H0zM0 6h1v1H0zM0 7h1v1H0zM1 8h1v1H1zM1 9h1v1H1z'/%3E%3Cpath fill='%23000' d='M4 1h4v1H4zM2 2h2v1H2zM8 2h2v1H8zM2 3h1v1H2zM1 4h1v1H1zM5 4h2v1H5zM1 5h1v1H1zM4 5h4v1H4zM1 6h1v1H1zM4 6h4v1H4zM1 7h1v1H1zM5 7h2v1H5zM2 8h1v1H2z'/%3E%3Cpath fill='%23fff' d='M4 2h4v1H4zM10 2h1v1H10zM3 3h6v1H3zM10 3h1v1H10zM2 4h3v1H2zM7 4h3v1H7zM11 4h1v1H11zM2 5h2v1H2zM8 5h2v1H8zM11 5h1v1H11zM2 6h2v1H2zM8 6h2v1H8zM11 6h1v1H11zM2 7h3v1H2zM7 7h3v1H7zM11 7h1v1H11zM3 8h6v1H3zM10 8h1v1H10zM4 9h4v1H4zM10 9h1v1H10zM2 10h2v1H2zM8 10h2v1H8zM4 11h4v1H4z'/%3E%3Cpath fill='%23dfdfdf' d='M9 3h1v1H9zM10 4h1v1H10zM10 5h1v1H10zM10 6h1v1H10zM10 7h1v1H10zM9 8h1v1H9zM2 9h2v1H2zM8 9h2v1H8zM4 10h4v1H4z'/%3E%3C/svg%3E");
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    input:focus-visible + span {
+        outline: 1px dotted var(--color-black);
+    }
+}
+
+/* --- trackbar (slider) -------------------------------------------------- */
+
+/* The pointed thumb is drawn pixel by pixel: white top-left edge, black and
+   dark gray bottom-right edges, tapering to a point that sits over the ticks. */
+$slider-thumb-width: calc(11px * var(--w95-scale));
+$slider-thumb-height: calc(21px * var(--w95-scale));
+$slider-thumb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='21' shape-rendering='crispEdges'%3E%3Cpath fill='%23c0c0c0' d='M1 1h8v15H1zM2 16h6v1H2zM3 17h4v1H3zM4 18h2v1H4z'/%3E%3Cpath fill='%23fff' d='M0 0h10v1H0zM0 1h1v15H0zM1 16h1v1H1zM2 17h1v1H2zM3 18h1v1H3zM4 19h1v1H4z'/%3E%3Cpath fill='%23808080' d='M9 1h1v15H9zM8 16h1v1H8zM7 17h1v1H7zM6 18h1v1H6zM5 19h1v1H5z'/%3E%3Cpath fill='%23000' d='M10 0h1v16h-1zM9 16h1v1H9zM8 17h1v1H8zM7 18h1v1H7zM6 19h1v1H6zM5 20h1v1H5z'/%3E%3C/svg%3E");
+
+.w95-slider {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-3xs) var(--space-xs) var(--space-xs);
+
+    /* Win95 draws the focus rectangle around the whole control, ticks and all. */
+    &:focus-within {
+        outline: 1px dotted var(--color-black);
+    }
+}
+
+.w95-slider-input {
+    display: block;
+    width: 100%;
+    height: calc(16px * var(--w95-scale));
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    /* Narrow sunken groove. */
+    &::-webkit-slider-runnable-track {
+        height: calc(4px * var(--w95-scale));
+        background: var(--color-w-gray);
+        box-shadow: $bevel-sunken;
+    }
+
+    &::-moz-range-track {
+        height: calc(4px * var(--w95-scale));
+        background: var(--color-w-gray);
+        box-shadow: $bevel-sunken;
+    }
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: $slider-thumb-width;
+        height: $slider-thumb-height;
+        /* Centre the rectangular part of the thumb on the groove. */
+        margin-top: calc(-6px * var(--w95-scale));
+        background: $slider-thumb center / 100% no-repeat;
+        border: none;
+    }
+
+    /* Firefox centres the whole thumb on the groove, so nudge it down until
+       the rectangular part is centred instead. */
+    &::-moz-range-thumb {
+        width: $slider-thumb-width;
+        height: $slider-thumb-height;
+        background: $slider-thumb center / 100% no-repeat;
+        border: none;
+        border-radius: 0;
+        transform: translateY(calc(2.5px * var(--w95-scale)));
+    }
+}
+
+/* Tick marks run between the thumb's centre at each end of the track. */
+.w95-slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    /* The thumb's point hangs 5px below the input; start the ticks just under it. */
+    margin: calc(6px * var(--w95-scale)) calc(#{$slider-thumb-width} / 2 - 0.5px * var(--w95-scale)) 0;
+
+    span {
+        width: calc(1px * var(--w95-scale));
+        height: calc(4px * var(--w95-scale));
+        background: var(--color-black);
+    }
+}
+
+/* --- status bar --------------------------------------------------------- */
+
+.w95-statusbar {
+    display: flex;
+    gap: var(--space-3xs);
+    margin-top: var(--space-3xs);
+}
+
+.w95-statusbar-pane {
+    flex: 1;
+    padding: var(--space-3xs) var(--space-xs);
+    /* Status panes use the shallow one-pixel sunken bevel. */
+    box-shadow: inset 1px 1px var(--color-w-dark-gray), inset -1px -1px var(--color-white);
+}
+
+/* Any aspect ratio fits: the canvas is letterboxed inside its box. */
 .w95-canvas {
     height: 40vh;
+    max-width: 100%;
+    object-fit: contain;
+
+    @media (max-width: $bp-md - 1px) {
+        width: 100%;
+        height: auto;
+    }
 }
 
 /* --- desktop ----------------------------------------------------------- */
@@ -146,29 +405,25 @@ $taskbar-height: var(--space-2xl);
 .w95-workspace {
     position: relative;
     height: 100%;
+
+    /* On phones the window sits in the page flow, below the fixed menu bar. */
+    @media (max-width: $bp-md - 1px) {
+        padding-top: $taskbar-height;
+    }
 }
 
-.w95-draggable {
-    width: 100%;
-    max-width: 45%;
-}
-
-/* Invisible strip over a window's title bar that you drag it by. */
-.w95-drag-handle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    height: var(--space-3xl);
+/* Floating windows are dragged by their title bar. touch-action stops a
+   touch drag from scrolling the page instead. */
+.w95-floating .w95-titlebar {
     cursor: grab;
+    touch-action: none;
 
     &:active {
         cursor: grabbing;
     }
 }
 
-/* --- boot screen and mobile notice ------------------------------------ */
+/* --- boot screen -------------------------------------------------------- */
 
 .w95-boot {
     position: absolute;
@@ -185,35 +440,6 @@ $taskbar-height: var(--space-2xl);
 
 .w95-boot-logo {
     height: 200px;
-}
-
-.w95-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-white);
-    background: var(--color-black);
-}
-
-.w95-alert {
-    padding: var(--space-md);
-    text-align: center;
-    background: var(--color-pink);
-    border-radius: var(--radius-md);
-}
-
-.w95-alert-button {
-    margin-top: var(--space-md);
-    padding: var(--space-sm) var(--space-lg);
-    color: var(--color-white);
-    background: var(--color-blue);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-
-    &:hover {
-        background: var(--color-dark-blue);
-    }
+    max-width: 80vw;
+    object-fit: contain;
 }

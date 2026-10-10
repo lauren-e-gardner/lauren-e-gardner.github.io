@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react';
 export type DraggableProps = {
   children: ReactNode;
   className?: string;
-  startX: number;
-  startY: number;
+  // Render in place, without dragging (used on mobile).
+  disabled?: boolean;
 };
 
 export interface RGB {

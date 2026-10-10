@@ -1,22 +1,25 @@
 import { useRef, useState, useEffect } from "react";
 import { win7Palette } from "./Windows7Palette";
 import { win95Palette } from "./Windows95Palette";
-import { RGB, Palette} from "../../types.ts";
+import { Palette } from "../../types.ts";
+import { pixelate, dither } from "./effects";
 
-const colorDistance = (c1: RGB, c2: RGB): number =>
-  Math.sqrt((c1.r - c2.r) ** 2 + (c1.g - c2.g) ** 2 + (c1.b - c2.b) ** 2);
+type Effect = "pixelate" | "dither";
 
-const closestColor = (color: RGB, palette: Palette): RGB =>
-  palette.reduce((closest, current) =>
-    colorDistance(color, current) < colorDistance(color, closest) ? current : closest
-  );
+// Each effect drives the Detail slider over its own range. Dither detail maps
+// to a pixel size of 11 - detail, so 10 is one screen pixel per dither pixel.
+const sliderConfig = {
+  pixelate: { min: 10, max: 200, ticks: 11 },
+  dither: { min: 1, max: 10, ticks: 10 },
+};
 
 export default function Pixelator() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const downloadRef = useRef<HTMLAnchorElement | null>(null);
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [fileName, setFileName] = useState<string>("ex.png");
+  const [effect, setEffect] = useState<Effect>("pixelate");
   const [palette, setPalette] = useState<Palette>(win7Palette);
-  const [pixelation, setPixelation] = useState<number>(100);
+  const [detail, setDetail] = useState<Record<Effect, number>>({ pixelate: 100, dither: 6 });
 
   const [originalImage, setOriginalImage] = useState(() => {
     const img = new Image();
@@ -24,140 +27,169 @@ export default function Pixelator() {
     return img;
   });
 
-    useEffect(() => {
-      if (originalImage.complete) {
-        processImage(originalImage, palette, pixelation);        
-        setImageLoaded(true);
+  useEffect(() => {
+    const render = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      if (effect === "pixelate") {
+        pixelate(canvas, originalImage, palette, detail.pixelate);
       } else {
-        originalImage.onload = () => {
-          processImage(originalImage, palette, pixelation);          
-          setImageLoaded(true);
-        };
+        dither(canvas, originalImage, palette, 11 - detail.dither);
       }
-    }, [palette, pixelation, originalImage]);
+    };
 
-  // Process the image on canvas
-  const processImage = (img: HTMLImageElement, selectedPalette: Palette, pixelSizeFactor: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const fixedHeight = 500;
-    const aspectRatio = img.width / img.height;
-    const newWidth = fixedHeight * aspectRatio;
-
-    canvas.width = newWidth;
-    canvas.height = fixedHeight;
-    const pixelSize = Math.floor(newWidth / pixelSizeFactor);
-
-    ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(img, 0, 0, newWidth, fixedHeight);
-
-    for (let y = 0; y < fixedHeight; y += pixelSize) {
-      for (let x = 0; x < newWidth; x += pixelSize) {
-        const imageData = ctx.getImageData(x, y, 1, 1).data;
-        const closest = closestColor({ r: imageData[0], g: imageData[1], b: imageData[2] }, selectedPalette);
-        ctx.fillStyle = `rgb(${closest.r}, ${closest.g}, ${closest.b})`;
-        ctx.fillRect(x, y, pixelSize, pixelSize);
-      }
+    if (originalImage.complete) {
+      render();
+    } else {
+      originalImage.onload = render;
     }
-
-    setImageLoaded(true);
-  };
+  }, [effect, palette, detail, originalImage]);
 
   // Handle file upload
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    setFileName(file.name);
 
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
-      img.onload = () => {
-        setOriginalImage(img); // Replace the default image with the uploaded image
-        processImage(img, palette, pixelation); // Reprocess the new image with selected pixelation and palette
-      };
+      img.onload = () => setOriginalImage(img); // The effect above redraws with the new image
       img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
 
-  // Handle palette change
-  const handlePaletteChange = (newPalette: Palette) => {
-    setPalette(newPalette);
-    if (originalImage) {
-      processImage(originalImage, newPalette, pixelation);
+  // Grab the canvas at click time so the download always matches what's shown.
+  const handleSave = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (canvasRef.current) {
+      event.currentTarget.href = canvasRef.current.toDataURL("image/png");
     }
   };
 
-  // Handle pixelation slider change
-  const handlePixelationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newPixelation = Number(event.target.value);
-    setPixelation(newPixelation);
-    if (originalImage) {
-      processImage(originalImage, palette, newPixelation);
-    }
-  };
+  const isWin95Palette = palette === win95Palette;
+  const slider = sliderConfig[effect];
 
   return (
     <div className="w95-app col align-center justify-center pad-md">
       <div className="w95-window">
         <div className="w95-titlebar">
-          <span className="ui-u3 weight-bold">Pixelator - Windows 95</span>
+          <span className="ui-u4 weight-bold">Pixelator</span>
           <div className="row gap-xs">
             <img src="/Nostalgia/Buttons.png" alt="Close" className="w95-titlebar-icon" />
           </div>
         </div>
-  
-        <div className="pad-md">
-          <input 
-            type="file" 
-            accept="image/*" 
-            onChange={handleFileSelect} 
-            className="w95-field w95-inset pad-xs mono-m2 mr-bottom-md"
-          />
-          <div className="w95-inset w95-well">
-            <canvas ref={canvasRef} className="w95-canvas"></canvas>
-          </div>
-  
-          {imageLoaded && (
-            <a 
-              ref={downloadRef} 
-              href={canvasRef.current?.toDataURL("image/png")} 
-              download="pixelized-image.png"
-              className="w95-button w95-button-block ui-u3 mr-top-md"
-            >
-              Download Image
-            </a>
-          )}
-  
-          <div className="row gap-sm mr-top-md">
-            <button 
-              onClick={() => handlePaletteChange(win7Palette)} 
-              className="w95-button ui-u3"
-            >
-              Windows 7 Palette
+
+        <div className="w95-window-body col gap-sm-lg">
+          <div className="row align-center gap-sm">
+            <span className="ui-u4">Image:</span>
+            <div className="w95-textbox ui-u4">{fileName}</div>
+            <button onClick={() => fileInputRef.current?.click()} className="w95-button ui-u4">
+              Browse...
             </button>
-            <button 
-              onClick={() => handlePaletteChange(win95Palette)} 
-              className="w95-button ui-u3"
-            >
-              Windows 95 Palette
-            </button>
-          </div>
-  
-          <div className="mr-top-md">
-            <label className="ui-u3">Pixelation Level</label>
-            <input 
-              type="range" 
-              min="10" 
-              max="200" 
-              value={pixelation} 
-              onChange={handlePixelationChange} 
-              className="w95-field"
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              hidden
             />
           </div>
+
+          <div className="w95-inset w95-well w95-well-dark">
+            <canvas ref={canvasRef} className="w95-canvas"></canvas>
+          </div>
+
+          <div className="row gap-sm-lg">
+            <fieldset className="w95-groupbox w95-groupbox-grow">
+              <legend className="ui-u4">Effect</legend>
+              <div className="col gap-xs">
+                <label className="w95-radio ui-u4">
+                  <input
+                    type="radio"
+                    name="pixelator-effect"
+                    checked={effect === "pixelate"}
+                    onChange={() => setEffect("pixelate")}
+                  />
+                  <span>Pixelate</span>
+                </label>
+                <label className="w95-radio ui-u4">
+                  <input
+                    type="radio"
+                    name="pixelator-effect"
+                    checked={effect === "dither"}
+                    onChange={() => setEffect("dither")}
+                  />
+                  <span>Dither</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset className="w95-groupbox w95-groupbox-grow">
+              <legend className="ui-u4">Palette</legend>
+              <div className="col gap-xs">
+                <label className="w95-radio ui-u4">
+                  <input
+                    type="radio"
+                    name="pixelator-palette"
+                    checked={!isWin95Palette}
+                    onChange={() => setPalette(win7Palette)}
+                  />
+                  <span>Windows 7</span>
+                </label>
+                <label className="w95-radio ui-u4">
+                  <input
+                    type="radio"
+                    name="pixelator-palette"
+                    checked={isWin95Palette}
+                    onChange={() => setPalette(win95Palette)}
+                  />
+                  <span>Windows 95</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <fieldset className="w95-groupbox">
+            <legend className="ui-u4">{effect === "pixelate" ? "Pixelation" : "Dithering"}</legend>
+            <div className="row align-flex-start gap-sm">
+              <label htmlFor="pixelator-detail" className="ui-u4">Detail:</label>
+              <span className="ui-u4">Low</span>
+              <div className="w95-slider">
+                <input
+                  id="pixelator-detail"
+                  type="range"
+                  min={slider.min}
+                  max={slider.max}
+                  value={detail[effect]}
+                  onChange={(e) => setDetail({ ...detail, [effect]: Number(e.target.value) })}
+                  className="w95-slider-input"
+                />
+                <div className="w95-slider-ticks" aria-hidden="true">
+                  {Array.from({ length: slider.ticks }, (_, i) => <span key={i} />)}
+                </div>
+              </div>
+              <span className="ui-u4">High</span>
+            </div>
+          </fieldset>
+
+          <div className="row justify-flex-end">
+            <a
+              href="#"
+              onClick={handleSave}
+              download={effect === "pixelate" ? "pixelized-image.png" : "dithered-image.png"}
+              className="w95-button ui-u4"
+            >
+              Save As...
+            </a>
+          </div>
+        </div>
+
+        <div className="w95-statusbar ui-u4">
+          <div className="w95-statusbar-pane">
+            {effect === "pixelate" ? "Pixelate" : "Dither"}, {isWin95Palette ? "Windows 95" : "Windows 7"} palette
+          </div>
+          <div className="w95-statusbar-pane">Detail: {detail[effect]}</div>
         </div>
       </div>
     </div>

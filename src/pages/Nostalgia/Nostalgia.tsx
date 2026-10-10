@@ -1,78 +1,83 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Pixelator from './Pixelator';
-import Ditherer from './Ditherer';
 import PageLayout from '../../layouts/PageLayout';
 import { DraggableProps } from '../../types';
 import BootUp from './BootUp'; // Import BootUp component
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
+// Height of the fixed menu bar and taskbar ($taskbar-height, --space-2xl), kept
+// clear when centering a window.
+const BAR_HEIGHT = 48;
 
-const Draggable: React.FC<DraggableProps> = ({ children, className = '', startX, startY }) => {
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: startX, y: startY });
-  const isDragging = useRef<boolean>(false);
-  const offset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const dragRef = useRef<HTMLDivElement | null>(null);
+// Matches $bp-md: below this the window sits in the page flow instead of floating.
+const MOBILE_QUERY = '(max-width: 767px)';
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!dragRef.current || !dragRef.current.contains(e.target as Node)) return;
-    isDragging.current = true;
+const Draggable: React.FC<DraggableProps> = ({ children, className = '', disabled = false }) => {
+  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const offset = useRef<{ x: number; y: number } | null>(null);
+  const windowRef = useRef<HTMLDivElement | null>(null);
+
+  // Start centered on screen, between the menu bar and the taskbar. Runs before
+  // paint so the window never flashes in the corner, and again whenever the
+  // window starts floating after a resize up from mobile.
+  useLayoutEffect(() => {
+    const el = windowRef.current;
+    if (!el || disabled) return;
+    const usableHeight = window.innerHeight - 2 * BAR_HEIGHT;
+    setPosition({
+      x: Math.max(0, (window.innerWidth - el.offsetWidth) / 2),
+      y: BAR_HEIGHT + Math.max(0, (usableHeight - el.offsetHeight) / 2),
+    });
+  }, [disabled]);
+
+  // Pointer events cover mouse, pen and touch. Drags start on the title bar,
+  // and capturing the pointer keeps them going when they outrun it.
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!(e.target as Element).closest('.w95-titlebar')) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
     offset.current = {
       x: e.clientX - position.x,
       y: e.clientY - position.y,
     };
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging.current) return;
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!offset.current) return;
     setPosition({
       x: e.clientX - offset.current.x,
       y: e.clientY - offset.current.y,
     });
   };
 
-  const handleMouseUp = () => {
-    isDragging.current = false;
+  const handlePointerUp = () => {
+    offset.current = null;
   };
 
+  // Same element either way, so crossing the breakpoint doesn't remount the
+  // app inside and lose its image and settings.
   return (
     <div
-      className={className}
-      style={{ position: 'absolute', left: `${position.x}px`, top: `${position.y}px` }}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+      ref={windowRef}
+      className={disabled ? className : `${className} w95-floating`}
+      style={disabled ? undefined : { position: 'absolute', left: `${position.x}px`, top: `${position.y}px` }}
+      onPointerDown={disabled ? undefined : handlePointerDown}
+      onPointerMove={disabled ? undefined : handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
-      <div
-        ref={dragRef}
-        className="w95-drag-handle"
-        onMouseDown={handleMouseDown}
-      ></div>
-      <div style={{ position: 'relative', zIndex: 1 }}>{children}</div>
+      {children}
     </div>
   );
 };
 
 const Nostalgia = () => {
   const [showBootUp, setShowBootUp] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const navigate = useNavigate(); // Use navigate to redirect to home
-
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches);
 
   useEffect(() => {
-    // Set the isMobile state based on the screen width
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    // Check on mount
-    checkIfMobile();
-
-    // Listen for window resize events to update isMobile state
-    window.addEventListener('resize', checkIfMobile);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
+    const query = window.matchMedia(MOBILE_QUERY);
+    const update = () => setIsMobile(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
   }, []);
 
   useEffect(() => {
@@ -83,33 +88,12 @@ const Nostalgia = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  
-
   return (
     <PageLayout>
       {showBootUp && <BootUp />} {/* Show the BootUp screen on page load */}
-      {isMobile && (
-        <div className="w95-overlay ui-u2">
-          <div className="w95-alert">
-            <div>Mobile Not Supported</div>
-            {/* Add a button that redirects to the home page */}
-            <button
-              onClick={() => navigate('/')} // Navigate to home page
-              className="w95-alert-button"
-            >
-              Return to Home
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="flex-container w95-workspace pad-md">
-        {/* Left Half - Pixelator */}
-        <Draggable className="w95-draggable" startX={window.innerWidth/40} startY={window.innerHeight/20}>
+      <div className="w95-workspace">
+        <Draggable className="w95-draggable" disabled={isMobile}>
           <Pixelator />
-        </Draggable>
-        {/* Right Half - Ditherer */}
-        <Draggable className="w95-draggable" startX={window.innerWidth / 2 + 50} startY={window.innerHeight/20}>
-          <Ditherer />
         </Draggable>
       </div>
     </PageLayout>
